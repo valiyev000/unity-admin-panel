@@ -130,7 +130,7 @@ function App() {
 
 
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      // console.log(user)
+      console.log(user)
       setTimeout(() => {
         if (user) {
           setUser(user)
