@@ -1,0 +1,278 @@
+{
+  "last30": {
+    "-NjN2ZeeNmI22g2yd1mt": {
+      "amount": 1,
+      "checked": false,
+      "currency": "$",
+      "date_az": "14 Dek 2023",
+      "date_en": "14 Dec 2023",
+      "orderId": 35498463,
+      "price": 25
+    },
+    "-NjN2ZhR2-XKKTe9XisA": {
+      "amount": 1,
+      "checked": false,
+      "currency": "$",
+      "date_az": "11 Dek 2023",
+      "date_en": "11 Dec 2023",
+      "orderId": 35498468,
+      "price": 30
+    },
+    "-NjN2Zha6jf2n2p45Tkc": {
+      "amount": 5,
+      "checked": false,
+      "currency": "₼",
+      "date_az": "19 Dek 2023",
+      "date_en": "19 Dec 2023",
+      "orderId": 35498469,
+      "price": 110
+    },
+    "-NjN2ZhlNJgnoUuOHhlz": {
+      "amount": 3,
+      "checked": false,
+      "currency": "₼",
+      "date_az": "8 Dek 2023",
+      "date_en": "8 Dec 2023",
+      "orderId": 35498467,
+      "price": 75
+    },
+    "-NjN2ZiT29a6poaMwDtI": {
+      "amount": 3,
+      "checked": false,
+      "currency": "₼",
+      "date_az": "13 Dek 2023",
+      "date_en": "13 Dec 2023",
+      "orderId": 35498471,
+      "price": 80
+    },
+    "-NjN2ZkUjJ-naPxbl2fi": {
+      "amount": 3,
+      "checked": false,
+      "currency": "$",
+      "date_az": "18 Dek 2023",
+      "date_en": "18 Dec 2023",
+      "orderId": 35498474,
+      "price": 70
+    },
+    "-NjN2Zkbd9pdJNti9Rmo": {
+      "amount": 5,
+      "checked": false,
+      "currency": "$",
+      "date_az": "14 Dec 2023",
+      "date_en": "14 Dec 2023",
+      "orderId": 35498476,
+      "price": 105
+    },
+    "-NjN2ZlTV_zVpFQDi3zX": {
+      "amount": 1,
+      "checked": false,
+      "currency": "₼",
+      "date_az": "3 Dek 2023",
+      "date_en": "3 Dec 2023",
+      "orderId": 35498477,
+      "price": 40
+    },
+    "-NjN2ZmdJZ1TYggPgu1T": {
+      "amount": 4,
+      "checked": false,
+      "currency": "$",
+      "date_az": "19 Dek 2023",
+      "date_en": "19 Dec 2023",
+      "orderId": 35498478,
+      "price": 90
+    },
+    "-NjN2ZnB2Wxf0PI2ynCn": {
+      "amount": 2,
+      "checked": false,
+      "currency": "₼",
+      "date_az": "2 Dek 2023",
+      "date_en": "2 Dec 2023",
+      "orderId": 35498479,
+      "price": 65
+    },
+    "-NjN2ZnLKdh6AK8sMoff": {
+      "amount": 1,
+      "checked": false,
+      "currency": "₼",
+      "date_az": "26 Dek 2023",
+      "date_en": "26 Dec 2023",
+      "orderId": 35498481,
+      "price": 30
+    },
+    "-NjN2ZnVzCB903-5V1_b": {
+      "amount": 3,
+      "checked": false,
+      "currency": "$",
+      "date_az": "11 Dek 2023",
+      "date_en": "11 Dec 2023",
+      "orderId": 35498480,
+      "price": 75
+    },
+    "-NjN2ZoU3xewvHbpBc9v": {
+      "amount": 2,
+      "checked": false,
+      "currency": "₼",
+      "date_az": "17 Dek 2023",
+      "date_en": "17 Dec 2023",
+      "orderId": 35498483,
+      "price": 60
+    },
+    "-NjN2Zq0rLDuV9dJn3L8": {
+      "amount": 4,
+      "checked": false,
+      "currency": "₼",
+      "date_az": "5 Dek 2023",
+      "date_en": "5 Dec 2023",
+      "orderId": 35498485,
+      "price": 95
+    }
+  },
+  "nov": {
+    "-NjN2ZelF7kKTnNEFbah": {
+      "amount": 4,
+      "checked": false,
+      "currency": "₼",
+      "date_az": "15 Noy 2023",
+      "date_en": "15 Nov 2023",
+      "orderId": 35498464,
+      "price": 92
+    },
+    "-NjN2ZfQw4WVqHoK_isw": {
+      "amount": 2,
+      "checked": false,
+      "currency": "₼",
+      "date_az": "17 Noy 2023",
+      "date_en": "17 Nov 2023",
+      "orderId": 35498465,
+      "price": 68
+    },
+    "-NjN2ZgISnm_FFhws2Rr": {
+      "amount": 2,
+      "checked": false,
+      "currency": "$",
+      "date_az": "21 Noy 2023",
+      "date_en": "21 Nov 2023",
+      "orderId": 35498466,
+      "price": 50
+    },
+    "-NjN2ZhbXUef4zKSosby": {
+      "amount": 2,
+      "checked": false,
+      "currency": "$",
+      "date_az": "5 Noy 2023",
+      "date_en": "5 Nov 2023",
+      "orderId": 35498470,
+      "price": 60
+    },
+    "-NjN2ZkGEp5U2BE0xfu9": {
+      "amount": 1,
+      "checked": false,
+      "currency": "₼",
+      "date_az": "7 Noy 2023",
+      "date_en": "7 Nov 2023",
+      "orderId": 35498473,
+      "price": 35
+    },
+    "-NjN2ZnTXkrDhjYZEBjX": {
+      "amount": 5,
+      "checked": false,
+      "currency": "$",
+      "date_az": "9 Noy 2023",
+      "date_en": "9 Nov 2023",
+      "orderId": 35498482,
+      "price": 110
+    }
+  },
+  "oct": {
+    "-NjN2ZeUydLqVB9JdVZs": {
+      "amount": 5,
+      "checked": false,
+      "currency": "₼",
+      "date_az": "1 Okt 2023",
+      "date_en": "1 Oct 2023",
+      "orderId": 35498462,
+      "price": 120
+    },
+    "-NjN2Ze_546bqfNMoiR1": {
+      "amount": 3,
+      "checked": false,
+      "currency": "$",
+      "date_az": "17 Okt 2023",
+      "date_en": "28 Oct 2023",
+      "orderId": 35498461,
+      "price": 87
+    },
+    "-NjN2ZjSa5VeeAaGmE87": {
+      "amount": 4,
+      "checked": false,
+      "currency": "$",
+      "date_az": "22 Okt 2023",
+      "date_en": "22 Oct 2023",
+      "orderId": 35498472,
+      "price": 95
+    },
+    "-NjN2ZkYdPVmspJhkQB_": {
+      "amount": 2,
+      "checked": false,
+      "currency": "₼",
+      "date_az": "25 Okt 2023",
+      "date_en": "25 Oct 2023",
+      "orderId": 35498475,
+      "price": 55
+    },
+    "-NjN2ZpnetUhE0S-amf0": {
+      "amount": 3,
+      "checked": false,
+      "currency": "$",
+      "date_az": "28 Okt 2023",
+      "date_en": "28 Oct 2023",
+      "orderId": 35498484,
+      "price": 80
+    },
+    "-NjN2ZqC-7e4kmRr7bg9": {
+      "amount": 1,
+      "checked": false,
+      "currency": "$",
+      "date_az": "15 Okt 2023",
+      "date_en": "15 Oct 2023",
+      "orderId": 35492486,
+      "price": 40
+    },
+    "-NjN2ZqJqnctJ8DKa7sj": {
+      "amount": 2,
+      "checked": false,
+      "currency": "$",
+      "date_az": "15 Okt 2023",
+      "date_en": "15 Oct 2023",
+      "orderId": 35428486,
+      "price": 40
+    },
+    "-NjN2ZqNwbPGTXvzbRWA": {
+      "amount": 4,
+      "checked": false,
+      "currency": "$",
+      "date_az": "15 Okt 2023",
+      "date_en": "15 Oct 2023",
+      "orderId": 35498436,
+      "price": 40
+    },
+    "-NjN2ZrXkgy4oYabtkno": {
+      "amount": 3,
+      "checked": false,
+      "currency": "$",
+      "date_az": "15 Okt 2023",
+      "date_en": "15 Oct 2023",
+      "orderId": 35498481,
+      "price": 30
+    },
+    "-NjN2ZsxKJz4-xCfVc-u": {
+      "amount": 5,
+      "checked": false,
+      "currency": "$",
+      "date_az": "15 Okt 2023",
+      "date_en": "15 Oct 2023",
+      "orderId": 35298486,
+      "price": 55
+    }
+  }
+}

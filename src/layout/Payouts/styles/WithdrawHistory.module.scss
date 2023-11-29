@@ -1,0 +1,564 @@
+.main {
+    // margin: 40px 0;
+    border-radius: 24px;
+    width: 100%;
+    min-height: 100vh;
+    background: #fff;
+    padding: 32px;
+    > .title {
+        // border: 1px solid red;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        > .left {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            row-gap: 10px;
+            column-gap: 3%;
+            // border: 1px solid red;
+            > .filter {
+                height: 56px;
+                border-radius: 16px;
+                position: relative;
+                color: #808191;
+                font-family: Inter;
+                font-size: 14px;
+                font-weight: 600;
+                line-height: 20px;
+                display: flex;
+                justify-content: center;
+                cursor: pointer;
+                > .selected {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 16px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 0 20px;
+                }
+                > .dropDown {
+                    position: absolute;
+                    top: 110%;
+                    width: 90%;
+                    min-height: 30px;
+                    max-height: 200px;
+                    overflow: auto;
+                    border-radius: 16px;
+                    border: 1px solid;
+                    background: #fff;
+                    padding: 5px;
+                    z-index: 100;
+                    > .option {
+                        border: 1px solid;
+                        height: 35px;
+                        border-radius: 10px;
+                        margin-bottom: 5px;
+                        display: flex;
+                        align-items: center;
+                        padding: 0 10px;
+                    }
+                }
+            }
+            > .inputDiv {
+                width: 250px;
+                height: 56px;
+                border-radius: 16px;
+                position: relative;
+                > .icon {
+                    position: absolute;
+                    top: 50%;
+                    left: 12px;
+                    transform: translateY(-50%);
+                }
+                > input {
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    outline: none;
+                    background: transparent;
+                    padding-left: 45px;
+                    font-family: Inter;
+                    font-size: 14px;
+                    font-weight: 600;
+                    line-height: 20px;
+                    &::placeholder {
+                        color: #808191;
+                    }
+                }
+            }
+        }
+        > .right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            > .icon {
+                width: 48px;
+                height: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                cursor: pointer;
+                transition: 0.3s all ease-in-out;
+                &:disabled {
+                    background-color: #ccc;
+                    color: #999;
+                    cursor: not-allowed;
+                    opacity: 0.6;
+                }
+            }
+        }
+    }
+    .gridContainer {
+        > .topRow {
+            margin-top: 25px;
+            display: grid;
+            user-select: none;
+            transition: 0.3s all ease-in-out;
+            > div {
+                height: 45px;
+                display: flex;
+                align-items: center;
+                color: #b2b3bd;
+                font-family: Inter;
+                font-size: 12px;
+                font-weight: 500;
+                line-height: 16px;
+                border-bottom: 1px solid #e4e4e4;
+                &.dark {
+                    border-bottom: 1px solid #e4e4e41a;
+                }
+            }
+            > .firstColumn {
+                * {
+                    cursor: pointer;
+                }
+                > .checkbox {
+                    input {
+                        display: none;
+                        &:checked + .template {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border: 2px solid transparent;
+                            width: 20px;
+                            height: 20px;
+                            border-radius: 4px;
+                            background: #6c5dd3;
+                        }
+                    }
+                    > .template {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 4px;
+                        background: transparent;
+                        border: 2px solid #e4e4e4;
+                        transition: 0.3s all ease-in-out;
+                        &.dark {
+                            border: 2px solid #e4e4e41a;
+                        }
+                    }
+                }
+                > .transaction {
+                    margin-left: 14px;
+                }
+            }
+        }
+        > .topRowMobile {
+            margin-top: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e4e4e4;
+            &.dark {
+                border-bottom: 1px solid #e4e4e41a;
+            }
+            > .left {
+                display: flex;
+                align-items: center;
+                * {
+                    cursor: pointer;
+                }
+                > .checkbox {
+                    input {
+                        display: none;
+                        &:checked + .template {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border: 2px solid transparent;
+                            width: 20px;
+                            height: 20px;
+                            border-radius: 4px;
+                            background: #6c5dd3;
+                        }
+                    }
+                    > .template {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 4px;
+                        background: transparent;
+                        border: 2px solid #e4e4e4;
+                        transition: 0.3s all ease-in-out;
+                        &.dark {
+                            border: 2px solid #e4e4e41a;
+                        }
+                    }
+                }
+                > .transaction {
+                    margin-left: 14px;
+                    color: #b2b3bd;
+                    font-family: Inter;
+                    font-size: 12px;
+                    font-weight: 500;
+                    line-height: 16px;
+                }
+            }
+            > .right {
+                display: flex;
+                align-items: center;
+                > .icon {
+                    width: 48px;
+                    height: 48px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    transition: 0.3s all ease-in-out;
+                    &:disabled {
+                        background-color: #ccc;
+                        color: #999;
+                        cursor: not-allowed;
+                        opacity: 0.6;
+                    }
+                }
+            }
+        }
+        > .payoutsRow {
+            min-height: 120px;
+            display: grid;
+            > div {
+                font-family: Inter;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                border-bottom: 1px solid #e4e4e4;
+                &.dark {
+                    border-bottom: 1px solid #e4e4e41a;
+                }
+            }
+            > .firstColumn {
+                cursor: pointer;
+                > .checkbox {
+                    input {
+                        display: none;
+                        &:checked + .template {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border: 2px solid transparent;
+                            width: 20px;
+                            height: 20px;
+                            border-radius: 4px;
+                            background: #6c5dd3;
+                        }
+                    }
+                    > .template {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 4px;
+                        background: transparent;
+                        border: 2px solid #e4e4e4;
+                        transition: 0.3s all ease-in-out;
+                        &.dark {
+                            border: 2px solid #e4e4e41a;
+                        }
+                    }
+                }
+                > .payout {
+                    cursor: pointer;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 9px;
+                    margin-left: 14px;
+                    > .value {
+                        font-family: Inter;
+                        font-size: 16px;
+                        font-weight: 600;
+                    }
+                    > .discountFee {
+                        color: #808191;
+                        font-family: Inter;
+                        font-size: 13px;
+                        font-weight: 600;
+                        line-height: 18px; /* 138.462% */
+                    }
+                }
+            }
+            > .paymentMethod {
+                font-family: Inter;
+                font-size: 14px;
+                line-height: 24px;
+            }
+            > .status {
+                font-family: Inter;
+                font-size: 13px;
+                font-weight: 600;
+                line-height: 18px;
+                color: #fff;
+                display: flex;
+                align-items: center;
+                >div{
+                    padding: 3px 10px;
+                    border-radius: 4px;
+                }
+            }
+            > .date {
+                color: #808191;
+                font-family: Inter;
+                font-size: 14px;
+                line-height: 24px;
+            }
+            > .fee {
+                color: #FF754C;
+                font-family: Inter;
+                font-size: 14px;
+                line-height: 24px;
+            }
+        }
+        > .payoutsRowMobile {
+            display: flex;
+            flex-direction: column;
+            gap: 23px;
+            padding: 24px 0;
+            border-bottom: 1px solid #e4e4e4;
+            &.dark {
+                border-bottom: 1px solid #e4e4e41a;
+            }
+            > .top {
+                cursor: pointer;
+                display: flex;
+                gap: 20px;
+                > .checkbox {
+                    margin-top: 3px;
+                    input {
+                        display: none;
+                        &:checked + .template {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border: 2px solid transparent;
+                            width: 20px;
+                            height: 20px;
+                            border-radius: 4px;
+                            background: #6c5dd3;
+                        }
+                    }
+                    > .template {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 4px;
+                        background: transparent;
+                        border: 2px solid #e4e4e4;
+                        transition: 0.3s all ease-in-out;
+                        &.dark {
+                            border: 2px solid #e4e4e41a;
+                        }
+                    }
+                }
+                > .payout {
+                    cursor: pointer;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 9px;
+                    > .value {
+                        font-family: Inter;
+                        font-size: 16px;
+                        font-weight: 600;
+                    }
+                    > .discountFee {
+                        color: #B2B3BD;
+                        font-family: Inter;
+                        font-size: 12px;
+                        font-weight: 500;
+                        line-height: 16px;
+                    }
+                }
+            }
+            > .bottom {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 12px;
+                border-radius: 8px;
+                height: 40px;
+                border: 1px solid #e4e4e4;
+                position: relative;
+                &.dark {
+                    border: 1px solid #e4e4e41a;
+                }
+                .colorBar {
+                    position: absolute;
+                    top: 50%;
+                    left: 4px;
+                    transform: translateY(-50%);
+                    width: 8px;
+                    border-radius: 8px;
+                    height: 85%;
+                }
+                > .date {
+                    color: #B2B3BD;
+                    font-family: Inter;
+                    font-size: 14px;
+                    line-height: 24px;
+                }
+                > .paymentMethod {
+                    font-family: Inter;
+                    font-size: 14px;
+                    line-height: 24px;
+                }
+                > .fee {
+                    color: #FF754C;
+                    font-family: Inter;
+                    font-size: 14px;
+                    line-height: 24px;
+                }
+            }
+        }
+        > .loadMoreBg {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            > button {
+                width: 100px;
+                height: 56px;
+                transition: 0.3s all ease-in-out;
+                border-radius: 16px;
+                background: #1b1d21;
+                font-family: Inter;
+                font-size: 14px;
+                font-weight: 700;
+                line-height: 20px;
+                color: #fff;
+            }
+        }
+        > .noProducts {
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+            color: #808191;
+            font-feature-settings:
+                "clig" off,
+                "liga" off;
+            font-family: Inter;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 18px;
+        }
+    }
+}
+.deleteModal {
+    border-radius: 14px;
+    padding: 10px 20px;
+    position: relative;
+    max-width: 700px;
+    > h2 {
+        margin-bottom: 10px;
+    }
+    > .content {
+        display: flex;
+        flex-direction: column;
+        max-height: 200px;
+        margin-bottom: 50px;
+        overflow-y: auto;
+        gap: 5px;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        > .deletedPayoutRow {
+            transition: 0.3s all ease-in-out;
+            flex-shrink: 0;
+            overflow-y: hidden;
+            border-bottom: 1px solid #e4e4e4;
+            &.dark {
+                border-bottom: 1px solid #e4e4e41a;
+            }
+            >.preview{
+                width: 100%;
+                height: 35px;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                position: relative;
+                padding: 15px;
+                >.icon{
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    transition: 0.3s all ease-in-out;
+                }
+            }
+            >.details{
+                padding-left: 10px;
+                overflow: auto;
+                width: 100%;
+                font-size: 14px;
+                border-radius: 14px;
+                background-color: #ffe00033;
+                text-transform: capitalize;
+                &::-webkit-scrollbar{
+                    display: none;
+                }
+                >div{
+                    white-space: nowrap;
+                }
+            }
+            // > .color {
+            //     width: 12px;
+            //     height: 12px;
+            //     border-radius: 50%;
+            // }
+        }
+    }
+    > .btns {
+        position: absolute;
+        bottom: 10px;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+        > button:nth-child(1) {
+            width: 70px;
+            height: 40px;
+            border-radius: 10px;
+            background: transparent;
+            transition: 0.3s all ease-in-out;
+        }
+        > button:nth-child(2) {
+            width: 90px;
+            height: 40px;
+            border-radius: 10px;
+            background: #6c5dd3;
+            color: #fff;
+            transition: 0.3s all ease-in-out;
+        }
+    }
+}

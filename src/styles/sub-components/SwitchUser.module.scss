@@ -1,0 +1,32 @@
+.main{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    gap: 10px;
+    >img{
+        max-height: 40px;
+        max-width: 40px;
+    }
+    >.context{
+        display: flex;
+        flex-direction: column;
+        font-weight: 600;
+        white-space: nowrap;
+        >.name{
+            font-size: 14px;
+            line-height: 20px;
+            color: #11142D;
+            transition: 0.3s all ease-in-out;
+            &.dark{
+                color: #fff;
+            }
+        }
+        >.status{
+            font-size: 13px;
+            line-height: 18px;
+            color: #808191;
+        }
+    }
+}

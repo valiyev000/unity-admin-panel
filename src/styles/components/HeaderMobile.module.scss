@@ -1,0 +1,42 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    border-bottom: 1px solid rgba(228, 228, 228, 0.425);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    z-index: 5;
+    background: #fff;
+    transition: 0.4s all ease-in-out;
+    &.dark {
+        background: #1f2128;
+        border-bottom: 1px solid rgba(228, 228, 228, 0.1);
+    }
+    .left {
+        position: relative;
+        display: flex;
+        align-items: center;
+        > img {
+            position: absolute;
+            left: 150%;
+            height: 90%;
+        }
+    }
+    .right {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        > * {
+            cursor: pointer;
+            outline: none;
+        }
+        >img{
+            max-height: 40px;
+            max-width: 40px;
+        }
+    }
+}
