@@ -42,6 +42,7 @@ function Login() {
     signInWithEmailAndPassword(auth, requestData.email, requestData.password)
       .then((userCredencial) => {
         setAlertText("Correct")
+        setIsFormShown(false)
       })
       .catch((err) => {
         console.error(err)
@@ -91,21 +92,21 @@ function Login() {
             initial={{
               width: screenWidth < 480 ? "80%" : "50%",
               padding: screenWidth < 480 ? "30px 20px" : "30px 60px",
-              minWidth: screenWidth < 480 ? "unset" : "380px",
+              minWidth: screenWidth < 480 ? "150px" : "380px",
               transform: "scale(1.2)",
               backdropFilter: "blur(0)"
             }}
             animate={{
               width: screenWidth < 480 ? "80%" : "50%",
               padding: screenWidth < 480 ? "30px 20px" : "30px 60px",
-              minWidth: screenWidth < 480 ? "unset" : "380px",
+              minWidth: screenWidth < 480 ? "150px" : "380px",
               transform: "scale(1.0)",
               backdropFilter: "blur(12.5px)"
             }}
             exit={{
               width: screenWidth < 480 ? "80%" : "50%",
               padding: screenWidth < 480 ? "30px 20px" : "30px 60px",
-              minWidth: screenWidth < 480 ? "unset" : "380px",
+              minWidth: screenWidth < 480 ? "150px" : "380px",
               transform: "scale(1.2)",
               backdropFilter: "blur(0)",
               opacity: 0

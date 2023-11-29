@@ -121,22 +121,24 @@ function App() {
 
     window.addEventListener('beforeunload', function (event) {
       if (localStorage.getItem("rememberMe") !== "true") {
-          auth.signOut()
-          localStorage.removeItem("rememberMe")
+        auth.signOut()
+        localStorage.removeItem("rememberMe")
       }
-  });
+    });
 
-  console.log(auth) //!  ***************
+    // console.log(auth) //!  ***************
 
 
     const unsubscribe = auth.onAuthStateChanged((user) => {
       // console.log(user)
-      if (user) {
-        setUser(user)
-        handleGetDataForAvatar()
-      } else {
-        setUser(null)
-      }
+      setTimeout(() => {
+        if (user) {
+          setUser(user)
+          handleGetDataForAvatar()
+        } else {
+          setUser(null)
+        }
+      }, 700);
     });
 
     return () => unsubscribe();
