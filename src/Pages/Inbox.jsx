@@ -11,11 +11,12 @@ import styles from '../styles/pages/Inbox.module.scss'
 
 export default function Inbox() {
 
-  const { screenWidth, theme, isNavOpen, testForNotification, axiosGet } = useContext(contextApi)
+  const { screenWidth, theme, isNavOpen, testForNotification } = useContext(contextApi)
 
   const MAIN_STYLE = {
     paddingTop: screenWidth > 480 ? "0px" : "80px",
-    overflow: screenWidth > 480 ? "unset" : "hidden" //! Yuxari olcude hidden verildikde navbar scroll olmur. sebebini bilmirem
+    overflow: screenWidth > 480 ? "unset" : "hidden", //! Yuxari olcude hidden verildikde navbar scroll olmur. sebebini bilmirem
+    minWidth: screenWidth > 480 && isNavOpen ? "900px" : screenWidth > 480 && !isNavOpen ? "770px" : ""
   }
 
   const CONTAINER_STYLE = {
@@ -39,13 +40,13 @@ export default function Inbox() {
       {screenWidth > 480 ? <Navbar /> : <NavbarMobile />} {/* position sticky ve ya fixeddi */}
 
       <motion.div className={styles.container} initial={{ transform: "scale(1.1)" }} animate={{ transform: "scale(1)" }} exit={{ transform: "scale(1.2)" }} style={CONTAINER_STYLE}>
-        <div className={styles.left} style={{ width: screenWidth >= 1200 ? "50%" : "100%", paddingTop: screenWidth > 480 && "40px", minWidth: screenWidth > 480 && 480 }}>
+        <div className={styles.left} style={{ width: screenWidth >= 480 ? "50%" : "100%", paddingTop: screenWidth > 480 && "40px" }}>
 
-          {screenWidth > 480 ? <Header screenWidthRestriction={screenWidth < 1200} text={"welcome_back"} /> : <HeaderMobileSub text={"welcome_back"} />} {/* position static ve ya fixeddi */}
+          {screenWidth > 480 ? <Header screenWidthRestriction={false} text={"your_inbox"} /> : <HeaderMobileSub text={"welcome_back"} />} {/* position static ve ya fixeddi */}
 
         </div>
         <AnimatePresence>
-          {screenWidth >= 1200 &&
+          {screenWidth >= 480 &&
             <motion.div
               className={`${styles.right} ${theme === "dark" ? styles.dark : ""}`}
               initial={{ transform: "translateX(100%)" }}

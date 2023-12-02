@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "host": "vite --host 192.168.0.125",
-    "host-coders": "vite --host 192.168.88.209",
+    "host-coders": "vite --host 192.168.88.59",
     "host-hotspot": "vite --host 192.168.5.9",
     "host-unec": "vite --host 192.168.0.156",
     "build": "vite build",
