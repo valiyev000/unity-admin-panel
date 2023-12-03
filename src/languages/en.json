@@ -103,5 +103,8 @@
     "update_profile": "Update Profile",
     "updating": "Updating",
     "log_out": "Log Out",
-    "your_inbox": "Your Inbox"
+    "your_inbox": "Your Inbox",
+    "archives": "Archives",
+    "done": "Done",
+    "saved": "Saved"
 }

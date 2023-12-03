@@ -17,10 +17,12 @@
     > button {
         text-wrap: nowrap;
         border-radius: 12px;
-        border: 2px solid #ff754c;
         height: 36px;
         padding: 0 18px;
-        background: transparent;
         color: unset;
+        font-family: Inter;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
     }
 }

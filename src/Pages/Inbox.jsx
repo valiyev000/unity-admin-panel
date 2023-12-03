@@ -19,6 +19,7 @@ export default function Inbox() {
   const { screenWidth, theme, isNavOpen, testForNotification } = useContext(contextApi)
 
   const [searchValue, setSearchValue] = useState("")
+  const [selectedFilter, setSelectedFilter] = useState("your_inbox")
 
   const { key } = useParams()
   const history = useHistory();
@@ -55,14 +56,14 @@ export default function Inbox() {
             className={styles.left}
             initial={{
               width: screenWidth >= 480 ? "50%" : "100%",
-              paddingTop: screenWidth > 480 && "40px",
+              paddingTop: screenWidth > 480 ? "40px" : "",
               opacity: screenWidth < 480 && 0,
               position: screenWidth < 480 ? "absolute" : "relative",
               transform: screenWidth < 480 && "translateX(-100%)"
             }}
             animate={{
               width: screenWidth >= 480 ? "50%" : "100%",
-              paddingTop: screenWidth > 480 && "40px",
+              paddingTop: screenWidth > 480 ? "40px" : "",
               opacity: screenWidth < 480 && 1,
               position: screenWidth < 480 ? "absolute" : "relative",
               transform: screenWidth < 480 && "translateX(0%)"
@@ -70,7 +71,7 @@ export default function Inbox() {
           >
             {screenWidth > 480 ? <Header screenWidthRestriction={false} text={"your_inbox"} /> : <HeaderMobileSub text={"welcome_back"} />} {/* position static ve ya fixeddi */}
             <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
-            <InboxFilter />
+            <InboxFilter selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
 
           </motion.div>
         }
@@ -107,7 +108,7 @@ export default function Inbox() {
 
 // exit={{
 //   width: screenWidth >= 480 ? "50%" : "100%",
-//   paddingTop: screenWidth > 480 && "40px",
+//   paddingTop: screenWidth > 480 ? "40px" : "",
 //   opacity: screenWidth < 480 && 0,
 //   position: screenWidth < 480 ? "absolute" : "relative",
 //   transform: screenWidth < 480 && "translateX(-100%)"

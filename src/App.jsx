@@ -1,27 +1,10 @@
 import './App.scss'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
 import contextApi from './StateManager'
-import Home from './Pages/Home';
-import Campaigns from './Pages/Campaigns';
-// import Comment from './Pages/Comment';
-import Inbox from './Pages/Inbox';
-import Notification from './Pages/Notification';
-import Payouts from './Pages/Payouts';
-import Products from './Pages/Products';
-import Statements from './Pages/Statements';
-import { useLayoutEffect, useState } from 'react';
-import { useRef } from 'react';
-import Setting from './components/Setting';
-import { AnimatePresence } from 'framer-motion';
+import { useLayoutEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import Login from './Pages/Login';
 import { auth, db } from './firebase-config'
 import { doc, getDoc } from 'firebase/firestore';
+import Routes from './Routes/Routes'
 
 
 function App() {
@@ -183,73 +166,9 @@ function App() {
 
   return (
     <contextApi.Provider value={data}>
-      <Router>
-        {translation &&
-          user !== null && user !== "pending" ?
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route exact path="/campaigns">
-              <Campaigns />
-            </Route>
-            {/* <Route exact path="/comment">
-              <Comment />
-            </Route> */}
-            <Route exact path="/inbox">
-              <Inbox />
-            </Route>
-            <Route exact path="/inbox/:key">
-              <Inbox />
-            </Route>
-            <Route exact path="/notification">
-              <Notification />
-            </Route>
-            <Route exact path="/payouts">
-              <Payouts />
-            </Route>
-            <Route exact path="/products">
-              <Products />
-            </Route>
-            <Route exact path="/statements">
-              <Statements />
-            </Route>
-          </Switch>
-          : translation && user === null ?
-            <Switch>
-              <Route path="/">
-                <Login />
-              </Route>
-            </Switch>
-            : ""
-        }
-        <AnimatePresence>
-          {isSettingOpen && auth.currentUser && <Setting />}
-        </AnimatePresence>
-      </Router>
+      <Routes user={user} isSettingOpen={isSettingOpen} auth={auth} />
     </contextApi.Provider>
   )
 }
 
 export default App
-
-
-
-
-
-// useLayoutEffect(() => {
-//   if (token) {
-//     Promise.all([
-//       axios.get(`https://unity-admin-panel-default-rtdb.firebaseio.com/users/${token}/fullName.json`),
-//       axios.get(`https://unity-admin-panel-default-rtdb.firebaseio.com/users/${token}/avatar.json`)
-//     ])
-//       .then(([fullNameRes, avatarRes]) => {
-//         const data = {
-//           fullName: fullNameRes.data,
-//           avatar: avatarRes.data
-//         };
-//         setUserScreenDetails(data)
-//       })
-//       .catch(err => console.log(err));
-//   }
-// }, [token]);
