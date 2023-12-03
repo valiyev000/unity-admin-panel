@@ -26,3 +26,7 @@ a{
 li{
   list-style: none;
 }
+
+input:-webkit-autofill{
+
+}
