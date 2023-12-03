@@ -12,6 +12,7 @@ import { collection, getDocs } from 'firebase/firestore'
 import { db } from '../firebase-config'
 import { Link, useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min'
 import SearchBox from '../layout/Inbox/SearchBox'
+import InboxFilter from '../layout/Inbox/InboxFilter'
 
 export default function Inbox() {
 
@@ -69,7 +70,7 @@ export default function Inbox() {
           >
             {screenWidth > 480 ? <Header screenWidthRestriction={false} text={"your_inbox"} /> : <HeaderMobileSub text={"welcome_back"} />} {/* position static ve ya fixeddi */}
             <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
-            
+            <InboxFilter />
 
           </motion.div>
         }
