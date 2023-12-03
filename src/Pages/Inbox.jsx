@@ -13,6 +13,7 @@ import { db } from '../firebase-config'
 import { Link, useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min'
 import SearchBox from '../layout/Inbox/SearchBox'
 import InboxFilter from '../layout/Inbox/InboxFilter'
+import MessageBox from '../layout/Inbox/MessageBox'
 
 export default function Inbox() {
 
@@ -26,8 +27,8 @@ export default function Inbox() {
 
   const MAIN_STYLE = {
     paddingTop: screenWidth > 480 ? "0px" : "80px",
-    overflow: screenWidth > 480 ? "unset" : "hidden", //! Yuxari olcude hidden verildikde navbar scroll olmur. sebebini bilmirem
-    minWidth: screenWidth > 480 && isNavOpen ? "900px" : screenWidth > 480 && !isNavOpen ? "770px" : ""
+    overflow: screenWidth > 480 ? "unset" : "visible", //! Yuxari olcude hidden verildikde navbar scroll olmur. sebebini bilmirem
+    minWidth: screenWidth > 480 && isNavOpen ? "900px" : screenWidth > 480 && !isNavOpen ? "770px" : "",
   }
 
   const CONTAINER_STYLE = {
@@ -59,19 +60,22 @@ export default function Inbox() {
               paddingTop: screenWidth > 480 ? "40px" : "",
               opacity: screenWidth < 480 && 0,
               position: screenWidth < 480 ? "absolute" : "relative",
-              transform: screenWidth < 480 && "translateX(-100%)"
+              transform: screenWidth < 480 && "translateX(-100%)",
+              background: theme === "dark" ? "#242731" : "#fff"
             }}
             animate={{
               width: screenWidth >= 480 ? "50%" : "100%",
               paddingTop: screenWidth > 480 ? "40px" : "",
               opacity: screenWidth < 480 && 1,
               position: screenWidth < 480 ? "absolute" : "relative",
-              transform: screenWidth < 480 && "translateX(0%)"
+              transform: screenWidth < 480 && "translateX(0%)",
+              background: theme === "dark" ? "#242731" : "#fff"
             }}
           >
             {screenWidth > 480 ? <Header screenWidthRestriction={false} text={"your_inbox"} /> : <HeaderMobileSub text={"welcome_back"} />} {/* position static ve ya fixeddi */}
             <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
             <InboxFilter selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
+            <MessageBox selectedFilter={selectedFilter} />
 
           </motion.div>
         }
@@ -83,12 +87,14 @@ export default function Inbox() {
               width: screenWidth >= 480 ? "50%" : "100%",
               position: screenWidth < 480 ? "absolute" : "relative",
               opacity: screenWidth < 480 && 0,
+              background: theme === "dark" ? "#242731" : "#fff"
             }}
             animate={{
               transform: "translateX(0%)",
               width: screenWidth >= 480 ? "50%" : "100%",
               position: screenWidth < 480 ? "absolute" : "relative",
               opacity: screenWidth < 480 && 1,
+              background: theme === "dark" ? "#242731" : "#fff"
             }}
             layout
           >
@@ -103,13 +109,3 @@ export default function Inbox() {
     </main>
   )
 }
-
-
-
-// exit={{
-//   width: screenWidth >= 480 ? "50%" : "100%",
-//   paddingTop: screenWidth > 480 ? "40px" : "",
-//   opacity: screenWidth < 480 && 0,
-//   position: screenWidth < 480 ? "absolute" : "relative",
-//   transform: screenWidth < 480 && "translateX(-100%)"
-// }}

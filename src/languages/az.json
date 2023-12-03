@@ -106,5 +106,9 @@
     "your_inbox": "Gələnlər qutusu",
     "archives": "Arxiv",
     "done": "Hazır",
-    "saved": "İşarələnmişlər"
+    "saved": "İşarələnmişlər",
+    "recent_messages": "Son Mesajlar",
+    "archives_messages": "Arxiv Mesajlar",
+    "done_messages": "Tamamlanmış Mesajlar",
+    "saved_messages": "İşarələnmiş Mesajlar"
 }

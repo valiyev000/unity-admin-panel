@@ -106,5 +106,9 @@
     "your_inbox": "Your Inbox",
     "archives": "Archives",
     "done": "Done",
-    "saved": "Saved"
+    "saved": "Saved",
+    "recent_messages": "Recent Messages",
+    "archives_messages": "Archives Messages",
+    "done_messages": "Done Messages",
+    "saved_messages": "Saved Messages"
 }

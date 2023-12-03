@@ -24,5 +24,6 @@
         font-size: 14px;
         font-weight: 600;
         line-height: 20px;
+        transition: 0.3s border, 0.3s color, 0.3s background ease-in-out;
     }
 }

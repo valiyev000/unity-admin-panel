@@ -2,6 +2,7 @@
     display: flex;
     background-color: #fff;
     transition: 0.4s all ease-in-out;
+    min-height: 100vh;
     &.dark{
         background-color: #242731;
     }
@@ -9,7 +10,6 @@
         transition: 0.4s all ease-in-out;
         display: flex;
         position: relative;
-        min-height: calc( 100vh - 80px );
         >.left{
             top: 0;
             left: 0;
