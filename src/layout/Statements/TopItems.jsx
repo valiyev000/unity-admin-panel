@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import contextApi from '../../StateManager'
 import styles from './styles/TopItems.module.scss'
 import imgProductNull from '../../images/imgProductNull.png'
-import { NavLink } from 'react-router-dom/cjs/react-router-dom.min'
+import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { IoIosArrowForward } from "react-icons/io";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
@@ -50,7 +50,7 @@ function TopItems() {
                 >
                     {Object.keys(data).slice(0, 4).map(key => (
                         <li key={key}>
-                            <NavLink to="/products" style={{ background: theme === "dark" ? "rgb(31, 33, 40)" : "#fff" }}>
+                            <Link to="/products" style={{ background: theme === "dark" ? "rgb(31, 33, 40)" : "#fff" }}>
                                 <div className={styles.imgBox}>
                                     <img src={data[key].img ? data[key].img : imgProductNull} alt="demo.png" />
                                 </div>
@@ -60,7 +60,7 @@ function TopItems() {
                                     <button className={styles.price}>{data[key].currency}{data[key].price}</button>
                                 </div>
                                 <IoIosArrowForward className={styles.arrowIcon} />
-                            </NavLink>
+                            </Link>
                             <div className={styles.shadow}></div>
                         </li>
                     ))}

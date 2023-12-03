@@ -190,7 +190,7 @@ export default function NavbarMobile() {
       <div className={styles.insights}>{translation.insights}</div>
       <ul>
         <li onClick={handleNavOpen}>
-          <NavLink exact className={styles.linkBelow} activeClassName={styles.activeLink} to="/inbox">
+          <NavLink className={styles.linkBelow} activeClassName={styles.activeLink} to="/inbox">
             <div className={styles.linkLeft}>
               <svg xmlns="http://www.w3.org/2000/svg" width="21" height="19" viewBox="0 0 21 19" fill="none">
                 <g opacity="0.4">

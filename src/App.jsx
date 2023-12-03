@@ -199,6 +199,9 @@ function App() {
             <Route exact path="/inbox">
               <Inbox />
             </Route>
+            <Route exact path="/inbox/:key">
+              <Inbox />
+            </Route>
             <Route exact path="/notification">
               <Notification />
             </Route>

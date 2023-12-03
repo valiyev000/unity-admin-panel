@@ -194,7 +194,7 @@ export default function Setting() {
                     } else {
 
                         const storageRef = ref(storage, `avatars/user_avatar${Math.random()}`);
-        
+
                         try {
                             await uploadString(storageRef, formData.avatar, 'data_url');
                             const downloadURL = await getDownloadURL(storageRef);
@@ -207,7 +207,6 @@ export default function Setting() {
                         }
                         
                     }
-                    
                 } else {
                     resolve(); // Resolve the Promise if no avatar to upload
                 }
@@ -228,7 +227,6 @@ export default function Setting() {
         }
     
         try {
-            console.log(formData.avatar);
             await updateProfile(user, { displayName: formData.displayName, photoURL: temporaryImgLinkHolder });
             console.log('Display name and new avatar updated successfully');
         } catch (error) {
