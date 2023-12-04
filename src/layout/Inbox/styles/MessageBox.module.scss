@@ -1,8 +1,7 @@
 .MessageBoxMain{
-    border: 1px solid red;
     width: 100%;
     min-height: 400px;
-    margin-top: 30px;
+    margin-top: 45px;
     border-radius: 24px;
     padding: 24px;
     >.title{
@@ -11,5 +10,72 @@
         font-size: 18px;
         font-weight: 500;
         line-height: 24px;
+    }
+    >.innerContainer{
+        padding: 20px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        >.userBlock{
+            border: 1px solid green;
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+            padding: 33px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: #808191;
+            > .avatarSection {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 45px;
+                height: 45px;
+                min-width: 45px;
+                min-height: 45px;
+                > img {
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+            }
+            >.details{
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                >.topSection{
+                    display: flex;
+                    gap: 11px;
+                    >.userName{
+                        font-family: Inter;
+                        font-size: 13px;
+                        font-weight: 600;
+                        line-height: 18px
+                    }
+                    >.time{
+                        font-family: Inter;
+                        font-size: 13px;
+                        font-weight: 600;
+                        line-height: 18px
+                    }
+                }
+                >.middleSection{
+                    font-family: Inter;
+                    font-size: 14px;
+                    line-height: 24px; 
+                }
+                >.actionSection{
+                    display: flex;
+                    gap: 16px;
+                    >button{
+                        border-radius: 50%;
+                        height: 32px;
+                        width: 32px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+        }
     }
 }
