@@ -39,7 +39,8 @@ export default function Inbox() {
       : !isNavOpen && screenWidth > 480
         ? "calc(100% - 80px)" : "100%",
     transform: isNavOpen && screenWidth <= 480 ? "translateX(65%)" : "translateX(0%)", //! motion.div edende bu islemir, bunu animate attributunda vermek lazim gelecek...
-    color: theme === "dark" ? "#fff" : "#11142D"
+    color: theme === "dark" ? "#fff" : "#11142D",
+    overflowX: screenWidth > 480 ? "visible" : "hidden"
   }
 
   useEffect(() => {

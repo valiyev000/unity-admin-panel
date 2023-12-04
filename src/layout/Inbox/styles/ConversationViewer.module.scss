@@ -1,12 +1,10 @@
 .viewerMain {
-    border: 1px solid red;
-    max-height: 80vh;
-    position: sticky;
+    border: 1px solid purple;
     top: 40px;
-    overflow: auto;
     -ms-overflow-style: none; /* Internet Explorer 10+ */
     scrollbar-width: none; /* Firefox */
     &::-webkit-scrollbar {
         display: none; /* Safari and Chrome */
     }
 }
+
