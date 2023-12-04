@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import contextApi from '../StateManager'
-import { AnimatePresence, motion, transform } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import HeaderMobile from '../components/HeaderMobile'
 import Navbar from '../components/Navbar'
 import NavbarMobile from '../components/NavbarMobile'
@@ -14,6 +14,8 @@ import { Link, useHistory, useParams } from 'react-router-dom/cjs/react-router-d
 import SearchBox from '../layout/Inbox/SearchBox'
 import InboxFilter from '../layout/Inbox/InboxFilter'
 import MessageBox from '../layout/Inbox/MessageBox'
+import ConversationViewer from '../layout/Inbox/ConversationViewer'
+import { useRef } from 'react'
 
 export default function Inbox() {
 
@@ -22,8 +24,9 @@ export default function Inbox() {
   const [searchValue, setSearchValue] = useState("")
   const [selectedFilter, setSelectedFilter] = useState("your_inbox")
 
+  const mainContainer = useRef(null)
   const { key } = useParams()
-  const history = useHistory();
+
 
   const MAIN_STYLE = {
     paddingTop: screenWidth > 480 ? "0px" : "80px",
@@ -51,7 +54,7 @@ export default function Inbox() {
 
       {screenWidth > 480 ? <Navbar /> : <NavbarMobile />} {/* position sticky ve ya fixeddi */}
 
-      <motion.div className={styles.container} initial={{ transform: "scale(1.1)" }} animate={{ transform: "scale(1)" }} exit={{ transform: "scale(1.2)" }} style={CONTAINER_STYLE}>
+      <motion.div className={styles.container} initial={{ transform: "scale(1.1)" }} animate={{ transform: "scale(1)" }} exit={{ transform: "scale(1.2)" }} style={CONTAINER_STYLE} ref={mainContainer}>
         {(screenWidth > 480 || (screenWidth < 480 && !key)) &&
           <motion.div
             className={styles.left}
@@ -75,7 +78,7 @@ export default function Inbox() {
             {screenWidth > 480 ? <Header screenWidthRestriction={false} text={"your_inbox"} /> : <HeaderMobileSub text={"welcome_back"} />} {/* position static ve ya fixeddi */}
             <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
             <InboxFilter selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
-            <MessageBox selectedFilter={selectedFilter} />
+            <MessageBox selectedFilter={selectedFilter} mainContainer={mainContainer} />
 
           </motion.div>
         }
@@ -103,6 +106,7 @@ export default function Inbox() {
                 <ForSearch />
               </div>
             }
+            <ConversationViewer />
           </motion.div>
         }
       </motion.div>
