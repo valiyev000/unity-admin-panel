@@ -97,11 +97,11 @@ function MessageBox({ selectedFilter, mainContainer }) {
                                             <motion.ul
                                                 className={styles.moreOptionMenu}
                                                 initial={{
-                                                    transform: "translateX(50%) translateY(-50%)",
+                                                    transform: "translateX(50%) translateY(-20%)",
                                                     opacity: 0,
                                                     background: theme === "dark" ? "#242731" : "#fff",
                                                     border: theme === "dark" ? "rgb(228,228,228)" : "rgba(228,228,228,0.1)",
-                                                    color: theme === "dark" ? "#fff" : "rgb(17,20,45)"//! buralarda qalmisam
+                                                    color: theme === "dark" ? "#fff" : "rgb(17,20,45)"
                                                 }}
                                                 animate={{
                                                     transform: "translateX(50%) translateY(0%)",
@@ -111,15 +111,15 @@ function MessageBox({ selectedFilter, mainContainer }) {
                                                     color: theme === "dark" ? "#fff" : "rgb(17,20,45)"
                                                 }}
                                                 exit={{
-                                                    transform: "translateX(50%) translateY(-50%)",
+                                                    transform: "translateX(50%) translateY(-20%)",
                                                     opacity: 0,
                                                     background: theme === "dark" ? "#242731" : "#fff",
                                                     border: theme === "dark" ? "rgb(228,228,228)" : "rgba(228,228,228,0.1)",
                                                     color: theme === "dark" ? "#fff" : "rgb(17,20,45)"
                                                 }}
                                             >
-                                                <li>Add to Archive</li>
-                                                <li>Delete</li>
+                                                <li className={`${theme === "dark" ? styles.dark : ""}`}>Add to Archive</li>
+                                                <li className={`${theme === "dark" ? styles.dark : ""}`}>Delete</li>
                                             </motion.ul>
                                         }
                                     </AnimatePresence>

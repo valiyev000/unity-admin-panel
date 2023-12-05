@@ -107,7 +107,29 @@ export default function Inbox() {
                 <ForSearch />
               </div>
             }
-            <ConversationViewer />
+            {key ? <ConversationViewer />
+              : <motion.div
+                className={styles.nullConversation}
+                initial={{
+                  marginTop: screenWidth > 480 ? "70px" : "0px",
+                  height: screenWidth > 480 ? "80vh" : "unset",
+                  maxHeight: screenWidth > 480 ? "500px" : "unset",
+                  position: screenWidth > 480 ? "sticky" : "static",
+                  opacity: 0,
+                  transform: "scale(1.2)"
+                }}
+                animate={{
+                  marginTop: screenWidth > 480 ? "70px" : "0px",
+                  height: screenWidth > 480 ? "80vh" : "unset",
+                  maxHeight: screenWidth > 480 ? "500px" : "unset",
+                  position: screenWidth > 480 ? "sticky" : "static",
+                  opacity: 1,
+                  transform: "scale(1)"
+                }}
+              >
+                <motion.div className={styles.innerViewerMain}>There is no opened conversation yet:)</motion.div>
+              </motion.div>
+            }
           </motion.div>
         }
       </motion.div>

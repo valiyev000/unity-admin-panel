@@ -86,10 +86,21 @@
                             -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
                             -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
                             border-radius: 5px;
-                            padding: 10px;
+                            padding: 5px;
                             > li {
                                 text-align: start;
                                 white-space: nowrap;
+                                padding: 5px;
+                                margin-bottom: 3px;
+                                border-radius: 5px;
+                                background: transparent;
+                                transition: 0.3s background ease-in-out;
+                                &:hover{
+                                    background: #ededed;
+                                }
+                                &.dark:hover{
+                                    background: rgba($color: #ededed, $alpha: 0.1);
+                                }
                             }
                         }
                     }

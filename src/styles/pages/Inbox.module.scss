@@ -1,16 +1,16 @@
-.main{
+.main {
     display: flex;
     background-color: #fff;
     transition: 0.4s all ease-in-out;
     min-height: 100vh;
-    &.dark{
+    &.dark {
         background-color: #242731;
     }
-    >.container{
+    > .container {
         transition: 0.4s all ease-in-out;
         display: flex;
         position: relative;
-        >.left{
+        > .left {
             top: 0;
             left: 0;
             padding: 0px 5% 40px 5%;
@@ -19,13 +19,33 @@
             align-content: flex-start;
             justify-content: space-between;
         }
-        >.right{
+        > .right {
             top: 0;
             left: 0;
             padding: 40px 5%;
             border-left: 1px solid rgba(228, 228, 228, 0.425);
-            &.dark{
+            &.dark {
                 border-left: 1px solid rgba(228, 228, 228, 0.1);
+            }
+            .nullConversation {
+                top: 40px;
+                -ms-overflow-style: none; /* Internet Explorer 10+ */
+                scrollbar-width: none; /* Firefox */
+                &::-webkit-scrollbar {
+                    display: none; /* Safari and Chrome */
+                }
+                overflow: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                > .innerViewerMain {
+                    width: 72%;
+                    color: #b2b3bd;
+                    font-family: Poppins;
+                    font-size: 22px;
+                    font-weight: 500;
+                }
             }
         }
     }
