@@ -16,14 +16,14 @@ function ConversationViewer() {
             className={styles.viewerMain}
             initial={{
                 marginTop: screenWidth > 480 ? "70px" : "0px",
-                maxHeight: screenWidth > 480 ? "80vh" : "unset",
                 height: screenWidth > 480 ? "80vh" : "unset",
+                maxHeight: screenWidth > 480 ? "500px" : "unset",
                 position: screenWidth > 480 ? "sticky" : "static",
             }}
             animate={{
                 marginTop: screenWidth > 480 ? "70px" : "0px",
-                maxHeight: screenWidth > 480 ? "80vh" : "unset",
                 height: screenWidth > 480 ? "80vh" : "unset",
+                maxHeight: screenWidth > 480 ? "500px" : "unset",
                 position: screenWidth > 480 ? "sticky" : "static",
             }}
         >

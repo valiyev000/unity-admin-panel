@@ -1,6 +1,6 @@
-import { memo, useContext } from 'react'
+import { memo, useContext, useState } from 'react'
 import styles from './styles/MessageBox.module.scss'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import contextApi from '../../StateManager'
 import uploadAvatarNull from '../../images/uploadAvatarNull.png'
 import { FaComment, FaStar } from "react-icons/fa6";
@@ -12,10 +12,11 @@ function MessageBox({ selectedFilter, mainContainer }) {
     const { theme, translation } = useContext(contextApi)
 
     const history = useHistory();
-    const {key} = useParams();
+    const { key } = useParams();
+    const [openedMoreOptionMenuIndex, setOpenMoreOptionMenuIndex] = useState(null)
 
-    const handleUserBlockClick = (clickedKey) =>{
-        
+    const handleUserBlockClick = (clickedKey) => {
+
         if (clickedKey === key) {
             history.push('/inbox')
         } else {
@@ -24,7 +25,16 @@ function MessageBox({ selectedFilter, mainContainer }) {
         }
     }
 
-    const testData = ["6457d685c7ov8p","4udci7o87iuvo","uy6id7oc8pvu","uritcoyvpuibq22"]
+    const handleMoreOptionMenu = (element, clickedKey) => {
+        element.stopPropagation()
+        if (clickedKey === openedMoreOptionMenuIndex) {
+            setOpenMoreOptionMenuIndex(null)
+        } else {
+            setOpenMoreOptionMenuIndex(clickedKey)
+        }
+    }
+
+    const testData = ["6457d685c7ov8p", "4udci7o87iuvo", "uy6id7oc8pvu", "uritcoyvpuibq22"]
 
     return (
         <motion.div
@@ -50,29 +60,75 @@ function MessageBox({ selectedFilter, mainContainer }) {
                             : selectedFilter === "saved" ? translation.saved_messages : ""
                 }
             </motion.div>
-            <div className={styles.innerContainer}>
-                {testData && testData.map(e=>(
-                <div key={e} className={styles.userBlock} onClick={()=>handleUserBlockClick(e)}>
-                    <div className={styles.avatarSection}>
-                        <img src={uploadAvatarNull} alt="userAvatar.png" />
-                    </div>
-                    <div className={styles.details}>
-                        <div className={styles.topSection}>
-                            <div className={styles.userName}>Joel Becker</div>
-                            <div className={styles.time}>17:43</div>
+            <ul className={styles.innerContainer}>
+                {testData && testData.map(e => (
+                    <motion.li
+                        className={styles.userBlock}
+                        onClick={() => handleUserBlockClick(e)}
+                        initial={{
+                            opacity: 0,
+                            background: e === key ? "rgba(108,93,211,1)" : "rgba(108,93,211,0)",
+                            color: e === key ? "#fff" : "#808191"
+                        }}
+                        animate={{
+                            opacity: 1,
+                            background: e === key ? "rgba(108,93,211,1)" : "rgba(108,93,211,0)",
+                            color: e === key ? "#fff" : "#808191"
+                        }}
+                        key={e}
+                    >
+                        <div className={styles.avatarSection}>
+                            <img src={uploadAvatarNull} alt="userAvatar.png" />
                         </div>
-                        <div className={styles.middleSection}>
-                            When is the Sketch version available for download?
+                        <div className={styles.details}>
+                            <div className={styles.topSection}>
+                                <div className={styles.userName}>Joel Becker</div>
+                                <div className={styles.time}>17:43</div>
+                            </div>
+                            <div className={styles.middleSection}>
+                                When is the Sketch version available for download?
+                            </div>
+                            <div className={styles.actionSection}>
+                                <button><FaComment color={e === key ? "#A79EE5" : "#808191"} /></button>
+                                <button><FaStar color={e === key ? "#A79EE5" : "#808191"} /></button>
+                                <button onClick={(element) => handleMoreOptionMenu(element, e)} tabIndex={0} onBlur={() => setOpenMoreOptionMenuIndex(null)}><BsThreeDots color={e === key ? "#A79EE5" : "#808191"} />
+                                    <AnimatePresence>
+                                        {openedMoreOptionMenuIndex === e &&
+                                            <motion.ul
+                                                className={styles.moreOptionMenu}
+                                                initial={{
+                                                    transform: "translateX(50%) translateY(-50%)",
+                                                    opacity: 0,
+                                                    background: theme === "dark" ? "#242731" : "#fff",
+                                                    border: theme === "dark" ? "rgb(228,228,228)" : "rgba(228,228,228,0.1)",
+                                                    color: theme === "dark" ? "#fff" : "rgb(17,20,45)"//! buralarda qalmisam
+                                                }}
+                                                animate={{
+                                                    transform: "translateX(50%) translateY(0%)",
+                                                    opacity: 1,
+                                                    background: theme === "dark" ? "#242731" : "#fff",
+                                                    border: theme === "dark" ? "rgb(228,228,228)" : "rgba(228,228,228,0.1)",
+                                                    color: theme === "dark" ? "#fff" : "rgb(17,20,45)"
+                                                }}
+                                                exit={{
+                                                    transform: "translateX(50%) translateY(-50%)",
+                                                    opacity: 0,
+                                                    background: theme === "dark" ? "#242731" : "#fff",
+                                                    border: theme === "dark" ? "rgb(228,228,228)" : "rgba(228,228,228,0.1)",
+                                                    color: theme === "dark" ? "#fff" : "rgb(17,20,45)"
+                                                }}
+                                            >
+                                                <li>Add to Archive</li>
+                                                <li>Delete</li>
+                                            </motion.ul>
+                                        }
+                                    </AnimatePresence>
+                                </button>
+                            </div>
                         </div>
-                        <div className={styles.actionSection}>
-                            <button><FaComment color='#1B1D21' /></button>
-                            <button><FaStar color='#1B1D21' /></button>
-                            <button><BsThreeDots color='#1B1D21' /></button>
-                        </div>
-                    </div>
-                </div>
+                    </motion.li>
                 ))}
-            </div>
+            </ul>
         </motion.div>
     )
 }
