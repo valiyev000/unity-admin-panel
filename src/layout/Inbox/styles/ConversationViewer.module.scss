@@ -1,10 +1,50 @@
-.viewerMain{
+.viewerMain {
     top: 40px;
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-    scrollbar-width: none; /* Firefox */
-    &::-webkit-scrollbar {
-        display: none; /* Safari and Chrome */
+    border: 1px solid #ff0000;
+    > .actionBtns {
+        height: 46px;
+        display: flex;
+        gap: 16px;
+        > button {
+            height: 100%;
+            width: 128px;
+            border-radius: 16px;
+            font-weight: 500;
+            font-size: 14px;
+            &.delete {
+                transition: 0.2s background ease-in-out;
+                background: rgba(108,93,211,1);
+                color: #fff;
+                &:hover{
+                    background: rgba(108,93,211,0.9);
+                }
+            }
+            &.archive {
+                background: rgba(228,228,228,1);
+                color: #000;
+                &:hover{
+                    background: rgba(228,228,228,0.9);
+                }
+            }
+        }
     }
-    overflow: auto;
-    border: 1px solid red;
+    > .history {
+        -ms-overflow-style: none; /* Internet Explorer 10+ */
+        scrollbar-width: none; /* Firefox */
+        &::-webkit-scrollbar {
+            display: none; /* Safari and Chrome */
+        }
+        overflow: auto;
+        margin-top: 10px;
+        max-height: calc( 100% - 56px);
+        >.message{
+            display: flex;
+            gap: 24px;
+            >img.avatar{
+                width: 48px;
+                height: 48px;
+                object-fit: contain;
+            }
+        }
+    }
 }
