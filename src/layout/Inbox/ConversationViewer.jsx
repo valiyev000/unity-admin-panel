@@ -5,6 +5,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useContext } from 'react';
 import contextApi from '../../StateManager';
 import uploadAvatarNull from '../../images/uploadAvatarNull.png'
+import { IoMdArrowRoundBack } from "react-icons/io";
+import ConversationInput from './ConversationInput';
 
 
 function ConversationViewer() {
@@ -18,7 +20,7 @@ function ConversationViewer() {
             className={styles.viewerMain}
             initial={{
                 marginTop: screenWidth > 480 ? "70px" : "0px",
-                height: screenWidth > 480 ? "80vh" : "unset",
+                height: screenWidth > 480 ? "80vh" : "80vh",
                 maxHeight: screenWidth > 480 ? "500px" : "unset",
                 position: screenWidth > 480 ? "sticky" : "static",
                 opacity: 0,
@@ -26,13 +28,14 @@ function ConversationViewer() {
             }}
             animate={{
                 marginTop: screenWidth > 480 ? "70px" : "0px",
-                height: screenWidth > 480 ? "80vh" : "unset",
+                height: screenWidth > 480 ? "80vh" : "80vh",
                 maxHeight: screenWidth > 480 ? "500px" : "unset",
                 position: screenWidth > 480 ? "sticky" : "static",
                 opacity: 1,
                 transform: "scale(1)",
             }}
         >
+            <div className={styles.goBack} onClick={() => history.push('/inbox')}><IoMdArrowRoundBack size={24} /></div>
             <div className={styles.actionBtns}>
                 <button className={styles.delete}>Delete</button>
                 <button className={styles.archive}>Archive</button>
@@ -49,23 +52,31 @@ function ConversationViewer() {
                             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non recusandae doloribus minima quos omnis saepe officia inventore voluptatum amet aliquid.
                         </div>
                         <div className={styles.imgs}>
-                            <div className={styles.imgViewer} style={{width: screenWidth > 1200 ? "45%" : "100%", background: theme === "dark" ? "rgba(255,255,255,0.1)" : "	rgba(207,200,255,0.5)"}}>
+                            <div className={styles.imgViewer} style={{ width: screenWidth > 1200 ? "45%" : "100%", background: theme === "dark" ? "rgba(255,255,255,0.1)" : "	rgba(207,200,255,0.5)" }}>
                                 <img src={uploadAvatarNull} alt="uploadedimg" />
                                 <div className={styles.description}>
-                                    <div className={styles.imgName} style={{color: theme === "dark" ? "#fff" : "#5F7EEE"}}>Attachment.png</div>
-                                    <div className={styles.imgSize} style={{color: theme === "dark" ? "#fff" : "#11142D"}}>3.6Mb</div>
+                                    <div className={styles.imgName} style={{ color: theme === "dark" ? "#fff" : "#5F7EEE" }}>Attachment.png</div>
+                                    <div className={styles.imgSize} style={{ color: theme === "dark" ? "#fff" : "#11142D" }}>3.6Mb</div>
                                 </div>
                             </div>
-                            <div className={styles.imgViewer} style={{width: screenWidth > 1200 ? "45%" : "100%", background: theme === "dark" ? "rgba(255,255,255,0.1)" : "	rgba(207,200,255,0.5)"}}>
+                            <div className={styles.imgViewer} style={{ width: screenWidth > 1200 ? "45%" : "100%", background: theme === "dark" ? "rgba(255,255,255,0.1)" : "	rgba(207,200,255,0.5)" }}>
                                 <img src={uploadAvatarNull} alt="uploadedimg" />
                                 <div className={styles.description}>
-                                    <div className={styles.imgName} style={{color: theme === "dark" ? "#fff" : "#5F7EEE"}}>Attachment.png</div>
-                                    <div className={styles.imgSize} style={{color: theme === "dark" ? "#fff" : "#11142D"}}>3.6Mb</div>
+                                    <div className={styles.imgName} style={{ color: theme === "dark" ? "#fff" : "#5F7EEE" }}>Attachment.png</div>
+                                    <div className={styles.imgSize} style={{ color: theme === "dark" ? "#fff" : "#11142D" }}>3.6Mb</div>
+                                </div>
+                            </div>
+                            <div className={styles.imgViewer} style={{ width: screenWidth > 1200 ? "45%" : "100%", background: theme === "dark" ? "rgba(255,255,255,0.1)" : "	rgba(207,200,255,0.5)" }}>
+                                <img src={uploadAvatarNull} alt="uploadedimg" />
+                                <div className={styles.description}>
+                                    <div className={styles.imgName} style={{ color: theme === "dark" ? "#fff" : "#5F7EEE" }}>Attachment.png</div>
+                                    <div className={styles.imgSize} style={{ color: theme === "dark" ? "#fff" : "#11142D" }}>3.6Mb</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <ConversationInput />
             </div>
 
         </motion.div>
@@ -74,4 +85,3 @@ function ConversationViewer() {
 
 export default memo(ConversationViewer)
 
-{/* <div onClick={() => history.push('/inbox')}>Hello world</div> */ }

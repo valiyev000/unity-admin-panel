@@ -1,6 +1,16 @@
 .viewerMain {
     top: 40px;
     border: 1px solid #ff0000;
+    >.goBack{
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
     > .actionBtns {
         height: 46px;
         display: flex;
@@ -36,7 +46,7 @@
         }
         overflow: auto;
         margin-top: 10px;
-        max-height: calc( 100% - 56px);
+        max-height: calc( 100% - 111px);
         border: 1px solid green;
         width: 100%;
         >.message{
@@ -71,13 +81,13 @@
                     margin-top: 13px;
                 }
                 >.imgs{
+                    margin-top: 20px;
                     display: flex;
                     align-items: center;
                     flex-wrap: wrap;
                     gap: 2%;
                     row-gap: 10px;
                     width: 100%;
-                    border: 1px solid red;
                     >.imgViewer{
                         height: 56px;
                         border-radius: 16px;

@@ -1,0 +1,30 @@
+.main{
+    margin-top: 15px;
+    width: 100%;
+    >.textAreaBox{
+        outline: none;
+        width: 100%;
+        border-radius: 12px;
+        height: 200px;
+        >.actionSection{
+            height: 50px;
+            border: 1px solid red;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+            >.left{
+                display: flex;
+                gap: 14px;
+                >button{
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+        }
+    }
+}
