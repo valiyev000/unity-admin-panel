@@ -45,7 +45,14 @@ function ConversationViewer() {
                             <div className={styles.userName}>Joel Becker</div>
                             <div className={styles.date}>19:43</div>
                         </div>
-
+                        <div className={styles.messageText}>
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non recusandae doloribus minima quos omnis saepe officia inventore voluptatum amet aliquid.
+                        </div>
+                        <div className={styles.imgs}>
+                            <div className={styles.imgViewer}>
+                                txrytfuyihui
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

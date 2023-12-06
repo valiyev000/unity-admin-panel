@@ -40,10 +40,44 @@
         >.message{
             display: flex;
             gap: 24px;
+            margin-top: 40px;
             >img.avatar{
                 width: 48px;
                 height: 48px;
                 object-fit: contain;
+            }
+            >.inner{
+                >.userNameAndDate{
+                    display: flex;
+                    align-items: center;
+                    gap: 24px;
+                    >.userName{
+                        font-family: Inter;
+                        font-size: 16px;
+                        font-weight: 600;
+                    }
+                    >.date{
+                        color: #B2B3BD;
+                        font-family: Inter;
+                        font-size: 13px;
+                        font-weight: 600;
+                        line-height: 18px;
+                    }
+                }
+                >.messageText{
+                    margin-top: 13px;
+                }
+                >.imgs{
+                    display: flex;
+                    align-items: center;
+                    gap: 2%;
+                    >.imgViewer{
+                        width: 48%;
+                        height: 56px;
+                        border-radius: 16px;
+                        background: rgba(207,200,255,0.5);
+                    }
+                }
             }
         }
     }
