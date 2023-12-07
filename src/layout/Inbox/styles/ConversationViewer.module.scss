@@ -1,6 +1,5 @@
 .viewerMain {
     top: 40px;
-    border: 1px solid #ff0000;
     >.goBack{
         width: 35px;
         height: 35px;
@@ -47,8 +46,8 @@
         overflow: auto;
         margin-top: 10px;
         max-height: calc( 100% - 111px);
-        border: 1px solid green;
         width: 100%;
+        scroll-behavior: smooth;
         >.message{
             width: 100%;
             display: flex;

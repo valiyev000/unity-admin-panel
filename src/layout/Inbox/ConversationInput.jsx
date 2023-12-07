@@ -7,6 +7,8 @@ import { useEffect } from 'react'
 import uploadAvatarNull from '../../images/uploadAvatarNull.png'
 import { FaBold, FaItalic } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
+import { IoClose } from "react-icons/io5";
+import { useRef } from 'react'
 
 function ConversationInput() {
 
@@ -14,21 +16,43 @@ function ConversationInput() {
     const [bold, setBold] = useState(false)
     const [italic, setItalic] = useState(false)
     const [inputValue, setInputValue] = useState("")
+    const sendMessageBtn = useRef(null)
 
-    // useEffect(() => {
-    //     console.log(inputValue)
-    // }, [inputValue])
+    function handleInputFile(e) { //* elde olunan sekili base64 formatina cevirir ve ya (else vasitesile) silir
+
+        if (e !== "delCommand" && e.target.files[0]) {
+
+            const img = e.target.files[0];
+
+            const reader = new FileReader();
+            reader.readAsDataURL(img)
+
+            reader.onload = (e) => {
+                formData.avatar = e.target.result
+                setFormData({ ...formData })
+            };
+
+        } else {
+            setFormData({ ...formData, avatar: null })
+        }
+
+    }
+
+    useEffect(() => {
+        sendMessageBtn.current.scrollIntoView();
+    }, [])
 
     return (
         <div className={styles.main}>
             <div className={styles.textAreaBox} style={{ background: theme === "dark" ? "rgba(228, 228, 228, 0.1)" : "rgba(228, 228, 228, 1)" }}>
-                <div className={styles.actionSection}>
+                <div className={styles.actionSection} style={{ borderBottom: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid rgba(203, 203, 203, 1)" }}>
                     <div className={styles.left}>
                         <button onClick={() => setBold(prev => !prev)} style={{ background: bold ? "#000" : "#fff", color: bold ? "#fff" : "#000", }}><FaBold /></button>
                         <button onClick={() => setItalic(prev => !prev)} style={{ background: italic ? "#000" : "#fff", color: italic ? "#fff" : "#000", }}><FaItalic /></button>
                     </div>
                     <div className={styles.right}>
-                        <FaPlus />
+                        <input type="file" onChange={(e) => handleInputFile(e)} name="imgInput" id="imgInput" accept=".jpg, .jpeg, .png, .gif" />
+                        <label htmlFor="imgInput"><FaPlus color='#fff' size={14} /></label>
                     </div>
                 </div>
                 <textarea
@@ -42,9 +66,20 @@ function ConversationInput() {
                     }}
                 >
                 </textarea>
-                {/* <img src={uploadAvatarNull} alt="" /> */}
+                {false &&
+                    <div className={styles.imgsSection}>
+                        <div className={styles.imgBox}>
+                            <img src={uploadAvatarNull} alt="img" />
+                            <button className={styles.deleteBtn}><IoClose /></button>
+                        </div>
+                        <div className={styles.imgBox}>
+                            <img src={uploadAvatarNull} alt="img" />
+                            <button className={styles.deleteBtn}><IoClose /></button>
+                        </div>
+                    </div>
+                }
             </div>
-            <div className={styles.reply}>Reply</div>
+            <button className={styles.reply} ref={sendMessageBtn}>Send Message</button>
         </div >
     )
 }
