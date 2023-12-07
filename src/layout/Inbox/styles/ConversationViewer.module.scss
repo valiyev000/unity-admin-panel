@@ -47,7 +47,8 @@
         margin-top: 10px;
         max-height: calc( 100% - 111px);
         width: 100%;
-        scroll-behavior: smooth;
+        display: flex;
+        flex-direction: column-reverse;
         >.message{
             width: 100%;
             display: flex;

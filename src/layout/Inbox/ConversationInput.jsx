@@ -1,14 +1,10 @@
-import { memo } from 'react'
+import { memo, useState, useContext, useRef } from 'react'
 import styles from './styles/ConversationInput.module.scss'
-import { useContext } from 'react'
 import contextApi from '../../StateManager'
-import { useState } from 'react'
-import { useEffect } from 'react'
 import uploadAvatarNull from '../../images/uploadAvatarNull.png'
 import { FaBold, FaItalic } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
-import { useRef } from 'react'
 
 function ConversationInput() {
 
@@ -38,9 +34,51 @@ function ConversationInput() {
 
     }
 
-    useEffect(() => {
-        sendMessageBtn.current.scrollIntoView();
-    }, [])
+    const conversationModel = {
+        i3wyfcbpuefcnviofj2p: {
+            userName: "Tərlan Rəhmanzadə",
+            userAvatar: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452",
+            modifiedTime: 653254354278092,  //todo Use serverTimeStamp()
+            isArchived: false,
+            isStarred: false,
+            messages: [
+                {
+                    senderIsMe: true,
+                    whenSent: 12150000000, //todo Use serverTimeStamp()
+                    photoArr: [
+                        {
+                            imgName: "AttacmentNewMessage.jpg",
+                            imgSize: "4.6Mb",
+                            imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+                        },
+                        {
+                            imgName: "AttacmentNewMessage2.png",
+                            imgSize: "5.6Mb",
+                            imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+                        }
+                    ]
+                },
+                {
+                    senderIsMe: false,
+                    whenSent: 12140000000, //todo Use serverTimeStamp()
+                    photoArr: [
+                        {
+                            imgName: "Attacment.jpg",
+                            imgSize: "3.6Mb",
+                            imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+                        },
+                        {
+                            imgName: "Attacment2.png",
+                            imgSize: "3.6Mb",
+                            imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+                        }
+                    ]
+                },
+            ]
+        }
+    }
+
+    console.log(conversationModel)
 
     return (
         <div className={styles.main}>
