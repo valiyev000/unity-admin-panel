@@ -5,6 +5,8 @@ import uploadAvatarNull from '../../images/uploadAvatarNull.png'
 import { FaBold, FaItalic } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
+import { collection, doc, setDoc, serverTimestamp } from 'firebase/firestore'
+import { db } from '../../firebase-config';
 
 function ConversationInput() {
 
@@ -38,13 +40,17 @@ function ConversationInput() {
         i3wyfcbpuefcnviofj2p: {
             userName: "Tərlan Rəhmanzadə",
             userAvatar: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452",
-            modifiedTime: 653254354278092,  //todo Use serverTimeStamp()
+            modifiedTime: serverTimestamp(),
             isArchived: false,
+            isDone: false,
             isStarred: false,
             messages: [
                 {
                     senderIsMe: true,
-                    whenSent: 12150000000, //todo Use serverTimeStamp()
+                    whenSent: new Date(),
+                    isBold: false,
+                    isItalic: false,
+                    wasRead: false,
                     photoArr: [
                         {
                             imgName: "AttacmentNewMessage.jpg",
@@ -60,25 +66,89 @@ function ConversationInput() {
                 },
                 {
                     senderIsMe: false,
-                    whenSent: 12140000000, //todo Use serverTimeStamp()
+                    whenSent: new Date(),
+                    isBold: true,
+                    isItalic: false,
+                    wasRead: false,
                     photoArr: [
                         {
-                            imgName: "Attacment.jpg",
-                            imgSize: "3.6Mb",
+                            imgName: "AttacmentNewMessage.jpg",
+                            imgSize: "4.6Mb",
                             imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
                         },
                         {
-                            imgName: "Attacment2.png",
-                            imgSize: "3.6Mb",
+                            imgName: "AttacmentNewMessage2.png",
+                            imgSize: "5.6Mb",
                             imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
                         }
                     ]
                 },
             ]
-        }
+        },
+        a5u7di68co7fiytkf: {
+            userName: "Süleyman Vəliyev",
+            userAvatar: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452",
+            modifiedTime: serverTimestamp(), 
+            isArchived: false,
+            isDone: false,
+            isStarred: false,
+            messages: [
+                {
+                    senderIsMe: true,
+                    whenSent: new Date(),
+                    isBold: false,
+                    isItalic: false,
+                    wasRead: false,
+                    photoArr: [
+                        {
+                            imgName: "AttacmentNewMessage.jpg",
+                            imgSize: "4.6Mb",
+                            imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+                        },
+                        {
+                            imgName: "AttacmentNewMessage2.png",
+                            imgSize: "5.6Mb",
+                            imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+                        }
+                    ]
+                },
+                {
+                    senderIsMe: false,
+                    whenSent: new Date(),
+                    isBold: true,
+                    isItalic: false,
+                    wasRead: false,
+                    photoArr: [
+                        {
+                            imgName: "AttacmentNewMessage.jpg",
+                            imgSize: "4.6Mb",
+                            imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+                        },
+                        {
+                            imgName: "AttacmentNewMessage2.png",
+                            imgSize: "5.6Mb",
+                            imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+                        }
+                    ]
+                },
+            ]
+        },
     }
 
-    console.log(conversationModel)
+    const handleSendData = async () => {
+        const collectionRef = collection(db, "conversation");
+
+        const promises = Object.keys(conversationModel).map(async (key) => {
+            const docRef = doc(collectionRef, key);
+            await setDoc(docRef, conversationModel[key]);
+        });
+
+        await Promise.all(promises);
+    };
+
+
+
+
 
     return (
         <div className={styles.main}>
@@ -117,7 +187,7 @@ function ConversationInput() {
                     </div>
                 }
             </div>
-            <button className={styles.reply} ref={sendMessageBtn}>Send Message</button>
+            <button className={styles.reply} onClick={handleSendData} ref={sendMessageBtn}>Send Message</button>
         </div >
     )
 }
