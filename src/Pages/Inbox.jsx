@@ -47,6 +47,57 @@ export default function Inbox() {
     window.scrollTo(0, 0);
   }, [])
 
+//   import { useState, useEffect } from 'react';
+// import { getFirestore, collection, getDocs } from 'firebase/firestore';
+
+// const YourComponent = () => {
+//   const [conversations, setConversations] = useState([]);
+
+//   useEffect(() => {
+//     // Get Firestore reference
+//     const db = getFirestore();
+
+//     // Reference to the "conversations" collection
+//     const conversationsRef = collection(db, 'conversations');
+
+//     // Get all documents in the "conversations" collection
+//     const fetchData = async () => {
+//       try {
+//         const querySnapshot = await getDocs(conversationsRef);
+
+//         // Extract keys and data from each document
+//         const conversationsData = querySnapshot.docs.map((doc) => ({
+//           key: doc.id,
+//           data: doc.data(),
+//         }));
+
+//         // Set state with the retrieved data
+//         setConversations(conversationsData);
+//       } catch (error) {
+//         console.error('Error fetching data: ', error);
+//       }
+//     };
+
+//     // Fetch data when component mounts
+//     fetchData();
+//   }, []); // Empty dependency array ensures this effect runs only once on mount
+
+//   // Render or use the conversations state in your component
+//   return (
+//     <div>
+//       {conversations.map((conversation) => (
+//         <div key={conversation.key}>
+//           <p>Key: {conversation.key}</p>
+//           <pre>Data: {JSON.stringify(conversation.data, null, 2)}</pre>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// };
+
+// export default YourComponent;
+
+
   return (
     <main className={`${styles.main} ${theme === "dark" && styles.dark}`} style={MAIN_STYLE}>
       <AnimatePresence>

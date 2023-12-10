@@ -148,8 +148,6 @@ function ConversationInput() {
 
 
 
-
-
     return (
         <div className={styles.main}>
             <div className={styles.textAreaBox} style={{ background: theme === "dark" ? "rgba(228, 228, 228, 0.1)" : "rgba(228, 228, 228, 1)" }}>
