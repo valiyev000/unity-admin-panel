@@ -8,7 +8,7 @@ import Header from '../components/Header'
 import HeaderMobileSub from '../sub-components/HeaderMobileSub'
 import ForSearch from '../sub-components/ForSearch'
 import styles from '../styles/pages/Inbox.module.scss'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase-config'
 import { Link, useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min'
 import SearchBox from '../layout/Inbox/SearchBox'
@@ -23,6 +23,7 @@ export default function Inbox() {
 
   const [searchValue, setSearchValue] = useState("")
   const [selectedFilter, setSelectedFilter] = useState("your_inbox")
+  const [conversations, setConversations] = useState([]);
 
   const mainContainer = useRef(null)
   const { key } = useParams()
@@ -47,55 +48,45 @@ export default function Inbox() {
     window.scrollTo(0, 0);
   }, [])
 
-//   import { useState, useEffect } from 'react';
-// import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
-// const YourComponent = () => {
-//   const [conversations, setConversations] = useState([]);
+  useEffect(() => {
 
-//   useEffect(() => {
-//     // Get Firestore reference
-//     const db = getFirestore();
+    const conversationsRef = collection(db, 'conversation');
 
-//     // Reference to the "conversations" collection
-//     const conversationsRef = collection(db, 'conversations');
+    // Get all documents in the "conversations" collection
+    const fetchData = async () => {
+      try {
+        const querySnapshot = await getDocs(conversationsRef);
 
-//     // Get all documents in the "conversations" collection
-//     const fetchData = async () => {
-//       try {
-//         const querySnapshot = await getDocs(conversationsRef);
+        // Extract keys and data from each document
+        const conversationsData = querySnapshot.docs.map((doc) => ({
+          key: doc.id,
+          data: doc.data(),
+        }));
 
-//         // Extract keys and data from each document
-//         const conversationsData = querySnapshot.docs.map((doc) => ({
-//           key: doc.id,
-//           data: doc.data(),
-//         }));
+        console.log(conversationsData)
 
-//         // Set state with the retrieved data
-//         setConversations(conversationsData);
-//       } catch (error) {
-//         console.error('Error fetching data: ', error);
-//       }
-//     };
+        // Set state with the retrieved data
+        setConversations(conversationsData);
+      } catch (error) {
+        console.error('Error fetching data: ', error);
+      }
+    };
 
-//     // Fetch data when component mounts
-//     fetchData();
-//   }, []); // Empty dependency array ensures this effect runs only once on mount
+    fetchData();
+  }, []);
 
-//   // Render or use the conversations state in your component
-//   return (
-//     <div>
-//       {conversations.map((conversation) => (
-//         <div key={conversation.key}>
-//           <p>Key: {conversation.key}</p>
-//           <pre>Data: {JSON.stringify(conversation.data, null, 2)}</pre>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// };
+  // useEffect(()=>{console.log(conversations)},[conversations])
 
-// export default YourComponent;
+  // <div>
+  //   {conversations.map((conversation) => (
+  //     <div key={conversation.key}>
+  //       <p>Key: {conversation.key}</p>
+  //       <pre>Data: {JSON.stringify(conversation.data, null, 2)}</pre>
+  //     </div>
+  //   ))}
+  // </div>
+
 
 
   return (
