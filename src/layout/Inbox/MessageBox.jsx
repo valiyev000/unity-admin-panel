@@ -7,7 +7,9 @@ import { FaComment, FaStar } from "react-icons/fa6";
 import { BsThreeDots } from "react-icons/bs";
 import { Link, useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min'
 
-function MessageBox({ selectedFilter, mainContainer }) {
+function MessageBox({ selectedFilter, mainContainer, conversations }) {
+
+    console.log(conversations)
 
     const { theme, translation } = useContext(contextApi)
 
@@ -61,21 +63,21 @@ function MessageBox({ selectedFilter, mainContainer }) {
                 }
             </motion.div>
             <ul className={styles.innerContainer}>
-                {testData && testData.map(e => (
+                {conversations && conversations.map(child => (
                     <motion.li
                         className={styles.userBlock}
-                        onClick={() => handleUserBlockClick(e)}
+                        onClick={() => handleUserBlockClick(child.key)}
                         initial={{
                             opacity: 0,
-                            background: e === key ? "rgba(108,93,211,1)" : "rgba(108,93,211,0)",
-                            color: e === key ? "#fff" : "#808191"
+                            background: child.key === key ? "rgba(108,93,211,1)" : "rgba(108,93,211,0)",
+                            color: child.key === key ? "#fff" : "#808191"
                         }}
                         animate={{
                             opacity: 1,
-                            background: e === key ? "rgba(108,93,211,1)" : "rgba(108,93,211,0)",
-                            color: e === key ? "#fff" : "#808191"
+                            background: child.key === key ? "rgba(108,93,211,1)" : "rgba(108,93,211,0)",
+                            color: child.key === key ? "#fff" : "#808191"
                         }}
-                        key={e}
+                        key={child.key}
                     >
                         <div className={styles.avatarSection}>
                             <img src={uploadAvatarNull} alt="userAvatar.png" />
@@ -89,11 +91,11 @@ function MessageBox({ selectedFilter, mainContainer }) {
                                 When is the Sketch version available for download?
                             </div>
                             <div className={styles.actionSection}>
-                                <button><FaComment color={e === key ? "#A79EE5" : "#808191"} /></button>
-                                <button><FaStar color={e === key ? "#A79EE5" : "#808191"} /></button>
-                                <button onClick={(element) => handleMoreOptionMenu(element, e)} tabIndex={0} onBlur={() => setOpenMoreOptionMenuIndex(null)}><BsThreeDots color={e === key ? "#A79EE5" : "#808191"} />
+                                <button><FaComment color={child.key === key ? "#A79EE5" : "#808191"} /></button>
+                                <button><FaStar color={child.key === key ? "#A79EE5" : "#808191"} /></button>
+                                <button onClick={(element) => handleMoreOptionMenu(element, child.key)} tabIndex={0} onBlur={() => setOpenMoreOptionMenuIndex(null)}><BsThreeDots color={child.key === key ? "#A79EE5" : "#808191"} />
                                     <AnimatePresence>
-                                        {openedMoreOptionMenuIndex === e &&
+                                        {openedMoreOptionMenuIndex === child.key &&
                                             <motion.ul
                                                 className={styles.moreOptionMenu}
                                                 initial={{

@@ -8,7 +8,7 @@ import Header from '../components/Header'
 import HeaderMobileSub from '../sub-components/HeaderMobileSub'
 import ForSearch from '../sub-components/ForSearch'
 import styles from '../styles/pages/Inbox.module.scss'
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase-config'
 import { Link, useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min'
 import SearchBox from '../layout/Inbox/SearchBox'
@@ -50,31 +50,28 @@ export default function Inbox() {
 
 
   useEffect(() => {
-
     const conversationsRef = collection(db, 'conversation');
 
-    // Get all documents in the "conversations" collection
-    const fetchData = async () => {
-      try {
-        const querySnapshot = await getDocs(conversationsRef);
+    // Use onSnapshot to listen for real-time updates
+    const unsubscribe = onSnapshot(conversationsRef, (querySnapshot) => {
+      // Extract keys and data from each document
+      const conversationsData = querySnapshot.docs.map((doc) => ({
+        key: doc.id,
+        data: doc.data(),
+      }));
 
-        // Extract keys and data from each document
-        const conversationsData = querySnapshot.docs.map((doc) => ({
-          key: doc.id,
-          data: doc.data(),
-        }));
 
-        console.log(conversationsData)
+      // Set state with the updated data
+      setConversations(conversationsData);
+    });
 
-        // Set state with the retrieved data
-        setConversations(conversationsData);
-      } catch (error) {
-        console.error('Error fetching data: ', error);
-      }
-    };
-
-    fetchData();
+    // Cleanup the listener when the component unmounts
+    return () => unsubscribe();
   }, []);
+
+
+
+
 
   // useEffect(()=>{console.log(conversations)},[conversations])
 
@@ -121,7 +118,7 @@ export default function Inbox() {
             {screenWidth > 480 ? <Header screenWidthRestriction={false} text={"your_inbox"} /> : <HeaderMobileSub text={"welcome_back"} />} {/* position static ve ya fixeddi */}
             <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
             <InboxFilter selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
-            <MessageBox selectedFilter={selectedFilter} mainContainer={mainContainer} />
+            <MessageBox selectedFilter={selectedFilter} mainContainer={mainContainer} conversations={conversations} />
 
           </motion.div>
         }

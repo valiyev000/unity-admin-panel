@@ -135,7 +135,7 @@ function ConversationInput() {
         },
     }
 
-    const handleSendData = async () => {
+    const handleSendData = async () => {  //todo conversation'lari ilk defeden gondermek ucundur. Sonda siline biler!!!
         const collectionRef = collection(db, "conversation");
 
         const promises = Object.keys(conversationModel).map(async (key) => {
