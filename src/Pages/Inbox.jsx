@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState, useRef } from 'react'
 import contextApi from '../StateManager'
 import { AnimatePresence, motion } from 'framer-motion'
 import HeaderMobile from '../components/HeaderMobile'
@@ -8,14 +8,13 @@ import Header from '../components/Header'
 import HeaderMobileSub from '../sub-components/HeaderMobileSub'
 import ForSearch from '../sub-components/ForSearch'
 import styles from '../styles/pages/Inbox.module.scss'
-import { collection, getDocs, onSnapshot } from 'firebase/firestore';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { db } from '../firebase-config'
 import { Link, useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min'
 import SearchBox from '../layout/Inbox/SearchBox'
 import InboxFilter from '../layout/Inbox/InboxFilter'
 import MessageBox from '../layout/Inbox/MessageBox'
 import ConversationViewer from '../layout/Inbox/ConversationViewer'
-import { useRef } from 'react'
 
 export default function Inbox() {
 
@@ -52,8 +51,30 @@ export default function Inbox() {
   useEffect(() => {
     const conversationsRef = collection(db, 'conversation');
 
+    let q; //todo firestore query'ini onceden assign edirik...
+
+    switch (selectedFilter) {
+      case "your_inbox":
+        q = query(conversationsRef, where("isArchived", "==", false));
+        break;
+      case "archives":
+        q = query(conversationsRef, where("isArchived", "==", true));
+        break;
+      case "done":
+        q = query(conversationsRef, where("isArchived", "==", false), where("isDone", "==", true));
+        break;
+      case "saved":
+        q = query(conversationsRef, where("isArchived", "==", false), where("isStarred", "==", true));
+        break;
+
+      default:
+        console.error("Inbox component switch case error")
+        alert("Something went wrong!!!")
+        break;
+    }
+
     // Use onSnapshot to listen for real-time updates
-    const unsubscribe = onSnapshot(conversationsRef, (querySnapshot) => {
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
       // Extract keys and data from each document
       const conversationsData = querySnapshot.docs.map((doc) => ({
         key: doc.id,
@@ -67,23 +88,7 @@ export default function Inbox() {
 
     // Cleanup the listener when the component unmounts
     return () => unsubscribe();
-  }, []);
-
-
-
-
-
-  // useEffect(()=>{console.log(conversations)},[conversations])
-
-  // <div>
-  //   {conversations.map((conversation) => (
-  //     <div key={conversation.key}>
-  //       <p>Key: {conversation.key}</p>
-  //       <pre>Data: {JSON.stringify(conversation.data, null, 2)}</pre>
-  //     </div>
-  //   ))}
-  // </div>
-
+  }, [selectedFilter]);
 
 
   return (
@@ -139,7 +144,7 @@ export default function Inbox() {
               opacity: screenWidth < 480 && 1,
               background: theme === "dark" ? "#242731" : "#fff"
             }}
-            layout
+          // layout
           >
             {screenWidth > 480 &&
               <div className={styles.rightTop}>

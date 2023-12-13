@@ -9,10 +9,10 @@ import { Link, useHistory, useParams } from 'react-router-dom/cjs/react-router-d
 
 function MessageBox({ selectedFilter, mainContainer, conversations }) {
 
-    console.log(conversations)
-
     const { theme, translation } = useContext(contextApi)
-
+    
+    console.log(conversations)
+    
     const history = useHistory();
     const { key } = useParams();
     const [openedMoreOptionMenuIndex, setOpenMoreOptionMenuIndex] = useState(null)
@@ -36,7 +36,6 @@ function MessageBox({ selectedFilter, mainContainer, conversations }) {
         }
     }
 
-    const testData = ["6457d685c7ov8p", "4udci7o87iuvo", "uy6id7oc8pvu", "uritcoyvpuibq22", "elfubiiwlegfibw", "yersudrcitfvylibu", "yersudrcitfvyr3gwgr",]
 
     return (
         <motion.div
