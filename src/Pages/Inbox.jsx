@@ -18,7 +18,7 @@ import ConversationViewer from '../layout/Inbox/ConversationViewer'
 
 export default function Inbox() {
 
-  const { screenWidth, theme, isNavOpen, testForNotification } = useContext(contextApi)
+  const { screenWidth, theme, isNavOpen, translation, testForNotification } = useContext(contextApi)
 
   const [searchValue, setSearchValue] = useState("")
   const [selectedFilter, setSelectedFilter] = useState("your_inbox")
@@ -288,7 +288,7 @@ export default function Inbox() {
                   transform: "scale(1)"
                 }}
               >
-                <motion.div className={styles.innerViewerMain}>There is no opened conversation yet:)</motion.div>
+                <motion.div className={styles.innerViewerMain}>{translation.there_is_no_opened_conversation_yet}</motion.div>
               </motion.div>
             }
           </motion.div>

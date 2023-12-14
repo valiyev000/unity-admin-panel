@@ -10,7 +10,7 @@ import { db } from '../../firebase-config';
 
 function ConversationInput() {
 
-    const { theme } = useContext(contextApi)
+    const { theme, translation } = useContext(contextApi)
     const [bold, setBold] = useState(false)
     const [italic, setItalic] = useState(false)
     const [inputValue, setInputValue] = useState("")
@@ -34,109 +34,6 @@ function ConversationInput() {
             setFormData({ ...formData, avatar: null })
         }
 
-    }
-
-    const conversationModel = {
-        i3wyfcbpuefcnviofj2p: {
-            userName: "Tərlan Rəhmanzadə",
-            userAvatar: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452",
-            modifiedTime: serverTimestamp(),
-            isArchived: false,
-            isDone: false,
-            isStarred: false,
-            messages: [
-                {
-                    senderIsMe: true,
-                    whenSent: new Date(),
-                    isBold: false,
-                    isItalic: false,
-                    wasRead: false,
-                    text: "Hər vaxtınız xeyir. Qısa müddət ərzində müraciətinizə baxılacaq",
-                    photoArr: [
-                        {
-                            imgName: "AttacmentNewMessage.jpg",
-                            imgSize: "4.6Mb",
-                            imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
-                        },
-                        {
-                            imgName: "AttacmentNewMessage2.png",
-                            imgSize: "5.6Mb",
-                            imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
-                        }
-                    ]
-                },
-                {
-                    senderIsMe: false,
-                    whenSent: new Date(),
-                    isBold: true,
-                    isItalic: false,
-                    wasRead: false,
-                    text: "Salam. Sifarişimlə bağlı problemim var",
-                    photoArr: [
-                        {
-                            imgName: "AttacmentNewMessage.jpg",
-                            imgSize: "4.6Mb",
-                            imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
-                        },
-                        {
-                            imgName: "AttacmentNewMessage2.png",
-                            imgSize: "5.6Mb",
-                            imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
-                        }
-                    ]
-                },
-            ]
-        },
-        a5u7di68co7fiytkf: {
-            userName: "Süleyman Vəliyev",
-            userAvatar: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452",
-            modifiedTime: serverTimestamp(), 
-            isArchived: false,
-            isDone: false,
-            isStarred: false,
-            messages: [
-                {
-                    senderIsMe: true,
-                    whenSent: new Date(),
-                    isBold: false,
-                    isItalic: false,
-                    wasRead: false,
-                    text: "Salam, zəhmət olmasa sifarişi qiymətləndirin.",
-                    photoArr: [
-                        {
-                            imgName: "AttacmentNewMessage.jpg",
-                            imgSize: "4.6Mb",
-                            imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
-                        },
-                        {
-                            imgName: "AttacmentNewMessage2.png",
-                            imgSize: "5.6Mb",
-                            imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
-                        }
-                    ]
-                },
-                {
-                    senderIsMe: false,
-                    whenSent: new Date(),
-                    isBold: true,
-                    isItalic: false,
-                    wasRead: false,
-                    text: "Ən qısa zamanda qiymətləndirəcəm. Təşəkkürlər",
-                    photoArr: [
-                        {
-                            imgName: "AttacmentNewMessage.jpg",
-                            imgSize: "4.6Mb",
-                            imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
-                        },
-                        {
-                            imgName: "AttacmentNewMessage2.png",
-                            imgSize: "5.6Mb",
-                            imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
-                        }
-                    ]
-                },
-            ]
-        },
     }
 
     return (
@@ -176,7 +73,7 @@ function ConversationInput() {
                     </div>
                 }
             </div>
-            <button className={styles.reply} ref={sendMessageBtn}>Send Message</button>
+            <button className={styles.reply} ref={sendMessageBtn}>{translation.send_message}</button>
         </div >
     )
 }

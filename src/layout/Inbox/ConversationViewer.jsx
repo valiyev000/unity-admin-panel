@@ -37,8 +37,8 @@ function ConversationViewer() {
         >
             <div className={styles.goBack} onClick={() => history.push('/inbox')}><IoMdArrowRoundBack size={24} /></div>
             <div className={styles.actionBtns}>
-                <button className={styles.delete}>Delete</button>
-                <button className={styles.archive}>Archive</button>
+                <button className={styles.delete}>{translation.delete}</button>
+                <button className={styles.archive}>{translation.archive}</button>
             </div>
             <div className={styles.history}>
                 <ConversationInput />

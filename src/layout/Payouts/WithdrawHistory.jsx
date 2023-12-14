@@ -1,11 +1,10 @@
-import { memo, useContext, useState } from "react"
+import { memo, useContext, useState, useEffect } from "react"
 import styles from './styles/WithdrawHistory.module.scss'
 import { AnimatePresence, motion } from 'framer-motion'
 import contextApi from "../../StateManager"
 import { IoIosArrowDown } from "react-icons/io"
 import { RiSearchLine } from "react-icons/ri"
 import { IoTrashBinSharp } from "react-icons/io5"
-import { useEffect } from "react"
 import { BsCheck } from "react-icons/bs"
 import PayoutDeleteModal from "./PayoutDeleteModal"
 

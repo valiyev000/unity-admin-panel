@@ -110,5 +110,11 @@
     "recent_messages": "Son Mesajlar",
     "archives_messages": "Arxiv Mesajlar",
     "done_messages": "Tamamlanmış Mesajlar",
-    "saved_messages": "İşarələnmiş Mesajlar"
+    "saved_messages": "İşarələnmiş Mesajlar",
+    "add_to_archive": "Arxivləşdir",
+    "remove_from_archive": "Arxivdən sil",
+    "delete": "Sil",
+    "archive": "Arxiv",
+    "send_message": "Mesajı Göndər",
+    "there_is_no_opened_conversation_yet": "Hələ ki, açıq söhbət yoxdur:)"
 }

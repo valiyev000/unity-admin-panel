@@ -41,9 +41,9 @@ function MessageBox({ selectedFilter, mainContainer, conversations }) {
     const handleStarred = async (element, keyX, isStarred) => {
 
         element.stopPropagation()
-        // console.log(keyX)
+        setOpenMoreOptionMenuIndex(null)
 
-        const documentId = keyX; // Replace with the actual document ID
+        const documentId = keyX;
         const documentRef = doc(db, 'conversations', documentId);
 
         try {
@@ -56,6 +56,25 @@ function MessageBox({ selectedFilter, mainContainer, conversations }) {
             console.error('Error updating document: ', error);
         }
     };
+
+    const handleArchived = async (element, keyX, isArchived) => {
+
+        element.stopPropagation()
+        setOpenMoreOptionMenuIndex(null)
+
+        const documentId = keyX;
+        const documentRef = doc(db, 'conversations', documentId);
+
+        try {
+            await updateDoc(documentRef, {
+                isArchived: !isArchived,
+            });
+
+            console.log('Document successfully updated!');
+        } catch (error) {
+            console.error('Error updating document: ', error);
+        }
+    }
 
     const formatTime = (timestamp) => {
         let formattedTime = ""
@@ -105,6 +124,7 @@ function MessageBox({ selectedFilter, mainContainer, conversations }) {
                         <motion.li
                             className={styles.userBlock}
                             onClick={() => handleUserBlockClick(child.key)}
+                            layout
                             initial={{
                                 opacity: 0,
                                 background: child.key === key ? "rgba(108,93,211,1)" : "rgba(108,93,211,0)",
@@ -122,7 +142,6 @@ function MessageBox({ selectedFilter, mainContainer, conversations }) {
                             }}
                             key={child.key}
                         >
-                            {console.log(child)}
                             <div className={styles.avatarSection}>
                                 <img src={child.data.userAvatar ? child.data.userAvatar : uploadAvatarNull} alt="userAvatar.png" />
                             </div>
@@ -164,8 +183,8 @@ function MessageBox({ selectedFilter, mainContainer, conversations }) {
                                                         color: theme === "dark" ? "#fff" : "rgb(17,20,45)"
                                                     }}
                                                 >
-                                                    <li className={`${theme === "dark" ? styles.dark : ""}`}>Add to Archive</li>
-                                                    <li className={`${theme === "dark" ? styles.dark : ""}`}>Delete</li>
+                                                    <li className={`${theme === "dark" ? styles.dark : ""}`} onClick={(element) => handleArchived(element, child.key, child.data.isArchived)}>{child.data.isArchived ? translation.remove_from_archive : translation.add_to_archive}</li>
+                                                    <li className={`${theme === "dark" ? styles.dark : ""}`}>{translation.delete}</li>
                                                 </motion.ul>
                                             }
                                         </AnimatePresence>

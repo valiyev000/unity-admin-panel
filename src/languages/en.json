@@ -110,5 +110,11 @@
     "recent_messages": "Recent Messages",
     "archives_messages": "Archives Messages",
     "done_messages": "Done Messages",
-    "saved_messages": "Saved Messages"
+    "saved_messages": "Saved Messages",
+    "add_to_archive": "Add to Archive",
+    "remove_from_archive": "Remove from Archive",
+    "delete": "Delete",
+    "archive": "Archive",
+    "send_message": "Send Message",
+    "there_is_no_opened_conversation_yet": "There is no opened conversation yet:)"
 }
