@@ -10,9 +10,9 @@ import { Link, useHistory, useParams } from 'react-router-dom/cjs/react-router-d
 function MessageBox({ selectedFilter, mainContainer, conversations }) {
 
     const { theme, translation } = useContext(contextApi)
-    
-    console.log(conversations)
-    
+
+    // console.log(conversations)
+
     const history = useHistory();
     const { key } = useParams();
     const [openedMoreOptionMenuIndex, setOpenMoreOptionMenuIndex] = useState(null)
@@ -35,6 +35,44 @@ function MessageBox({ selectedFilter, mainContainer, conversations }) {
             setOpenMoreOptionMenuIndex(clickedKey)
         }
     }
+
+    const handleStarred = async (keyX) => {
+
+        console.log(keyX)
+
+        // const documentId = key; // Replace with the actual document ID
+        // const documentRef = doc(db, 'your-collection', documentId);
+
+        // try {
+        //   await updateDoc(documentRef, {
+        //     // Update your fields here
+        //     field1: 'new value 1',
+        //     field2: 'new value 2',
+        //     // ...
+        //   });
+
+        //   console.log('Document successfully updated!');
+        // } catch (error) {
+        //   console.error('Error updating document: ', error);
+        // }
+    };
+
+    const formatTime = (timestamp) => {
+        let formattedTime = ""
+
+        if (formattedTime !== "") {
+            const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1e6);
+
+            // Extract hours and minutes
+            const hours = date.getHours().toString().padStart(2, '0');
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+
+            // Combine hours and minutes
+            formattedTime = `${hours}:${minutes}`;
+        }
+
+        return formattedTime;
+    };
 
 
     return (
@@ -78,20 +116,21 @@ function MessageBox({ selectedFilter, mainContainer, conversations }) {
                         }}
                         key={child.key}
                     >
+                        {console.log(child)}
                         <div className={styles.avatarSection}>
-                            <img src={uploadAvatarNull} alt="userAvatar.png" />
+                            <img src={child.data.userAvatar ? child.data.userAvatar : uploadAvatarNull} alt="userAvatar.png" />
                         </div>
                         <div className={styles.details}>
                             <div className={styles.topSection}>
-                                <div className={styles.userName}>Joel Becker</div>
-                                <div className={styles.time}>17:43</div>
+                                <div className={styles.userName}>{child.data.userName}</div>
+                                <div className={styles.time}>{formatTime(child.data.modifiedTime)}</div>
                             </div>
                             <div className={styles.middleSection}>
-                                When is the Sketch version available for download?
+                                {child.data.messages[0].text.length < 46 ? child.data.messages[0].text : `${child.data.messages[0].text.slice(0,46)}...`}
                             </div>
                             <div className={styles.actionSection}>
                                 <button><FaComment color={child.key === key ? "#A79EE5" : "#808191"} /></button>
-                                <button><FaStar color={child.key === key ? "#A79EE5" : "#808191"} /></button>
+                                <button onClick={() => handleStarred("fef")}><FaStar color={child.key === key ? "#A79EE5" : "#808191"} /></button>
                                 <button onClick={(element) => handleMoreOptionMenu(element, child.key)} tabIndex={0} onBlur={() => setOpenMoreOptionMenuIndex(null)}><BsThreeDots color={child.key === key ? "#A79EE5" : "#808191"} />
                                     <AnimatePresence>
                                         {openedMoreOptionMenuIndex === child.key &&

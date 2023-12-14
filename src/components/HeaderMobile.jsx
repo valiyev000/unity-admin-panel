@@ -8,8 +8,6 @@ import unityLogoLight from '../images/unityLogoLight.png'
 import unityLogoDark from '../images/unityLogoDark.png'
 
 
-
-
 export default function HeaderMobile() {
 
     const { isNavOpen, setIsNavOpen, theme, testForNotification, screenWidth , forSearch, avatar, setIsSettingOpen } = useContext(contextApi)

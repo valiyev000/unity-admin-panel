@@ -8,7 +8,7 @@ import Header from '../components/Header'
 import HeaderMobileSub from '../sub-components/HeaderMobileSub'
 import ForSearch from '../sub-components/ForSearch'
 import styles from '../styles/pages/Inbox.module.scss'
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, doc, onSnapshot, query, serverTimestamp, setDoc, where } from 'firebase/firestore';
 import { db } from '../firebase-config'
 import { Link, useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min'
 import SearchBox from '../layout/Inbox/SearchBox'
@@ -49,12 +49,13 @@ export default function Inbox() {
 
 
   useEffect(() => {
-    const conversationsRef = collection(db, 'conversation');
+    const conversationsRef = collection(db, 'conversations');
 
     let q; //todo firestore query'ini onceden assign edirik...
 
     switch (selectedFilter) {
       case "your_inbox":
+        //! q = query(conversationsRef, where("isArchived", "==", false), orderBy(...nese bele bir sey));
         q = query(conversationsRef, where("isArchived", "==", false));
         break;
       case "archives":
@@ -91,6 +92,122 @@ export default function Inbox() {
   }, [selectedFilter]);
 
 
+
+//   const conversationModel = {
+//     i3wyfcbpuefcnviofj2p: {
+//         userName: "Tərlan Rəhmanzadə",
+//         userAvatar: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452",
+//         modifiedTime: serverTimestamp(),
+//         isArchived: false,
+//         isDone: false,
+//         isStarred: false,
+//         messages: [
+//             {
+//                 senderIsMe: true,
+//                 whenSent: new Date(),
+//                 isBold: false,
+//                 isItalic: false,
+//                 wasRead: false,
+//                 text: "Hər vaxtınız xeyir. Qısa müddət ərzində müraciətinizə baxılacaq",
+//                 photoArr: [
+//                     {
+//                         imgName: "AttacmentNewMessage.jpg",
+//                         imgSize: "4.6Mb",
+//                         imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+//                     },
+//                     {
+//                         imgName: "AttacmentNewMessage2.png",
+//                         imgSize: "5.6Mb",
+//                         imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+//                     }
+//                 ]
+//             },
+//             {
+//                 senderIsMe: false,
+//                 whenSent: new Date(),
+//                 isBold: true,
+//                 isItalic: false,
+//                 wasRead: false,
+//                 text: "Salam. Sifarişimlə bağlı problemim var",
+//                 photoArr: [
+//                     {
+//                         imgName: "AttacmentNewMessage.jpg",
+//                         imgSize: "4.6Mb",
+//                         imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+//                     },
+//                     {
+//                         imgName: "AttacmentNewMessage2.png",
+//                         imgSize: "5.6Mb",
+//                         imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+//                     }
+//                 ]
+//             },
+//         ]
+//     },
+//     a5u7di68co7fiytkf: {
+//         userName: "Süleyman Vəliyev",
+//         userAvatar: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452",
+//         modifiedTime: serverTimestamp(), 
+//         isArchived: false,
+//         isDone: false,
+//         isStarred: false,
+//         messages: [
+//             {
+//                 senderIsMe: true,
+//                 whenSent: new Date(),
+//                 isBold: false,
+//                 isItalic: false,
+//                 wasRead: false,
+//                 text: "Salam, zəhmət olmasa sifarişi qiymətləndirin.",
+//                 photoArr: [
+//                     {
+//                         imgName: "AttacmentNewMessage.jpg",
+//                         imgSize: "4.6Mb",
+//                         imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+//                     },
+//                     {
+//                         imgName: "AttacmentNewMessage2.png",
+//                         imgSize: "5.6Mb",
+//                         imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+//                     }
+//                 ]
+//             },
+//             {
+//                 senderIsMe: false,
+//                 whenSent: new Date(),
+//                 isBold: true,
+//                 isItalic: false,
+//                 wasRead: false,
+//                 text: "Ən qısa zamanda qiymətləndirəcəm. Təşəkkürlər",
+//                 photoArr: [
+//                     {
+//                         imgName: "AttacmentNewMessage.jpg",
+//                         imgSize: "4.6Mb",
+//                         imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+//                     },
+//                     {
+//                         imgName: "AttacmentNewMessage2.png",
+//                         imgSize: "5.6Mb",
+//                         imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+//                     }
+//                 ]
+//             },
+//         ]
+//     },
+// }
+
+// const handleSendData = async () => {  //todo conversation'lari ilk defeden gondermek ucundur. Sonda siline biler!!!
+//     const collectionRef = collection(db, "conversations");
+
+//     const promises = Object.keys(conversationModel).map(async (key) => {
+//         const docRef = doc(collectionRef, key);
+//         await setDoc(docRef, conversationModel[key]);
+//     });
+
+//     await Promise.all(promises);
+// };
+
+
   return (
     <main className={`${styles.main} ${theme === "dark" && styles.dark}`} style={MAIN_STYLE}>
       <AnimatePresence>
@@ -124,7 +241,7 @@ export default function Inbox() {
             <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
             <InboxFilter selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
             <MessageBox selectedFilter={selectedFilter} mainContainer={mainContainer} conversations={conversations} />
-
+            {/* <button onClick={handleSendData}>Send temp</button> */}
           </motion.div>
         }
         {(screenWidth >= 480 || (screenWidth < 480 && key)) &&

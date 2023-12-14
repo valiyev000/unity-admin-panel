@@ -33,6 +33,7 @@
                 min-width: 45px;
                 min-height: 45px;
                 > img {
+                    border-radius: 50%;
                     max-width: 100%;
                     max-height: 100%;
                 }
@@ -43,7 +44,7 @@
                 gap: 16px;
                 > .topSection {
                     display: flex;
-                    gap: 11px;
+                    justify-content: space-between;
                     > .userName {
                         font-family: Inter;
                         font-size: 13px;

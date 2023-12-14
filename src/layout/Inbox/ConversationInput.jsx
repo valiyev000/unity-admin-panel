@@ -51,6 +51,7 @@ function ConversationInput() {
                     isBold: false,
                     isItalic: false,
                     wasRead: false,
+                    text: "Hər vaxtınız xeyir. Qısa müddət ərzində müraciətinizə baxılacaq",
                     photoArr: [
                         {
                             imgName: "AttacmentNewMessage.jpg",
@@ -70,6 +71,7 @@ function ConversationInput() {
                     isBold: true,
                     isItalic: false,
                     wasRead: false,
+                    text: "Salam. Sifarişimlə bağlı problemim var",
                     photoArr: [
                         {
                             imgName: "AttacmentNewMessage.jpg",
@@ -99,6 +101,7 @@ function ConversationInput() {
                     isBold: false,
                     isItalic: false,
                     wasRead: false,
+                    text: "Salam, zəhmət olmasa sifarişi qiymətləndirin.",
                     photoArr: [
                         {
                             imgName: "AttacmentNewMessage.jpg",
@@ -118,6 +121,7 @@ function ConversationInput() {
                     isBold: true,
                     isItalic: false,
                     wasRead: false,
+                    text: "Ən qısa zamanda qiymətləndirəcəm. Təşəkkürlər",
                     photoArr: [
                         {
                             imgName: "AttacmentNewMessage.jpg",
@@ -136,7 +140,7 @@ function ConversationInput() {
     }
 
     const handleSendData = async () => {  //todo conversation'lari ilk defeden gondermek ucundur. Sonda siline biler!!!
-        const collectionRef = collection(db, "conversation");
+        const collectionRef = collection(db, "conversations");
 
         const promises = Object.keys(conversationModel).map(async (key) => {
             const docRef = doc(collectionRef, key);
