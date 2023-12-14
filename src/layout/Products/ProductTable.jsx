@@ -342,7 +342,7 @@ function ProductTable({ data, setData, getData }) {
                             <label className={styles.product} htmlFor="mainCheckbox">{translation.product}</label>
                         </div>
                         <div className={`${theme === "dark" ? styles.dark : ""}`}>{translation.amount}</div>
-                        <div className={`${theme === "dark" ? styles.dark : ""}`} style={{display: "flex", alignItems: "center", justifyContent: screenWidth < 1200 ? "center" : "unset"}}>{translation.color}</div>
+                        <div className={`${theme === "dark" ? styles.dark : ""}`} style={{ display: "flex", alignItems: "center", justifyContent: screenWidth < 1200 ? "center" : "unset" }}>{translation.color}</div>
                         <div className={`${theme === "dark" ? styles.dark : ""}`}>{translation.price}</div>
                         <div className={`${theme === "dark" ? styles.dark : ""}`}>{translation.rating}</div>
                     </div>
@@ -362,80 +362,83 @@ function ProductTable({ data, setData, getData }) {
                         </div>
                     </div>
                 }
-                {data !== null && screenWidth > 480 && keys.length !== 0 ? keys.map(key => (
-                    <motion.div
-                        className={styles.productRow}
-                        key={key}
-                        layout
-                        initial={{
-                            opacity: 0,
-                            gridTemplateColumns: screenWidth > 1200 ? "2fr 1fr 1fr 1fr 1fr" : "4fr 1fr 1fr 1fr 1fr"
-                        }}
-                        animate={{
-                            opacity: 1,
-                            gridTemplateColumns: screenWidth > 1200 ? "2fr 1fr 1fr 1fr 1fr" : "4fr 1fr 1fr 1fr 1fr"
-                        }}
-                        exit={{
-                            opacity: 0,
-                            gridTemplateColumns: screenWidth > 1200 ? "2fr 1fr 1fr 1fr 1fr" : "4fr 1fr 1fr 1fr 1fr"
-                        }}
-                        transition={{ duration: 0.3 }}
-                    >
-                        <div className={`${styles.firstColumn} ${theme === "dark" ? styles.dark : ""}`}>
-                            {checkboxMaker(key, data[key].checked)}
-                            <div className={styles.imgBox}>
-                                <img src={data[key].img === undefined ? imgProductNull : data[key].img} alt="demo.png" />
+                <AnimatePresence>
+                    {data !== null && screenWidth > 480 && keys.length !== 0 ? keys.map(key => (
+                        <motion.div
+                            className={styles.productRow}
+                            key={key}
+                            layout
+                            initial={{
+                                opacity: 0,
+                                gridTemplateColumns: screenWidth > 1200 ? "2fr 1fr 1fr 1fr 1fr" : "4fr 1fr 1fr 1fr 1fr"
+                            }}
+                            animate={{
+                                opacity: 1,
+                                gridTemplateColumns: screenWidth > 1200 ? "2fr 1fr 1fr 1fr 1fr" : "4fr 1fr 1fr 1fr 1fr"
+                            }}
+                            exit={{
+                                opacity: 0,
+                                gridTemplateColumns: screenWidth > 1200 ? "2fr 1fr 1fr 1fr 1fr" : "4fr 1fr 1fr 1fr 1fr"
+                            }}
+                            transition={{ duration: 0.3 }}
+                        >
+                            <div className={`${styles.firstColumn} ${theme === "dark" ? styles.dark : ""}`}>
+                                {checkboxMaker(key, data[key].checked)}
+                                <div className={styles.imgBox}>
+                                    <img src={data[key].img === undefined ? imgProductNull : data[key].img} alt="demo.png" />
+                                </div>
+                                <label className={styles.product} htmlFor={key}>
+                                    <div className={styles.name}>{data[key][`name_${lang}`]}</div>
+                                    <div className={styles.category}>{data[key][`category_${lang}`]}</div>
+                                </label>
                             </div>
-                            <label className={styles.product} htmlFor={key}>
-                                <div className={styles.name}>{data[key][`name_${lang}`]}</div>
-                                <div className={styles.category}>{data[key][`category_${lang}`]}</div>
-                            </label>
-                        </div>
-                        <div className={`${styles.stock} ${theme === "dark" ? styles.dark : ""}`}>{lang === "az" && translation.in_stock} {data[key].stock} {lang === "en" && translation.in_stock}</div>
-                        <div className={`${styles.color} ${theme === "dark" ? styles.dark : ""}`} style={{justifyContent: screenWidth < 1200 ? "center" : "unset"}}>
-                            <div className={styles.colorViewer} style={{ background: data[key].color, borderRadius: screenWidth < 1200 ? "50%" : "4px" }}></div>
-                            {screenWidth > 1200 && <div className={styles.colorName}>{data[key][`color_${lang}`]}</div>}
-                        </div>
-                        <div className={`${styles.price} ${theme === "dark" ? styles.dark : ""}`}>{data[key].currency}{data[key].price.toFixed(2)}</div>
-                        <div className={`${styles.rating} ${theme === "dark" ? styles.dark : ""}`}>
-                            <span>{data[key].rating}</span>
-                            <span>({data[key].votes_count} {translation.votes})</span>
-                        </div>
-                    </motion.div>
-                )) : data !== null && screenWidth < 480 && keys.length !== 0 ? keys.map(key => (
-                    <motion.div
-                        className={`${styles.productRowMobile} ${theme === "dark" ? styles.dark : ""}`}
-                        key={key}
-                        layout
-                        initial={{
-                            opacity: 0,
-                        }}
-                        animate={{
-                            opacity: 1,
-                        }}
-                        exit={{
-                            opacity: 0,
-                        }}
-                        transition={{ duration: 0.3 }}
-                    >
-                        <div className={styles.top}>
-                            {checkboxMaker(key, data[key].checked)}
-                            <div className={styles.imgBox}>
-                                <img src={data[key].img === undefined ? imgProductNull : data[key].img} alt="demo.png" />
+                            <div className={`${styles.stock} ${theme === "dark" ? styles.dark : ""}`}>{lang === "az" && translation.in_stock} {data[key].stock} {lang === "en" && translation.in_stock}</div>
+                            <div className={`${styles.color} ${theme === "dark" ? styles.dark : ""}`} style={{ justifyContent: screenWidth < 1200 ? "center" : "unset" }}>
+                                <div className={styles.colorViewer} style={{ background: data[key].color, borderRadius: screenWidth < 1200 ? "50%" : "4px" }}></div>
+                                {screenWidth > 1200 && <div className={styles.colorName}>{data[key][`color_${lang}`]}</div>}
                             </div>
-                            <label className={styles.product} htmlFor={key}>
-                                <div className={styles.name}>{data[key][`name_${lang}`]}</div>
-                                <div className={styles.category}>{data[key][`category_${lang}`]}</div>
-                            </label>
-                        </div>
-                        <div className={`${styles.bottom} ${theme === "dark" ? styles.dark : ""}`}>
-                            <div className={styles.colorBar} style={{ background: data[key].color }}></div>
-                            <div className={styles.price}>{data[key].currency}{data[key].price}</div>
-                            <div className={styles.stock}>{lang === "en" ? `${data[key].stock} in stock` : `Stok sayı ${data[key].stock}`}</div>
-                            <div className={styles.rating}>{data[key].rating}</div>
-                        </div>
-                    </motion.div>
-                )) : <motion.div animate={{ opacity: 1 }} exit={{ opacity: 0 }} className={styles.noProducts}>{translation.there_are_no_products_to_display}</motion.div>}
+                            <div className={`${styles.price} ${theme === "dark" ? styles.dark : ""}`}>{data[key].currency}{data[key].price.toFixed(2)}</div>
+                            <div className={`${styles.rating} ${theme === "dark" ? styles.dark : ""}`}>
+                                <span>{data[key].rating}</span>
+                                <span>({data[key].votes_count} {translation.votes})</span>
+                            </div>
+                        </motion.div>
+                    )) : data !== null && screenWidth < 480 && keys.length !== 0 ? keys.map(key => (
+                        <motion.div
+                            className={`${styles.productRowMobile} ${theme === "dark" ? styles.dark : ""}`}
+                            key={key}
+                            layout
+                            initial={{
+                                opacity: 0,
+                            }}
+                            animate={{
+                                opacity: 1,
+                            }}
+                            exit={{
+                                opacity: 0,
+                            }}
+                            transition={{ duration: 0.3 }}
+                        >
+                            <div className={styles.top}>
+                                {checkboxMaker(key, data[key].checked)}
+                                <div className={styles.imgBox}>
+                                    <img src={data[key].img === undefined ? imgProductNull : data[key].img} alt="demo.png" />
+                                </div>
+                                <label className={styles.product} htmlFor={key}>
+                                    <div className={styles.name}>{data[key][`name_${lang}`]}</div>
+                                    <div className={styles.category}>{data[key][`category_${lang}`]}</div>
+                                </label>
+                            </div>
+                            <div className={`${styles.bottom} ${theme === "dark" ? styles.dark : ""}`}>
+                                <div className={styles.colorBar} style={{ background: data[key].color }}></div>
+                                <div className={styles.price}>{data[key].currency}{data[key].price}</div>
+                                <div className={styles.stock}>{lang === "en" ? `${data[key].stock} in stock` : `Stok sayı ${data[key].stock}`}</div>
+                                <div className={styles.rating}>{data[key].rating}</div>
+                            </div>
+                        </motion.div>
+                    )) : <motion.div animate={{ opacity: 1 }} exit={{ opacity: 0 }} className={styles.noProducts}>{translation.there_are_no_products_to_display}</motion.div>
+                    }
+                </AnimatePresence>
                 {isHaveMore &&
                     <div className={styles.loadMoreBg}>
                         <button

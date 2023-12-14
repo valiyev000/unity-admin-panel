@@ -139,19 +139,6 @@ function ConversationInput() {
         },
     }
 
-    const handleSendData = async () => {  //todo conversation'lari ilk defeden gondermek ucundur. Sonda siline biler!!!
-        const collectionRef = collection(db, "conversations");
-
-        const promises = Object.keys(conversationModel).map(async (key) => {
-            const docRef = doc(collectionRef, key);
-            await setDoc(docRef, conversationModel[key]);
-        });
-
-        await Promise.all(promises);
-    };
-
-
-
     return (
         <div className={styles.main}>
             <div className={styles.textAreaBox} style={{ background: theme === "dark" ? "rgba(228, 228, 228, 0.1)" : "rgba(228, 228, 228, 1)" }}>
@@ -189,7 +176,7 @@ function ConversationInput() {
                     </div>
                 }
             </div>
-            <button className={styles.reply} onClick={handleSendData} ref={sendMessageBtn}>Send Message</button>
+            <button className={styles.reply} ref={sendMessageBtn}>Send Message</button>
         </div >
     )
 }

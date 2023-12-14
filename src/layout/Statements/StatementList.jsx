@@ -129,12 +129,12 @@ function StatementList({ data, setData, selectedMonth, setSelectedMonth, labelDa
 
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         if (labelData) {
-            const result = labelData.filter(label=>label.queryPath === selectedMonth)
+            const result = labelData.filter(label => label.queryPath === selectedMonth)
             setSelectedMonthForFilter(result[0]);
         }
-    },[labelData, selectedMonth])
+    }, [labelData, selectedMonth])
 
     return (
         <motion.div
@@ -242,68 +242,71 @@ function StatementList({ data, setData, selectedMonth, setSelectedMonth, labelDa
                         </div>
                     </div>
                 }
-                {data !== null && screenWidth > 480 && keys.length !== 0 ? keys.map(key => (
-                    <motion.div
-                        className={styles.statementRow}
-                        key={key}
-                        layout
-                        initial={{
-                            opacity: 0,
-                            gridTemplateColumns: "3fr 2fr 2fr 2fr 2fr"
-                        }}
-                        animate={{
-                            opacity: 1,
-                            gridTemplateColumns: "3fr 2fr 2fr 2fr 2fr"
-                        }}
-                        exit={{
-                            opacity: 0,
-                            gridTemplateColumns: "3fr 2fr 2fr 2fr 2fr"
-                        }}
-                        transition={{ duration: 0.3 }}
-                    >
-                        <div className={`${styles.firstColumn} ${theme === "dark" ? styles.dark : ""}`}>
-                            {checkboxMaker(key, data[key].checked)}
-                            <label className={styles.date} htmlFor={key}>{data[key][`date_${lang}`]}</label>
-                        </div>
-                        <div className={`${styles.orderId} ${theme === "dark" ? styles.dark : ""}`}>{data[key].orderId}</div>
-                        <div className={`${styles.amount} ${theme === "dark" ? styles.dark : ""}`} style={{ justifyContent: screenWidth < 1200 ? "center" : "unset" }}>{data[key].amount} {translation.piece}{data[key].amount > 1 && lang === "en" && "s"}</div>
-                        <div className={`${styles.price} ${theme === "dark" ? styles.dark : ""}`}>{data[key].currency}{data[key].price.toFixed(2)}</div>
-                        <div className={`${styles.type} ${theme === "dark" ? styles.dark : ""}`}>
-                            <div className={styles.template}>{translation.sale}</div>
-                        </div>
-                    </motion.div>
-                )) : data !== null && screenWidth < 480 && keys.length !== 0 ? keys.map(key => (
-                    <motion.div
-                        className={`${styles.statementRowMobile} ${theme === "dark" ? styles.dark : ""}`}
-                        key={key}
-                        layout
-                        initial={{
-                            opacity: 0,
-                        }}
-                        animate={{
-                            opacity: 1,
-                        }}
-                        exit={{
-                            opacity: 0,
-                        }}
-                        transition={{ duration: 0.3 }}
-                    >
-                        <div className={styles.top}>
-                            {checkboxMaker(key, data[key].checked)}
-                            <label className={styles.statement} htmlFor={key}>
-                                <div className={styles.orderIdText}>{translation.order_id}</div>
-                                <div className={styles.orderId}>{data[key].orderId}</div>
-                            </label>
-                            <div className={styles.typeTemplate}>{translation.sale}</div>
-                        </div>
-                        <div className={`${styles.bottom} ${theme === "dark" ? styles.dark : ""}`}>
-                            <div className={styles.colorBar} style={{ background: "#7FBA7A" }}></div>
-                            <div className={styles.date}>{data[key][`date_${lang}`]}</div>
-                            <div className={styles.amount}>{data[key].amount}</div>
-                            <div className={styles.price}>{data[key].currency}{data[key].price}</div>
-                        </div>
-                    </motion.div>
-                )) : <motion.div animate={{ opacity: 1 }} exit={{ opacity: 0 }} className={styles.noProducts}>{translation.there_are_no_products_to_display}</motion.div>}
+                <AnimatePresence>
+                    {data !== null && screenWidth > 480 && keys.length !== 0 ? keys.map(key => (
+                        <motion.div
+                            className={styles.statementRow}
+                            key={key}
+                            layout
+                            initial={{
+                                opacity: 0,
+                                gridTemplateColumns: "3fr 2fr 2fr 2fr 2fr"
+                            }}
+                            animate={{
+                                opacity: 1,
+                                gridTemplateColumns: "3fr 2fr 2fr 2fr 2fr"
+                            }}
+                            exit={{
+                                opacity: 0,
+                                gridTemplateColumns: "3fr 2fr 2fr 2fr 2fr"
+                            }}
+                            transition={{ duration: 0.3 }}
+                        >
+                            <div className={`${styles.firstColumn} ${theme === "dark" ? styles.dark : ""}`}>
+                                {checkboxMaker(key, data[key].checked)}
+                                <label className={styles.date} htmlFor={key}>{data[key][`date_${lang}`]}</label>
+                            </div>
+                            <div className={`${styles.orderId} ${theme === "dark" ? styles.dark : ""}`}>{data[key].orderId}</div>
+                            <div className={`${styles.amount} ${theme === "dark" ? styles.dark : ""}`} style={{ justifyContent: screenWidth < 1200 ? "center" : "unset" }}>{data[key].amount} {translation.piece}{data[key].amount > 1 && lang === "en" && "s"}</div>
+                            <div className={`${styles.price} ${theme === "dark" ? styles.dark : ""}`}>{data[key].currency}{data[key].price.toFixed(2)}</div>
+                            <div className={`${styles.type} ${theme === "dark" ? styles.dark : ""}`}>
+                                <div className={styles.template}>{translation.sale}</div>
+                            </div>
+                        </motion.div>
+                    )) : data !== null && screenWidth < 480 && keys.length !== 0 ? keys.map(key => (
+                        <motion.div
+                            className={`${styles.statementRowMobile} ${theme === "dark" ? styles.dark : ""}`}
+                            key={key}
+                            layout
+                            initial={{
+                                opacity: 0,
+                            }}
+                            animate={{
+                                opacity: 1,
+                            }}
+                            exit={{
+                                opacity: 0,
+                            }}
+                            transition={{ duration: 0.3 }}
+                        >
+                            <div className={styles.top}>
+                                {checkboxMaker(key, data[key].checked)}
+                                <label className={styles.statement} htmlFor={key}>
+                                    <div className={styles.orderIdText}>{translation.order_id}</div>
+                                    <div className={styles.orderId}>{data[key].orderId}</div>
+                                </label>
+                                <div className={styles.typeTemplate}>{translation.sale}</div>
+                            </div>
+                            <div className={`${styles.bottom} ${theme === "dark" ? styles.dark : ""}`}>
+                                <div className={styles.colorBar} style={{ background: "#7FBA7A" }}></div>
+                                <div className={styles.date}>{data[key][`date_${lang}`]}</div>
+                                <div className={styles.amount}>{data[key].amount}</div>
+                                <div className={styles.price}>{data[key].currency}{data[key].price}</div>
+                            </div>
+                        </motion.div>
+                    )) : <motion.div animate={{ opacity: 1 }} exit={{ opacity: 0 }} className={styles.noProducts}>{translation.there_are_no_products_to_display}</motion.div>
+                    }
+                </AnimatePresence>
                 {isHaveMore &&
                     <div className={styles.loadMoreBg}>
                         <button

@@ -6,6 +6,8 @@ import uploadAvatarNull from '../../images/uploadAvatarNull.png'
 import { FaComment, FaStar } from "react-icons/fa6";
 import { BsThreeDots } from "react-icons/bs";
 import { Link, useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min'
+import { db } from '../../firebase-config'
+import { doc, updateDoc } from 'firebase/firestore'
 
 function MessageBox({ selectedFilter, mainContainer, conversations }) {
 
@@ -36,25 +38,23 @@ function MessageBox({ selectedFilter, mainContainer, conversations }) {
         }
     }
 
-    const handleStarred = async (keyX) => {
+    const handleStarred = async (element, keyX, isStarred) => {
 
-        console.log(keyX)
+        element.stopPropagation()
+        // console.log(keyX)
 
-        // const documentId = key; // Replace with the actual document ID
-        // const documentRef = doc(db, 'your-collection', documentId);
+        const documentId = keyX; // Replace with the actual document ID
+        const documentRef = doc(db, 'conversations', documentId);
 
-        // try {
-        //   await updateDoc(documentRef, {
-        //     // Update your fields here
-        //     field1: 'new value 1',
-        //     field2: 'new value 2',
-        //     // ...
-        //   });
+        try {
+            await updateDoc(documentRef, {
+                isStarred: !isStarred,
+            });
 
-        //   console.log('Document successfully updated!');
-        // } catch (error) {
-        //   console.error('Error updating document: ', error);
-        // }
+            console.log('Document successfully updated!');
+        } catch (error) {
+            console.error('Error updating document: ', error);
+        }
     };
 
     const formatTime = (timestamp) => {
@@ -100,74 +100,81 @@ function MessageBox({ selectedFilter, mainContainer, conversations }) {
                 }
             </motion.div>
             <ul className={styles.innerContainer}>
-                {conversations && conversations.map(child => (
-                    <motion.li
-                        className={styles.userBlock}
-                        onClick={() => handleUserBlockClick(child.key)}
-                        initial={{
-                            opacity: 0,
-                            background: child.key === key ? "rgba(108,93,211,1)" : "rgba(108,93,211,0)",
-                            color: child.key === key ? "#fff" : "#808191"
-                        }}
-                        animate={{
-                            opacity: 1,
-                            background: child.key === key ? "rgba(108,93,211,1)" : "rgba(108,93,211,0)",
-                            color: child.key === key ? "#fff" : "#808191"
-                        }}
-                        key={child.key}
-                    >
-                        {console.log(child)}
-                        <div className={styles.avatarSection}>
-                            <img src={child.data.userAvatar ? child.data.userAvatar : uploadAvatarNull} alt="userAvatar.png" />
-                        </div>
-                        <div className={styles.details}>
-                            <div className={styles.topSection}>
-                                <div className={styles.userName}>{child.data.userName}</div>
-                                <div className={styles.time}>{formatTime(child.data.modifiedTime)}</div>
+                <AnimatePresence>
+                    {conversations && conversations.map(child => (
+                        <motion.li
+                            className={styles.userBlock}
+                            onClick={() => handleUserBlockClick(child.key)}
+                            initial={{
+                                opacity: 0,
+                                background: child.key === key ? "rgba(108,93,211,1)" : "rgba(108,93,211,0)",
+                                color: child.key === key ? "#fff" : "#808191"
+                            }}
+                            animate={{
+                                opacity: 1,
+                                background: child.key === key ? "rgba(108,93,211,1)" : "rgba(108,93,211,0)",
+                                color: child.key === key ? "#fff" : "#808191"
+                            }}
+                            exit={{
+                                opacity: 0,
+                                background: child.key === key ? "rgba(108,93,211,1)" : "rgba(108,93,211,0)",
+                                color: child.key === key ? "#fff" : "#808191"
+                            }}
+                            key={child.key}
+                        >
+                            {console.log(child)}
+                            <div className={styles.avatarSection}>
+                                <img src={child.data.userAvatar ? child.data.userAvatar : uploadAvatarNull} alt="userAvatar.png" />
                             </div>
-                            <div className={styles.middleSection}>
-                                {child.data.messages[0].text.length < 46 ? child.data.messages[0].text : `${child.data.messages[0].text.slice(0,46)}...`}
+                            <div className={styles.details}>
+                                <div className={styles.topSection}>
+                                    <div className={styles.userName}>{child.data.userName}</div>
+                                    <div className={styles.time}>{formatTime(child.data.modifiedTime)}</div>
+                                </div>
+                                <div className={styles.middleSection}>
+                                    {child.data.messages[0].text.length < 46 ? child.data.messages[0].text : `${child.data.messages[0].text.slice(0, 46)}...`}
+                                </div>
+                                <div className={styles.actionSection}>
+                                    <button><FaComment color={child.key === key ? "#A79EE5" : "#808191"} /></button>
+                                    <button onClick={(element) => handleStarred(element, child.key, child.data.isStarred)}><FaStar color={child.data.isStarred ? "#FDCC0D" : child.key === key ? "#A79EE5" : "#808191"} /></button>
+                                    <button onClick={(element) => handleMoreOptionMenu(element, child.key)} tabIndex={0} onBlur={() => setOpenMoreOptionMenuIndex(null)}><BsThreeDots color={child.key === key ? "#A79EE5" : "#808191"} />
+                                        <AnimatePresence>
+                                            {openedMoreOptionMenuIndex === child.key &&
+                                                <motion.ul
+                                                    className={styles.moreOptionMenu}
+                                                    initial={{
+                                                        transform: "translateX(50%) translateY(-20%)",
+                                                        opacity: 0,
+                                                        background: theme === "dark" ? "#242731" : "#fff",
+                                                        border: theme === "dark" ? "rgb(228,228,228)" : "rgba(228,228,228,0.1)",
+                                                        color: theme === "dark" ? "#fff" : "rgb(17,20,45)"
+                                                    }}
+                                                    animate={{
+                                                        transform: "translateX(50%) translateY(0%)",
+                                                        opacity: 1,
+                                                        background: theme === "dark" ? "#242731" : "#fff",
+                                                        border: theme === "dark" ? "rgb(228,228,228)" : "rgba(228,228,228,0.1)",
+                                                        color: theme === "dark" ? "#fff" : "rgb(17,20,45)"
+                                                    }}
+                                                    exit={{
+                                                        transform: "translateX(50%) translateY(-20%)",
+                                                        opacity: 0,
+                                                        background: theme === "dark" ? "#242731" : "#fff",
+                                                        border: theme === "dark" ? "rgb(228,228,228)" : "rgba(228,228,228,0.1)",
+                                                        color: theme === "dark" ? "#fff" : "rgb(17,20,45)"
+                                                    }}
+                                                >
+                                                    <li className={`${theme === "dark" ? styles.dark : ""}`}>Add to Archive</li>
+                                                    <li className={`${theme === "dark" ? styles.dark : ""}`}>Delete</li>
+                                                </motion.ul>
+                                            }
+                                        </AnimatePresence>
+                                    </button>
+                                </div>
                             </div>
-                            <div className={styles.actionSection}>
-                                <button><FaComment color={child.key === key ? "#A79EE5" : "#808191"} /></button>
-                                <button onClick={() => handleStarred("fef")}><FaStar color={child.key === key ? "#A79EE5" : "#808191"} /></button>
-                                <button onClick={(element) => handleMoreOptionMenu(element, child.key)} tabIndex={0} onBlur={() => setOpenMoreOptionMenuIndex(null)}><BsThreeDots color={child.key === key ? "#A79EE5" : "#808191"} />
-                                    <AnimatePresence>
-                                        {openedMoreOptionMenuIndex === child.key &&
-                                            <motion.ul
-                                                className={styles.moreOptionMenu}
-                                                initial={{
-                                                    transform: "translateX(50%) translateY(-20%)",
-                                                    opacity: 0,
-                                                    background: theme === "dark" ? "#242731" : "#fff",
-                                                    border: theme === "dark" ? "rgb(228,228,228)" : "rgba(228,228,228,0.1)",
-                                                    color: theme === "dark" ? "#fff" : "rgb(17,20,45)"
-                                                }}
-                                                animate={{
-                                                    transform: "translateX(50%) translateY(0%)",
-                                                    opacity: 1,
-                                                    background: theme === "dark" ? "#242731" : "#fff",
-                                                    border: theme === "dark" ? "rgb(228,228,228)" : "rgba(228,228,228,0.1)",
-                                                    color: theme === "dark" ? "#fff" : "rgb(17,20,45)"
-                                                }}
-                                                exit={{
-                                                    transform: "translateX(50%) translateY(-20%)",
-                                                    opacity: 0,
-                                                    background: theme === "dark" ? "#242731" : "#fff",
-                                                    border: theme === "dark" ? "rgb(228,228,228)" : "rgba(228,228,228,0.1)",
-                                                    color: theme === "dark" ? "#fff" : "rgb(17,20,45)"
-                                                }}
-                                            >
-                                                <li className={`${theme === "dark" ? styles.dark : ""}`}>Add to Archive</li>
-                                                <li className={`${theme === "dark" ? styles.dark : ""}`}>Delete</li>
-                                            </motion.ul>
-                                        }
-                                    </AnimatePresence>
-                                </button>
-                            </div>
-                        </div>
-                    </motion.li>
-                ))}
+                        </motion.li>
+                    ))}
+                </AnimatePresence>
             </ul>
         </motion.div>
     )

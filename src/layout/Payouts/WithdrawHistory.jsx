@@ -63,7 +63,7 @@ function WithdrawHistory({ data, setData }) {
             if (selectedMonth !== "Select Range") {
                 templateKeys = templateKeys.filter(key => data[key].date_month === selectedMonth) //todo Secilmis range'e uygun olaraq filterleyir
             }
-            
+
             if (selectedMethod !== "Select Method") {
                 templateKeys = templateKeys.filter(key => data[key].payment_method === selectedMethod) //todo Secilmis methoda'a uygun olaraq filterleyir
             }
@@ -326,64 +326,67 @@ function WithdrawHistory({ data, setData }) {
                         </div>
                     </div>
                 }
-                {data !== null && screenWidth > 480 && keys.length !== 0 ? keys.map(key => (
-                    <motion.div
-                        className={styles.payoutsRow}
-                        key={key}
-                        layout
-                        initial={{
-                            opacity: 0,
-                            gridTemplateColumns: screenWidth > 1200 ? "2fr 1fr 1fr 1fr 1fr" : "50fr 24fr 25fr 32fr 10fr"
-                        }}
-                        animate={{
-                            opacity: 1,
-                            gridTemplateColumns: screenWidth > 1200 ? "2fr 1fr 1fr 1fr 1fr" : "50fr 24fr 25fr 32fr 10fr"
-                        }}
-                        exit={{
-                            opacity: 0,
-                            gridTemplateColumns: screenWidth > 1200 ? "2fr 1fr 1fr 1fr 1fr" : "50fr 24fr 25fr 32fr 10fr"
-                        }}
-                        transition={{ duration: 0.3 }}
-                    >
-                        <div className={`${styles.firstColumn} ${theme === "dark" ? styles.dark : ""}`}>
-                            {checkboxMaker(key, data[key].checked)}
-                            <label className={styles.payout} htmlFor={key}>
-                                <div className={styles.value}>{data[key].currency}{data[key].value.toFixed(2)}</div>
-                                {data[key].discount_fee && <div className={styles.discountFee}>{data[key].currency}{data[key].discount_fee.toFixed(2)} {translation.transaction_fee}</div>}
-                            </label>
-                        </div>
-                        <div className={`${styles.paymentMethod} ${theme === "dark" ? styles.dark : ""}`}>{data[key].payment_method}</div>
-                        <div className={`${styles.status} ${theme === "dark" ? styles.dark : ""}`} style={{justifyContent: screenWidth > 1200 ? "flex-start" : "center"}}>
-                            <div style={{background: data[key].status === "Paid" ? "#7FBA7A" : data[key].status === "Pending" ? "#e9cc00" : "#e34f3f"}}>{data[key].status}</div>
-                        </div>
-                        <div className={`${styles.date} ${theme === "dark" ? styles.dark : ""}`}>{data[key][`date_${lang}`]}</div>
-                        <div className={`${styles.fee} ${theme === "dark" ? styles.dark : ""}`}>{data[key].currency}{data[key].fee}</div>
-                    </motion.div>
-                )) : data !== null && screenWidth < 480 && keys.length !== 0 ? keys.map(key => (
-                    <motion.div
-                        className={`${styles.payoutsRowMobile} ${theme === "dark" ? styles.dark : ""}`}
-                        key={key}
-                        layout
-                        initial={{ opacity: 0}}
-                        animate={{opacity: 1}}
-                        exit={{opacity: 0}}
-                        transition={{ duration: 0.3 }}
-                    >
-                        <div className={styles.top}>
-                            {checkboxMaker(key, data[key].checked)}
-                            <label className={styles.payout} htmlFor={key}>
-                                <div className={styles.value}>{data[key].currency}{data[key].value.toFixed(2)}</div>
-                                {data[key].discount_fee && <div className={styles.discountFee}>{data[key].currency}{data[key].discount_fee.toFixed(2)} {translation.transaction_fee}</div>}
-                            </label>
-                        </div>
-                        <div className={`${styles.bottom} ${theme === "dark" ? styles.dark : ""}`}>
-                            <div className={styles.colorBar} style={{ background: data[key].status === "Paid" ? "#7FBA7A" : data[key].status === "Pending" ? "#e9cc00" : "#e34f3f" }}></div>
-                            <div className={styles.date}>{data[key][`date_${lang}`]}</div>
-                            <div className={styles.paymentMethod}>{data[key].payment_method}</div>
-                            <div className={styles.fee}>{data[key].currency}{data[key].fee}</div>
-                        </div>
-                    </motion.div>
-                )) : <motion.div animate={{ opacity: 1 }} exit={{ opacity: 0 }} className={styles.noProducts}>{translation.there_are_no_transaction_to_display}</motion.div>}
+                <AnimatePresence>
+                    {data !== null && screenWidth > 480 && keys.length !== 0 ? keys.map(key => (
+                        <motion.div
+                            className={styles.payoutsRow}
+                            key={key}
+                            layout
+                            initial={{
+                                opacity: 0,
+                                gridTemplateColumns: screenWidth > 1200 ? "2fr 1fr 1fr 1fr 1fr" : "50fr 24fr 25fr 32fr 10fr"
+                            }}
+                            animate={{
+                                opacity: 1,
+                                gridTemplateColumns: screenWidth > 1200 ? "2fr 1fr 1fr 1fr 1fr" : "50fr 24fr 25fr 32fr 10fr"
+                            }}
+                            exit={{
+                                opacity: 0,
+                                gridTemplateColumns: screenWidth > 1200 ? "2fr 1fr 1fr 1fr 1fr" : "50fr 24fr 25fr 32fr 10fr"
+                            }}
+                            transition={{ duration: 0.3 }}
+                        >
+                            <div className={`${styles.firstColumn} ${theme === "dark" ? styles.dark : ""}`}>
+                                {checkboxMaker(key, data[key].checked)}
+                                <label className={styles.payout} htmlFor={key}>
+                                    <div className={styles.value}>{data[key].currency}{data[key].value.toFixed(2)}</div>
+                                    {data[key].discount_fee && <div className={styles.discountFee}>{data[key].currency}{data[key].discount_fee.toFixed(2)} {translation.transaction_fee}</div>}
+                                </label>
+                            </div>
+                            <div className={`${styles.paymentMethod} ${theme === "dark" ? styles.dark : ""}`}>{data[key].payment_method}</div>
+                            <div className={`${styles.status} ${theme === "dark" ? styles.dark : ""}`} style={{ justifyContent: screenWidth > 1200 ? "flex-start" : "center" }}>
+                                <div style={{ background: data[key].status === "Paid" ? "#7FBA7A" : data[key].status === "Pending" ? "#e9cc00" : "#e34f3f" }}>{data[key].status}</div>
+                            </div>
+                            <div className={`${styles.date} ${theme === "dark" ? styles.dark : ""}`}>{data[key][`date_${lang}`]}</div>
+                            <div className={`${styles.fee} ${theme === "dark" ? styles.dark : ""}`}>{data[key].currency}{data[key].fee}</div>
+                        </motion.div>
+                    )) : data !== null && screenWidth < 480 && keys.length !== 0 ? keys.map(key => (
+                        <motion.div
+                            className={`${styles.payoutsRowMobile} ${theme === "dark" ? styles.dark : ""}`}
+                            key={key}
+                            layout
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                        >
+                            <div className={styles.top}>
+                                {checkboxMaker(key, data[key].checked)}
+                                <label className={styles.payout} htmlFor={key}>
+                                    <div className={styles.value}>{data[key].currency}{data[key].value.toFixed(2)}</div>
+                                    {data[key].discount_fee && <div className={styles.discountFee}>{data[key].currency}{data[key].discount_fee.toFixed(2)} {translation.transaction_fee}</div>}
+                                </label>
+                            </div>
+                            <div className={`${styles.bottom} ${theme === "dark" ? styles.dark : ""}`}>
+                                <div className={styles.colorBar} style={{ background: data[key].status === "Paid" ? "#7FBA7A" : data[key].status === "Pending" ? "#e9cc00" : "#e34f3f" }}></div>
+                                <div className={styles.date}>{data[key][`date_${lang}`]}</div>
+                                <div className={styles.paymentMethod}>{data[key].payment_method}</div>
+                                <div className={styles.fee}>{data[key].currency}{data[key].fee}</div>
+                            </div>
+                        </motion.div>
+                    )) : <motion.div animate={{ opacity: 1 }} exit={{ opacity: 0 }} className={styles.noProducts}>{translation.there_are_no_transaction_to_display}</motion.div>
+                    }
+                </AnimatePresence>
                 {isHaveMore &&
                     <div className={styles.loadMoreBg}>
                         <button
