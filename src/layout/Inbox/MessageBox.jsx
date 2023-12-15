@@ -78,21 +78,16 @@ function MessageBox({ selectedFilter, mainContainer, conversations }) {
 
     const formatTime = (timestamp) => {
         let formattedTime = ""
-
-        if (formattedTime !== "") {
+        if (timestamp) {
             const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1e6);
-
             // Extract hours and minutes
             const hours = date.getHours().toString().padStart(2, '0');
             const minutes = date.getMinutes().toString().padStart(2, '0');
-
             // Combine hours and minutes
             formattedTime = `${hours}:${minutes}`;
         }
-
         return formattedTime;
     };
-
 
     return (
         <motion.div
@@ -142,6 +137,7 @@ function MessageBox({ selectedFilter, mainContainer, conversations }) {
                             }}
                             key={child.key}
                         >
+                            {/* {console.log(child)} */}
                             <div className={styles.avatarSection}>
                                 <img src={child.data.userAvatar ? child.data.userAvatar : uploadAvatarNull} alt="userAvatar.png" />
                             </div>

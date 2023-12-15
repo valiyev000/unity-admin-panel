@@ -178,7 +178,7 @@ export default function Setting() {
     async function handleUpdate() {
         setUpdateText("updating");
     
-        let temporaryImgLinkHolder = null
+        let temporaryImgLinkHolder = formData.avatar
     
         // Get the currently authenticated user
         const user = auth.currentUser;
@@ -193,7 +193,7 @@ export default function Setting() {
                         resolve()
                     } else {
 
-                        const storageRef = ref(storage, `avatars/user_avatar${Math.random()}`);
+                        const storageRef = ref(storage, `avatars/user${user.uid}`);
 
                         try {
                             await uploadString(storageRef, formData.avatar, 'data_url');
@@ -213,9 +213,8 @@ export default function Setting() {
             });
     
             const userDocRef = doc(db, 'users', user.uid);
-    
+            
             try {
-                console.log(temporaryImgLinkHolder);
                 await setDoc(userDocRef, { ...formData, avatar: temporaryImgLinkHolder });
                 console.log('Congratulations. It was SENT:)');
                 setUpdateText("Updated");
@@ -225,9 +224,9 @@ export default function Setting() {
                 alert(error);
             }
         }
-    
+
         try {
-            await updateProfile(user, { displayName: formData.displayName, photoURL: temporaryImgLinkHolder });
+            await updateProfile(user, { displayName: formData.displayName, photoURL: temporaryImgLinkHolder === null ? "" : temporaryImgLinkHolder });
             console.log('Display name and new avatar updated successfully');
         } catch (error) {
             console.error(error.message);
@@ -245,6 +244,9 @@ export default function Setting() {
         setUser({ ...auth.currentUser });
         handleGetDataForAvatar();
     }
+
+
+    
     
 
 
