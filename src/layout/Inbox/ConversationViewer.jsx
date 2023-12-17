@@ -55,7 +55,7 @@ function ConversationViewer() {
         return formattedTime;
     };
 
-    useEffect(() => { console.log(documentData) }, [documentData])
+    useEffect(() => { console.log(documentData?.messages[0]) }, [documentData])
 
     return (
         <motion.div
@@ -83,7 +83,7 @@ function ConversationViewer() {
                 <button className={styles.archive}>{translation.archive}</button>
             </div>
             <div className={styles.history}>
-                <ConversationInput />
+                <ConversationInput documentData={documentData} setDocumentData={setDocumentData} />
                 {documentData && documentData.messages.map((message, index) => (
                     <motion.div
                         className={styles.message}
