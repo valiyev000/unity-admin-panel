@@ -76,6 +76,23 @@ function MessageBox({ selectedFilter, mainContainer, conversations }) {
         }
     }
 
+    const handleDelete = async (element, keyX) => {
+        try {
+            element.stopPropagation()
+            setOpenMoreOptionMenuIndex(null)
+
+            const documentId = keyX;
+            const documentRef = doc(db, 'conversations', documentId);
+
+            // Delete the document
+            await deleteDoc(documentRef);
+
+            console.log('Document successfully deleted!');
+        } catch (error) {
+            console.error('Error deleting document: ', error);
+        }
+    };
+
     const formatTime = (timestamp) => {
         let formattedTime = ""
         if (timestamp) {
@@ -180,7 +197,7 @@ function MessageBox({ selectedFilter, mainContainer, conversations }) {
                                                     }}
                                                 >
                                                     <li className={`${theme === "dark" ? styles.dark : ""}`} onClick={(element) => handleArchived(element, child.key, child.data.isArchived)}>{child.data.isArchived ? translation.remove_from_archive : translation.add_to_archive}</li>
-                                                    <li className={`${theme === "dark" ? styles.dark : ""}`}>{translation.delete}</li>
+                                                    <li className={`${theme === "dark" ? styles.dark : ""}`} onClick={(element) => handleDelete(element, child.key)}>{translation.delete}</li>
                                                 </motion.ul>
                                             }
                                         </AnimatePresence>
