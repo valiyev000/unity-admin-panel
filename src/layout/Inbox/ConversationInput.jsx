@@ -7,6 +7,7 @@ import { FaPlus } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 import { collection, doc, setDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../../firebase-config';
+import { AnimatePresence, motion } from 'framer-motion';
 
 function ConversationInput({ documentData, setDocumentData }) {
 
@@ -25,27 +26,32 @@ function ConversationInput({ documentData, setDocumentData }) {
     const [inputValue, setInputValue] = useState("")
     const sendMessageBtn = useRef(null)
 
-    function handleInputFile(e) { //* elde olunan sekili base64 formatina cevirir ve ya (else vasitesile) silir
+    function handleInputFile(element, id) { //* elde olunan sekili base64 formatina cevirir ve ya (else vasitesile) silir
 
-        if (e !== "delCommand" && e.target.files[0]) {
+        if (element !== "delCommand" && element.target.files[0]) {
 
-            const img = e.target.files[0];
+            const img = element.target.files[0];
 
             const reader = new FileReader();
             reader.readAsDataURL(img)
 
             reader.onload = (e) => {
-                formData.avatar = e.target.result
-                setFormData({ ...formData })
+                newMessageData.photoArr.push({
+                    id: Math.random(),
+                    imgName: img.name,  // Accessing the name property of the File object
+                    imgSize: formatFileSize(img.size),  // Accessing the size property of the File object
+                    imgURL: e.target.result
+                });
+                setNewMessageData({ ...newMessageData })
+                element.target.value = null
             };
-
         } else {
-            setFormData({ ...formData, avatar: null })
+            newMessageData.photoArr = newMessageData.photoArr.filter(image => image.id != id)
+            setNewMessageData({ ...newMessageData })
         }
-
     }
 
-    function handleUserInput(type, objectKey, value='') { //todo type--> hansi terz deyisiklik olacagini qebul edir. switch case'de ferq edir, objectKey--> state'in daxilinde hansi deyeri hansi key'e daxil edeceyini aydinlasdirir, value--> string tipli value'nu ozunde eks etdirir
+    function handleUserInput(type, objectKey, value = '') { //todo type--> hansi terz deyisiklik olacagini qebul edir. switch case'de ferq edir, objectKey--> state'in daxilinde hansi deyeri hansi key'e daxil edeceyini aydinlasdirir, value--> string tipli value'nu ozunde eks etdirir
         switch (type) {
             case "style":
                 newMessageData[objectKey] = !newMessageData[objectKey]
@@ -57,25 +63,36 @@ function ConversationInput({ documentData, setDocumentData }) {
                 console.log("Something wrong on the handleUserInput func...")
                 break;
         }
-        setNewMessageData({...newMessageData})
+        setNewMessageData({ ...newMessageData })
     }
 
-    // useEffect(()=>{console.log(newMessageData)},[newMessageData])
+    function formatFileSize(size) {
+        const kilobytes = size / 1024;
+        if (kilobytes < 1024) {
+            return kilobytes.toFixed(2) + " KB";
+        } else {
+            const megabytes = kilobytes / 1024;
+            return megabytes.toFixed(2) + " MB";
+        }
+    }
+
+    useEffect(() => { console.log(newMessageData) }, [newMessageData])
 
     return (
         <div className={styles.main}>
-            <div className={styles.textAreaBox} style={{ background: theme === "dark" ? "rgba(228, 228, 228, 0.1)" : "rgba(228, 228, 228, 1)" }}>
+            <motion.div layout className={styles.textAreaBox} style={{ background: theme === "dark" ? "rgba(228, 228, 228, 0.1)" : "rgba(228, 228, 228, 1)" }}>
                 <div className={styles.actionSection} style={{ borderBottom: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid rgba(203, 203, 203, 1)" }}>
                     <div className={styles.left}>
-                        <button onClick={() => handleUserInput("style","isBold")} style={{ background: newMessageData.isBold ? "#000" : "#fff", color: newMessageData.isBold ? "#fff" : "#000", }}><FaBold /></button>
-                        <button onClick={() => handleUserInput("style","isItalic")} style={{ background: newMessageData.isItalic ? "#000" : "#fff", color: newMessageData.isItalic ? "#fff" : "#000", }}><FaItalic /></button>
+                        <button onClick={() => handleUserInput("style", "isBold")} style={{ background: newMessageData.isBold ? "#000" : "#fff", color: newMessageData.isBold ? "#fff" : "#000", }}><FaBold /></button>
+                        <button onClick={() => handleUserInput("style", "isItalic")} style={{ background: newMessageData.isItalic ? "#000" : "#fff", color: newMessageData.isItalic ? "#fff" : "#000", }}><FaItalic /></button>
                     </div>
                     <div className={styles.right}>
-                        <input type="file" onChange={(e) => handleInputFile(e)} name="imgInput" id="imgInput" accept=".jpg, .jpeg, .png, .gif" />
+                        <input type="file" onInput={(e) => handleInputFile(e)} name="imgInput" id="imgInput" accept=".jpg, .jpeg, .png, .gif" />
                         <label htmlFor="imgInput"><FaPlus color='#fff' size={14} /></label>
                     </div>
                 </div>
-                <textarea
+                <motion.textarea
+                    layout
                     name="input"
                     id="input"
                     value={newMessageData.text}
@@ -85,20 +102,33 @@ function ConversationInput({ documentData, setDocumentData }) {
                         fontStyle: newMessageData.isItalic ? "italic" : "normal"
                     }}
                 >
-                </textarea>
-                {false &&
-                    <div className={styles.imgsSection}>
-                        <div className={styles.imgBox}>
-                            <img src={uploadAvatarNull} alt="img" />
-                            <button className={styles.deleteBtn}><IoClose /></button>
-                        </div>
-                        <div className={styles.imgBox}>
-                            <img src={uploadAvatarNull} alt="img" />
-                            <button className={styles.deleteBtn}><IoClose /></button>
-                        </div>
-                    </div>
+                </motion.textarea>
+                {newMessageData.photoArr.length !== 0 &&
+                    <motion.div layout className={styles.imgsSection}>
+                        <AnimatePresence>
+                            {newMessageData.photoArr.map(image => (
+                                <motion.div
+                                    className={styles.imgBox}
+                                    key={image.id}
+                                    layoutId={image.id}
+                                    initial={{
+                                        opacity: 0
+                                    }}
+                                    animate={{
+                                        opacity: 1
+                                    }}
+                                    exit={{
+                                        opacity: 0
+                                    }}
+                                >
+                                    <img src={image.imgURL} alt="img" />
+                                    <button className={styles.deleteBtn} onClick={() => handleInputFile("delCommand", image.id)}><IoClose /></button>
+                                </motion.div>
+                            ))}
+                        </AnimatePresence>
+                    </motion.div>
                 }
-            </div>
+            </motion.div>
             <button className={styles.reply} ref={sendMessageBtn}>{translation.send_message}</button>
         </div >
     )
