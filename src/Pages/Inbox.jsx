@@ -8,7 +8,7 @@ import Header from '../components/Header'
 import HeaderMobileSub from '../sub-components/HeaderMobileSub'
 import ForSearch from '../sub-components/ForSearch'
 import styles from '../styles/pages/Inbox.module.scss'
-import { collection, doc, onSnapshot, query, serverTimestamp, setDoc, where } from 'firebase/firestore';
+import { collection, doc, onSnapshot, query, serverTimestamp, setDoc, where, orderBy } from 'firebase/firestore';
 import { db } from '../firebase-config'
 import { Link, useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min'
 import SearchBox from '../layout/Inbox/SearchBox'
@@ -26,7 +26,6 @@ export default function Inbox() {
 
   const mainContainer = useRef(null)
   const { key } = useParams()
-
 
   const MAIN_STYLE = {
     paddingTop: screenWidth > 480 ? "0px" : "80px",
@@ -47,7 +46,6 @@ export default function Inbox() {
     window.scrollTo(0, 0);
   }, [])
 
-
   useEffect(() => {
     const conversationsRef = collection(db, 'conversations');
 
@@ -55,16 +53,16 @@ export default function Inbox() {
 
     switch (selectedFilter) {
       case "your_inbox":
-        q = query(conversationsRef, where("isArchived", "==", false));
+        q = query(conversationsRef, orderBy('modifiedTime', 'desc'), where("isArchived", "==", false));
         break;
       case "archives":
-        q = query(conversationsRef, where("isArchived", "==", true));
+        q = query(conversationsRef, orderBy('modifiedTime', 'desc'), where("isArchived", "==", true));
         break;
       case "done":
-        q = query(conversationsRef, where("isArchived", "==", false), where("isDone", "==", true));
+        q = query(conversationsRef, orderBy('modifiedTime', 'desc'), where("isArchived", "==", false), where("isDone", "==", true));
         break;
       case "saved":
-        q = query(conversationsRef, where("isArchived", "==", false), where("isStarred", "==", true));
+        q = query(conversationsRef, orderBy('modifiedTime', 'desc'), where("isArchived", "==", false), where("isStarred", "==", true));
         break;
 
       default:
@@ -111,13 +109,13 @@ export default function Inbox() {
   //             id: 0.5432344599,
   //             imgName: "AttacmentNewMessage.jpg",
   //             imgSize: "4.6Mb",
-  //             imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+  //             imgURL: "https://unblast.com/wp-content/uploads/2019/11/Analytics-Ui-Kit-1-1600x1800.jpg"
   //           },
   //           {
   //             id: 0.34758990859,
   //             imgName: "AttacmentNewMessage2.png",
   //             imgSize: "5.6Mb",
-  //             imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+  //             imgURL: "https://images.ui8.net/uploads/2_1595437468099.png"
   //           }
   //         ]
   //       },
@@ -147,7 +145,7 @@ export default function Inbox() {
   //   },
   //   a5u7di68co7fiytkf: {
   //     userName: "Süleyman Vəliyev",
-  //     userAvatar: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452",
+  //     userAvatar: null,
   //     modifiedTime: serverTimestamp(),
   //     isArchived: false,
   //     isDone: false,
@@ -163,15 +161,15 @@ export default function Inbox() {
   //         photoArr: [
   //           {
   //             id: 0.78132688437,
-  //             imgName: "AttacmentNewMessage.jpg",
+  //             imgName: "Screenshot.jpg",
   //             imgSize: "4.6Mb",
-  //             imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+  //             imgURL: "https://atlanticwatches.ch/wp-content/uploads/2022/06/29038.45.31MB-DOTW-600x968.jpg"
   //           },
   //           {
   //             id: 0.176545667908,
-  //             imgName: "AttacmentNewMessage2.png",
+  //             imgName: "ss22.png",
   //             imgSize: "5.6Mb",
-  //             imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+  //             imgURL: "https://m.media-amazon.com/images/I/51K1mE5uVyL.__AC_SX300_SY300_QL70_FMwebp_.jpg"
   //           }
   //         ]
   //       },
@@ -185,20 +183,48 @@ export default function Inbox() {
   //         photoArr: [
   //           {
   //             id: 0.6536456678,
-  //             imgName: "AttacmentNewMessage.jpg",
+  //             imgName: "camImg.jpg",
   //             imgSize: "4.6Mb",
-  //             imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+  //             imgURL: "https://www.telegraph.co.uk/content/dam/recommended/2023/01/11/TELEMMGLPICT000321696243_trans_NvBQzQNjv4BqqVzuuqpFlyLIwiB6NTmJwfSVWeZ_vEN7c6bHu2jJnT8.jpeg?imwidth=960"
   //           },
   //           {
   //             id: 0.65364435646,
   //             imgName: "AttacmentNewMessage2.png",
   //             imgSize: "5.6Mb",
-  //             imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+  //             imgURL: "https://fabrilife.com/products/650a78ab96aa2-square.jpeg?v=20"
   //           }
   //         ]
   //       },
   //     ]
   //   },
+  //   uyi6798f79i65fo8g: {
+  //     userName: "Xəndan Abdurahmanzadə",
+  //     userAvatar: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FXendan_avatar.jpg?alt=media&token=3af2ffb0-b0a5-410b-83ce-5fa9bb83518d",
+  //     modifiedTime: serverTimestamp(),
+  //     isArchived: false,
+  //     isDone: false,
+  //     isStarred: false,
+  //     messages: [
+  //       {
+  //         senderIsMe: false,
+  //         whenSent: new Date(),
+  //         isBold: false,
+  //         isItalic: false,
+  //         wasRead: false,
+  //         text: "Hər hansı endirim kuponu mövcuddurmu?",
+  //         photoArr: []
+  //       },
+  //       {
+  //         senderIsMe: true,
+  //         whenSent: new Date(),
+  //         isBold: false,
+  //         isItalic: true,
+  //         wasRead: false,
+  //         text: "Kuponlar barədə qısa zaman ərzində məlumat veriləcək...",
+  //         photoArr: []
+  //       },
+  //     ]
+  //   }
   // }
 
   // const handleSendData = async () => {  //todo conversation'lari ilk defeden gondermek ucundur. Sonda siline biler!!!

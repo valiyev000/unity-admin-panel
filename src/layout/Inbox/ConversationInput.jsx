@@ -75,9 +75,24 @@ function ConversationInput({ documentData, setDocumentData }) {
         }
     }
 
+    function getBackToInitialState() {
+        setNewMessageData({
+            isBold: false,
+            isItalic: false,
+            photoArr: [],
+            senderIsMe: true,
+            text: "",
+            wasRead: false,
+            //todo Mesaj gonderilen zaman serverTimeStamp ve ya new Date() isledilmelidir
+        })
+    }
+
+    useEffect(()=>{getBackToInitialState()},[key])
+
     const sendMessage = async () => {
         console.log(newMessageData)
         newMessageData.whenSent = new Date()
+        documentData.modifiedTime = serverTimestamp()
         documentData.messages.unshift(newMessageData)
         try {
             // Replace 'yourCollection' and 'yourDocumentId' with your actual collection and document names
@@ -85,6 +100,7 @@ function ConversationInput({ documentData, setDocumentData }) {
             // Update the document with the new array
             await updateDoc(docRef, documentData);
             console.log("The document updated succesfully;)")
+            getBackToInitialState()
         } catch (error) {
             console.error('Error updating document:', error);
         }

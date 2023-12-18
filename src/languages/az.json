@@ -113,6 +113,8 @@
     "saved_messages": "İşarələnmiş Mesajlar",
     "add_to_archive": "Arxivləşdir",
     "remove_from_archive": "Arxivdən sil",
+    "add_to_done": "Edilmişlərə Əlavə Et",
+    "remove_from_done": "Edilmişlərdən Çıxar",
     "delete": "Sil",
     "archive": "Arxiv",
     "send_message": "Mesajı Göndər",

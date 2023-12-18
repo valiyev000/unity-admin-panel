@@ -43,7 +43,6 @@ function ConversationViewer() {
         // Run this effect only when the 'key' changes
     }, [key]);
 
-
     const formatTime = (timestamp) => {
         let formattedTime = ""
         if (timestamp) {
@@ -57,7 +56,39 @@ function ConversationViewer() {
         return formattedTime;
     };
 
-    // useEffect(() => { console.log(documentData?.messages[0]) }, [documentData])
+    const handleDelete = async () => {
+        try {
+            setOpenMoreOptionMenuIndex(null)
+
+            const documentId = key;
+            const documentRef = doc(db, 'conversations', documentId);
+
+            // Delete the document
+            await deleteDoc(documentRef);
+
+            console.log('Document successfully deleted!');
+        } catch (error) {
+            console.error('Error deleting document: ', error);
+        }
+    };
+
+    const handleArchived = async (isArchived) => {
+
+        setOpenMoreOptionMenuIndex(null)
+
+        const documentId = key;
+        const documentRef = doc(db, 'conversations', documentId);
+
+        try {
+            await updateDoc(documentRef, {
+                isArchived: !isArchived,
+            });
+
+            console.log('Document successfully updated!');
+        } catch (error) {
+            console.error('Error updating document: ', error);
+        }
+    }
 
     return (
         <motion.div
@@ -81,16 +112,16 @@ function ConversationViewer() {
         >
             <div className={styles.goBack} onClick={() => history.push('/inbox')}><IoMdArrowRoundBack size={24} /></div>
             <div className={styles.actionBtns}>
-                <button className={styles.delete}>{translation.delete}</button>
-                <button className={styles.archive}>{translation.archive}</button>
+                <button className={styles.delete} onClick={handleDelete}>{translation.delete}</button>
+                <button className={styles.archive} onClick={()=>handleArchived(documentData?.isArchived)} disabled={true}>{translation.archive}</button>
             </div>
-            <div className={styles.history}>
+            <motion.div className={styles.history} layout>
                 <ConversationInput documentData={documentData} setDocumentData={setDocumentData} />
                 {documentData && documentData.messages.map((message, index) => (
                     <motion.div
                         className={styles.message}
                         key={index}
-                        layout
+                        layoutId={index}
                         initial={{
                             opacity: 0
                         }}
@@ -120,7 +151,7 @@ function ConversationViewer() {
                     </motion.div>
                 ))
                 }
-            </div>
+            </motion.div>
 
         </motion.div>
     )

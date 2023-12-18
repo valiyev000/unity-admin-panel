@@ -113,6 +113,8 @@
     "saved_messages": "Saved Messages",
     "add_to_archive": "Add to Archive",
     "remove_from_archive": "Remove from Archive",
+    "add_to_done": "Add to Done",
+    "remove_from_done": "Remove from Done",
     "delete": "Delete",
     "archive": "Archive",
     "send_message": "Send Message",

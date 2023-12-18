@@ -34,6 +34,11 @@
                 &:hover{
                     background: rgba(228,228,228,0.9);
                 }
+                &:disabled{
+                    opacity: 0.8;
+                    background: rgba(228,228,228,1);
+                    cursor: not-allowed;
+                }
             }
         }
     }
@@ -57,7 +62,9 @@
             >img.avatar{
                 width: 48px;
                 height: 48px;
-                object-fit: contain;
+                min-width: 48px;
+                min-height: 48px;
+                object-fit: cover;
                 border-radius: 50%;
             }
             >.inner{

@@ -23,7 +23,6 @@ export default function HeaderMobile() {
         forSearch.current.focus()
     }
 
-
     return (
         <motion.header
             className={`${styles.header} ${theme === "dark" ? styles.dark : ""}`}

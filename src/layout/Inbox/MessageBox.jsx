@@ -76,6 +76,26 @@ function MessageBox({ selectedFilter, mainContainer, conversations }) {
         }
     }
 
+    const handleDone = async (element, keyX, isDone) => {
+
+        element.stopPropagation()
+        setOpenMoreOptionMenuIndex(null)
+
+        const documentId = keyX;
+        const documentRef = doc(db, 'conversations', documentId);
+
+        try {
+            await updateDoc(documentRef, {
+                isDone: !isDone,
+            });
+
+            console.log('Document successfully updated!');
+        } catch (error) {
+            console.error('Error updating document: ', error);
+        }
+
+    }
+
     const handleDelete = async (element, keyX) => {
         try {
             element.stopPropagation()
@@ -154,7 +174,6 @@ function MessageBox({ selectedFilter, mainContainer, conversations }) {
                             }}
                             key={child.key}
                         >
-                            {/* {console.log(child)} */}
                             <div className={styles.avatarSection}>
                                 <img src={child.data.userAvatar ? child.data.userAvatar : uploadAvatarNull} alt="userAvatar.png" />
                             </div>
@@ -197,6 +216,7 @@ function MessageBox({ selectedFilter, mainContainer, conversations }) {
                                                     }}
                                                 >
                                                     <li className={`${theme === "dark" ? styles.dark : ""}`} onClick={(element) => handleArchived(element, child.key, child.data.isArchived)}>{child.data.isArchived ? translation.remove_from_archive : translation.add_to_archive}</li>
+                                                    <li className={`${theme === "dark" ? styles.dark : ""}`} onClick={(element) => handleDone(element, child.key, child.data.isDone)}>{child.data.isDone ? translation.remove_from_done : translation.add_to_done}</li>
                                                     <li className={`${theme === "dark" ? styles.dark : ""}`} onClick={(element) => handleDelete(element, child.key)}>{translation.delete}</li>
                                                 </motion.ul>
                                             }
