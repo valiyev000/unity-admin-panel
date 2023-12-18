@@ -7,7 +7,7 @@ import { FaComment, FaStar } from "react-icons/fa6";
 import { BsThreeDots } from "react-icons/bs";
 import { Link, useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min'
 import { db } from '../../firebase-config'
-import { doc, updateDoc } from 'firebase/firestore'
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 
 function MessageBox({ selectedFilter, mainContainer, conversations }) {
 

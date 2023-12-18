@@ -5,9 +5,10 @@ import uploadAvatarNull from '../../images/uploadAvatarNull.png'
 import { FaBold, FaItalic } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
-import { collection, doc, setDoc, serverTimestamp } from 'firebase/firestore'
+import { collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore'
 import { db } from '../../firebase-config';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 function ConversationInput({ documentData, setDocumentData }) {
 
@@ -21,9 +22,7 @@ function ConversationInput({ documentData, setDocumentData }) {
         wasRead: false,
         //todo Mesaj gonderilen zaman serverTimeStamp ve ya new Date() isledilmelidir
     })
-    const [bold, setBold] = useState(false)
-    const [italic, setItalic] = useState(false)
-    const [inputValue, setInputValue] = useState("")
+    const { key } = useParams()
     const sendMessageBtn = useRef(null)
 
     function handleInputFile(element, id) { //* elde olunan sekili base64 formatina cevirir ve ya (else vasitesile) silir
@@ -76,7 +75,20 @@ function ConversationInput({ documentData, setDocumentData }) {
         }
     }
 
-    useEffect(() => { console.log(newMessageData) }, [newMessageData])
+    const sendMessage = async () => {
+        console.log(newMessageData)
+        newMessageData.whenSent = new Date()
+        documentData.messages.unshift(newMessageData)
+        try {
+            // Replace 'yourCollection' and 'yourDocumentId' with your actual collection and document names
+            const docRef = doc(db, 'conversations', key);
+            // Update the document with the new array
+            await updateDoc(docRef, documentData);
+            console.log("The document updated succesfully;)")
+        } catch (error) {
+            console.error('Error updating document:', error);
+        }
+    };
 
     return (
         <div className={styles.main}>
@@ -99,7 +111,8 @@ function ConversationInput({ documentData, setDocumentData }) {
                     onChange={(e) => handleUserInput("typing", "text", e.target.value)}
                     style={{
                         fontWeight: newMessageData.isBold ? "700" : "400",
-                        fontStyle: newMessageData.isItalic ? "italic" : "normal"
+                        fontStyle: newMessageData.isItalic ? "italic" : "normal",
+                        color: theme === "dark" ? "#fff" : "#11142D"
                     }}
                 >
                 </motion.textarea>
@@ -129,7 +142,7 @@ function ConversationInput({ documentData, setDocumentData }) {
                     </motion.div>
                 }
             </motion.div>
-            <button className={styles.reply} ref={sendMessageBtn}>{translation.send_message}</button>
+            <button className={styles.reply} ref={sendMessageBtn} onClick={sendMessage}>{translation.send_message}</button>
         </div >
     )
 }

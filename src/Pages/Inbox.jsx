@@ -55,7 +55,6 @@ export default function Inbox() {
 
     switch (selectedFilter) {
       case "your_inbox":
-        //! q = query(conversationsRef, where("isArchived", "==", false), orderBy(...nese bele bir sey));
         q = query(conversationsRef, where("isArchived", "==", false));
         break;
       case "archives":
@@ -91,120 +90,127 @@ export default function Inbox() {
     return () => unsubscribe();
   }, [selectedFilter]);
 
+  // const conversationModel = {
+  //   i3wyfcbpuefcnviofj2p: {
+  //     userName: "Tərlan Rəhmanzadə",
+  //     userAvatar: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452",
+  //     modifiedTime: serverTimestamp(),
+  //     isArchived: false,
+  //     isDone: false,
+  //     isStarred: false,
+  //     messages: [
+  //       {
+  //         senderIsMe: true,
+  //         whenSent: new Date(),
+  //         isBold: false,
+  //         isItalic: false,
+  //         wasRead: false,
+  //         text: "Hər vaxtınız xeyir. Qısa müddət ərzində müraciətinizə baxılacaq",
+  //         photoArr: [
+  //           {
+  //             id: 0.5432344599,
+  //             imgName: "AttacmentNewMessage.jpg",
+  //             imgSize: "4.6Mb",
+  //             imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+  //           },
+  //           {
+  //             id: 0.34758990859,
+  //             imgName: "AttacmentNewMessage2.png",
+  //             imgSize: "5.6Mb",
+  //             imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+  //           }
+  //         ]
+  //       },
+  //       {
+  //         senderIsMe: false,
+  //         whenSent: new Date(),
+  //         isBold: true,
+  //         isItalic: false,
+  //         wasRead: false,
+  //         text: "Salam. Sifarişimlə bağlı problemim var",
+  //         photoArr: [
+  //           {
+  //             id: 0.54347847986,
+  //             imgName: "AttacmentNewMessage.jpg",
+  //             imgSize: "4.6Mb",
+  //             imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+  //           },
+  //           {
+  //             id: 0.41237485789,
+  //             imgName: "AttacmentNewMessage2.png",
+  //             imgSize: "5.6Mb",
+  //             imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+  //           }
+  //         ]
+  //       },
+  //     ]
+  //   },
+  //   a5u7di68co7fiytkf: {
+  //     userName: "Süleyman Vəliyev",
+  //     userAvatar: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452",
+  //     modifiedTime: serverTimestamp(),
+  //     isArchived: false,
+  //     isDone: false,
+  //     isStarred: false,
+  //     messages: [
+  //       {
+  //         senderIsMe: false,
+  //         whenSent: new Date(),
+  //         isBold: false,
+  //         isItalic: false,
+  //         wasRead: false,
+  //         text: "Ən qısa zamanda qiymətləndirəcəm. Təşəkkürlər",
+  //         photoArr: [
+  //           {
+  //             id: 0.78132688437,
+  //             imgName: "AttacmentNewMessage.jpg",
+  //             imgSize: "4.6Mb",
+  //             imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+  //           },
+  //           {
+  //             id: 0.176545667908,
+  //             imgName: "AttacmentNewMessage2.png",
+  //             imgSize: "5.6Mb",
+  //             imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+  //           }
+  //         ]
+  //       },
+  //       {
+  //         senderIsMe: true,
+  //         whenSent: new Date(),
+  //         isBold: true,
+  //         isItalic: false,
+  //         wasRead: false,
+  //         text: "Salam, zəhmət olmasa sifarişi qiymətləndirin.",
+  //         photoArr: [
+  //           {
+  //             id: 0.6536456678,
+  //             imgName: "AttacmentNewMessage.jpg",
+  //             imgSize: "4.6Mb",
+  //             imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+  //           },
+  //           {
+  //             id: 0.65364435646,
+  //             imgName: "AttacmentNewMessage2.png",
+  //             imgSize: "5.6Mb",
+  //             imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+  //           }
+  //         ]
+  //       },
+  //     ]
+  //   },
+  // }
 
-  const conversationModel = {
-    i3wyfcbpuefcnviofj2p: {
-      userName: "Tərlan Rəhmanzadə",
-      userAvatar: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452",
-      modifiedTime: serverTimestamp(),
-      isArchived: false,
-      isDone: false,
-      isStarred: false,
-      messages: [
-        {
-          senderIsMe: true,
-          whenSent: new Date(),
-          isBold: false,
-          isItalic: false,
-          wasRead: false,
-          text: "Hər vaxtınız xeyir. Qısa müddət ərzində müraciətinizə baxılacaq",
-          photoArr: [
-            {
-              imgName: "AttacmentNewMessage.jpg",
-              imgSize: "4.6Mb",
-              imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
-            },
-            {
-              imgName: "AttacmentNewMessage2.png",
-              imgSize: "5.6Mb",
-              imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
-            }
-          ]
-        },
-        {
-          senderIsMe: false,
-          whenSent: new Date(),
-          isBold: true,
-          isItalic: false,
-          wasRead: false,
-          text: "Salam. Sifarişimlə bağlı problemim var",
-          photoArr: [
-            {
-              imgName: "AttacmentNewMessage.jpg",
-              imgSize: "4.6Mb",
-              imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
-            },
-            {
-              imgName: "AttacmentNewMessage2.png",
-              imgSize: "5.6Mb",
-              imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
-            }
-          ]
-        },
-      ]
-    },
-    a5u7di68co7fiytkf: {
-      userName: "Süleyman Vəliyev",
-      userAvatar: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452",
-      modifiedTime: serverTimestamp(),
-      isArchived: false,
-      isDone: false,
-      isStarred: false,
-      messages: [
-        {
-          senderIsMe: false,
-          whenSent: new Date(),
-          isBold: false,
-          isItalic: false,
-          wasRead: false,
-          text: "Ən qısa zamanda qiymətləndirəcəm. Təşəkkürlər",
-          photoArr: [
-            {
-              imgName: "AttacmentNewMessage.jpg",
-              imgSize: "4.6Mb",
-              imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
-            },
-            {
-              imgName: "AttacmentNewMessage2.png",
-              imgSize: "5.6Mb",
-              imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
-            }
-          ]
-        },
-        {
-          senderIsMe: true,
-          whenSent: new Date(),
-          isBold: true,
-          isItalic: false,
-          wasRead: false,
-          text: "Salam, zəhmət olmasa sifarişi qiymətləndirin.",
-          photoArr: [
-            {
-              imgName: "AttacmentNewMessage.jpg",
-              imgSize: "4.6Mb",
-              imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
-            },
-            {
-              imgName: "AttacmentNewMessage2.png",
-              imgSize: "5.6Mb",
-              imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
-            }
-          ]
-        },
-      ]
-    },
-  }
+  // const handleSendData = async () => {  //todo conversation'lari ilk defeden gondermek ucundur. Sonda siline biler!!!
+  //   const collectionRef = collection(db, "conversations");
 
-  const handleSendData = async () => {  //todo conversation'lari ilk defeden gondermek ucundur. Sonda siline biler!!!
-    const collectionRef = collection(db, "conversations");
+  //   const promises = Object.keys(conversationModel).map(async (key) => {
+  //     const docRef = doc(collectionRef, key);
+  //     await setDoc(docRef, conversationModel[key]);
+  //   });
 
-    const promises = Object.keys(conversationModel).map(async (key) => {
-      const docRef = doc(collectionRef, key);
-      await setDoc(docRef, conversationModel[key]);
-    });
-
-    await Promise.all(promises);
-  };
+  //   await Promise.all(promises);
+  // };
 
 
   return (

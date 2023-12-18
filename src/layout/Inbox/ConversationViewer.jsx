@@ -7,7 +7,8 @@ import uploadAvatarNull from '../../images/uploadAvatarNull.png'
 import { IoMdArrowRoundBack } from "react-icons/io";
 import ConversationInput from './ConversationInput';
 import { db } from '../../firebase-config';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot } from 'firebase/firestore';
+
 
 
 function ConversationViewer() {
@@ -16,31 +17,32 @@ function ConversationViewer() {
     const { key } = useParams();
     const { screenWidth, translation, theme, user } = useContext(contextApi)
 
-
     const [documentData, setDocumentData] = useState(null);
 
     useEffect(() => {
         // Reference to your document
         const docRef = doc(db, 'conversations', key);
 
-        // Retrieve document data
-        const fetchData = async () => {
-            try {
-                const docSnapshot = await getDoc(docRef);
-                if (docSnapshot.exists()) {
-                    // Document exists, set the data in state
-                    setDocumentData(docSnapshot.data());
-                } else {
-                    console.log('Document does not exist!');
-                    history.push('/inbox')
-                }
-            } catch (error) {
-                console.error('Error getting document:', error);
+        // Function to handle document changes
+        const handleSnapshot = (docSnapshot) => {
+            if (docSnapshot.exists()) {
+                // Document exists, set the data in state
+                setDocumentData(docSnapshot.data());
+            } else {
+                console.log('Document does not exist!');
+                history.push('/inbox');
             }
         };
 
-        fetchData();
+        // Add onSnapshot listener
+        const unsubscribe = onSnapshot(docRef, handleSnapshot);
+
+        // Cleanup the listener when component unmounts or key changes
+        return () => unsubscribe();
+
+        // Run this effect only when the 'key' changes
     }, [key]);
+
 
     const formatTime = (timestamp) => {
         let formattedTime = ""
@@ -55,7 +57,7 @@ function ConversationViewer() {
         return formattedTime;
     };
 
-    useEffect(() => { console.log(documentData?.messages[0]) }, [documentData])
+    // useEffect(() => { console.log(documentData?.messages[0]) }, [documentData])
 
     return (
         <motion.div
