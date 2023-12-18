@@ -7,7 +7,7 @@ import uploadAvatarNull from '../../images/uploadAvatarNull.png'
 import { IoMdArrowRoundBack } from "react-icons/io";
 import ConversationInput from './ConversationInput';
 import { db } from '../../firebase-config';
-import { doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
 
 
 
@@ -74,8 +74,6 @@ function ConversationViewer() {
 
     const handleArchived = async (isArchived) => {
 
-        setOpenMoreOptionMenuIndex(null)
-
         const documentId = key;
         const documentRef = doc(db, 'conversations', documentId);
 
@@ -113,7 +111,7 @@ function ConversationViewer() {
             <div className={styles.goBack} onClick={() => history.push('/inbox')}><IoMdArrowRoundBack size={24} /></div>
             <div className={styles.actionBtns}>
                 <button className={styles.delete} onClick={handleDelete}>{translation.delete}</button>
-                <button className={styles.archive} onClick={()=>handleArchived(documentData?.isArchived)} disabled={true}>{translation.archive}</button>
+                <button className={styles.archive} onClick={()=>handleArchived(documentData?.isArchived)} disabled={documentData?.isArchived}>{translation.archive}</button>
             </div>
             <motion.div className={styles.history} layout>
                 <ConversationInput documentData={documentData} setDocumentData={setDocumentData} />
@@ -122,11 +120,11 @@ function ConversationViewer() {
                         className={styles.message}
                         key={index}
                         layoutId={index}
-                        initial={{
+                        initial={{ // motion islemedi. Animationlar olmadi. flex direction column-reverse oldugundan qaynaglana biler
                             opacity: 0
                         }}
                         animate={{
-                            opacity: 1
+                            opacity: 1,
                         }}
                     >
                         <img className={styles.avatar} src={message.senderIsMe && user.photoURL ? user.photoURL : !message.senderIsMe && documentData.userAvatar ? documentData.userAvatar : uploadAvatarNull} alt="avatar.png" />

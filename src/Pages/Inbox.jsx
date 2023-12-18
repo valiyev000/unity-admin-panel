@@ -42,6 +42,17 @@ export default function Inbox() {
     overflowX: screenWidth > 480 ? "visible" : "hidden"
   }
 
+  function filteringForSearchBox(data) {
+    data = data.filter((element) =>
+      element.data.messages.some((message) =>
+        message.text.toLowerCase().includes(searchValue.toLowerCase())
+      )
+    );
+
+    setConversations(data);
+
+  }
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [])
@@ -74,19 +85,23 @@ export default function Inbox() {
     // Use onSnapshot to listen for real-time updates
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       // Extract keys and data from each document
-      const conversationsData = querySnapshot.docs.map((doc) => ({
+      let conversationsData = querySnapshot.docs.map((doc) => ({
         key: doc.id,
         data: doc.data(),
       }));
 
+      filteringForSearchBox(conversationsData) //filtering and set data to the state
 
-      // Set state with the updated data
-      setConversations(conversationsData);
     });
 
     // Cleanup the listener when the component unmounts
     return () => unsubscribe();
-  }, [selectedFilter]);
+  }, [selectedFilter, searchValue]);
+
+  // useEffect(() => {
+  //   console.log(searchValue)
+  //   filteringForSearchBox(conversations)
+  // }, [])
 
   // const conversationModel = {
   //   i3wyfcbpuefcnviofj2p: {
