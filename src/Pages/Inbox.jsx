@@ -43,13 +43,7 @@ export default function Inbox() {
   }
 
   function filteringForSearchBox(data) {
-    data = data.filter((element) =>
-      element.data.messages.some((message) =>
-        message.text.toLowerCase().includes(searchValue.toLowerCase())
-      )
-    );
 
-    setConversations(data);
 
   }
 
@@ -90,7 +84,14 @@ export default function Inbox() {
         data: doc.data(),
       }));
 
-      filteringForSearchBox(conversationsData) //filtering and set data to the state
+      conversationsData = conversationsData.filter((element) =>
+      element.data.messages.some((message) =>
+        message.text.toLowerCase().includes(searchValue.toLowerCase()) 
+      )
+      || element.data.userName.toLowerCase().includes(searchValue.toLowerCase())
+    );
+
+    setConversations(conversationsData);
 
     });
 
@@ -98,10 +99,6 @@ export default function Inbox() {
     return () => unsubscribe();
   }, [selectedFilter, searchValue]);
 
-  // useEffect(() => {
-  //   console.log(searchValue)
-  //   filteringForSearchBox(conversations)
-  // }, [])
 
   // const conversationModel = {
   //   i3wyfcbpuefcnviofj2p: {
@@ -178,7 +175,7 @@ export default function Inbox() {
   //             id: 0.78132688437,
   //             imgName: "Screenshot.jpg",
   //             imgSize: "4.6Mb",
-  //             imgURL: "https://atlanticwatches.ch/wp-content/uploads/2022/06/29038.45.31MB-DOTW-600x968.jpg"
+  //             imgURL: "https://images.ctfassets.net/lzny33ho1g45/full-page-screenshots-in-chrom-p-img/8ba0bdd4880517caff45db805576c591/Screenshot.jpg?w=1520&fm=jpg&q=30&fit=thumb&h=760"
   //           },
   //           {
   //             id: 0.176545667908,
@@ -221,15 +218,6 @@ export default function Inbox() {
   //     isStarred: false,
   //     messages: [
   //       {
-  //         senderIsMe: false,
-  //         whenSent: new Date(),
-  //         isBold: false,
-  //         isItalic: false,
-  //         wasRead: false,
-  //         text: "Hər hansı endirim kuponu mövcuddurmu?",
-  //         photoArr: []
-  //       },
-  //       {
   //         senderIsMe: true,
   //         whenSent: new Date(),
   //         isBold: false,
@@ -238,20 +226,29 @@ export default function Inbox() {
   //         text: "Kuponlar barədə qısa zaman ərzində məlumat veriləcək...",
   //         photoArr: []
   //       },
+  //       {
+  //         senderIsMe: false,
+  //         whenSent: new Date(),
+  //         isBold: false,
+  //         isItalic: false,
+  //         wasRead: false,
+  //         text: "Hər hansı endirim kuponu mövcuddurmu?",
+  //         photoArr: []
+  //       },
   //     ]
   //   }
   // }
 
-  // const handleSendData = async () => {  //todo conversation'lari ilk defeden gondermek ucundur. Sonda siline biler!!!
-  //   const collectionRef = collection(db, "conversations");
+  const handleSendData = async () => {  //todo conversation'lari ilk defeden gondermek ucundur. Sonda siline biler!!!
+    const collectionRef = collection(db, "conversations");
 
-  //   const promises = Object.keys(conversationModel).map(async (key) => {
-  //     const docRef = doc(collectionRef, key);
-  //     await setDoc(docRef, conversationModel[key]);
-  //   });
+    const promises = Object.keys(conversationModel).map(async (key) => {
+      const docRef = doc(collectionRef, key);
+      await setDoc(docRef, conversationModel[key]);
+    });
 
-  //   await Promise.all(promises);
-  // };
+    await Promise.all(promises);
+  };
 
 
   return (
@@ -287,7 +284,7 @@ export default function Inbox() {
             <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
             <InboxFilter selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
             <MessageBox selectedFilter={selectedFilter} mainContainer={mainContainer} conversations={conversations} />
-            {/* <button onClick={handleSendData}>Send temp</button> */}
+            <button onClick={handleSendData}>Send temp</button>
           </motion.div>
         }
         {(screenWidth >= 480 || (screenWidth < 480 && key)) &&

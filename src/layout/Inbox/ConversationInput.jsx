@@ -87,10 +87,10 @@ function ConversationInput({ documentData, setDocumentData }) {
         })
     }
 
-    useEffect(()=>{getBackToInitialState()},[key])
+    useEffect(() => { getBackToInitialState() }, [key])
 
     const sendMessage = async () => {
-        console.log(newMessageData)
+        //todo bu btnu disabled etmek lazimdi
         newMessageData.whenSent = new Date()
         documentData.modifiedTime = serverTimestamp()
         documentData.messages.unshift(newMessageData)

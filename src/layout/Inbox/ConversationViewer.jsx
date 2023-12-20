@@ -7,7 +7,8 @@ import uploadAvatarNull from '../../images/uploadAvatarNull.png'
 import { IoMdArrowRoundBack } from "react-icons/io";
 import ConversationInput from './ConversationInput';
 import { db } from '../../firebase-config';
-import { doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
+import { deleteDoc, doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
+import ImgViewer from '../../sub-components/ImgViewer';
 
 
 
@@ -58,8 +59,6 @@ function ConversationViewer() {
 
     const handleDelete = async () => {
         try {
-            setOpenMoreOptionMenuIndex(null)
-
             const documentId = key;
             const documentRef = doc(db, 'conversations', documentId);
 
@@ -116,16 +115,9 @@ function ConversationViewer() {
             <motion.div className={styles.history} layout>
                 <ConversationInput documentData={documentData} setDocumentData={setDocumentData} />
                 {documentData && documentData.messages.map((message, index) => (
-                    <motion.div
+                    <div
                         className={styles.message}
                         key={index}
-                        layoutId={index}
-                        initial={{ // motion islemedi. Animationlar olmadi. flex direction column-reverse oldugundan qaynaglana biler
-                            opacity: 0
-                        }}
-                        animate={{
-                            opacity: 1,
-                        }}
                     >
                         <img className={styles.avatar} src={message.senderIsMe && user.photoURL ? user.photoURL : !message.senderIsMe && documentData.userAvatar ? documentData.userAvatar : uploadAvatarNull} alt="avatar.png" />
                         <div className={styles.inner}>
@@ -146,11 +138,11 @@ function ConversationViewer() {
                                 ))}
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
                 ))
                 }
             </motion.div>
-
+            <ImgViewer />
         </motion.div>
     )
 }
