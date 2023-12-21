@@ -2,8 +2,6 @@ import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 
-
-
 export default function DialogTemplate({children , setModalOpen}) {
 
     useEffect(() => {

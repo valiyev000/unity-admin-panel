@@ -19,6 +19,7 @@ function ConversationViewer() {
     const { screenWidth, translation, theme, user } = useContext(contextApi)
 
     const [documentData, setDocumentData] = useState(null);
+    const [imgSrc, setImgSrc] = useState(null)
 
     useEffect(() => {
         // Reference to your document
@@ -128,7 +129,7 @@ function ConversationViewer() {
                             <div className={styles.messageText} style={{ fontWeight: message.isBold ? 700 : 400, fontStyle: message.isItalic ? "italic" : "unset" }}>{message.text}</div>
                             <div className={styles.imgs}>
                                 {message.photoArr.length !== 0 && message.photoArr.map((photo, index) => (
-                                    <div key={index} className={styles.imgViewer} style={{ width: screenWidth > 1200 ? "45%" : "100%", background: theme === "dark" ? "rgba(255,255,255,0.1)" : "	rgba(207,200,255,0.5)" }}>
+                                    <div key={index} className={styles.imgViewer} onClick={()=>setImgSrc(photo.imgURL)} style={{ width: screenWidth > 1200 ? "45%" : "100%", background: theme === "dark" ? "rgba(255,255,255,0.1)" : "	rgba(207,200,255,0.5)" }}>
                                         <img src={photo.imgURL} alt="uploadedimg" />
                                         <div className={styles.description}>
                                             <div className={styles.imgName} style={{ color: theme === "dark" ? "#fff" : "#5F7EEE" }}>{photo.imgName.length > 12 ? `${photo.imgName.slice(0, 12)}...` : photo.imgName}</div>
@@ -142,7 +143,7 @@ function ConversationViewer() {
                 ))
                 }
             </motion.div>
-            <ImgViewer />
+            {imgSrc && <ImgViewer imgSrc={imgSrc} setImgSrc={setImgSrc} />}
         </motion.div>
     )
 }
