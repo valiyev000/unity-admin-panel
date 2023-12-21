@@ -111,15 +111,12 @@ function ConversationViewer() {
             <div className={styles.goBack} onClick={() => history.push('/inbox')}><IoMdArrowRoundBack size={24} /></div>
             <div className={styles.actionBtns}>
                 <button className={styles.delete} onClick={handleDelete}>{translation.delete}</button>
-                <button className={styles.archive} onClick={()=>handleArchived(documentData?.isArchived)} disabled={documentData?.isArchived}>{translation.archive}</button>
+                <button className={styles.archive} onClick={() => handleArchived(documentData?.isArchived)} disabled={documentData?.isArchived}>{translation.archive}</button>
             </div>
             <motion.div className={styles.history} layout>
                 <ConversationInput documentData={documentData} setDocumentData={setDocumentData} />
                 {documentData && documentData.messages.map((message, index) => (
-                    <div
-                        className={styles.message}
-                        key={index}
-                    >
+                    <div className={styles.message} key={index}>
                         <img className={styles.avatar} src={message.senderIsMe && user.photoURL ? user.photoURL : !message.senderIsMe && documentData.userAvatar ? documentData.userAvatar : uploadAvatarNull} alt="avatar.png" />
                         <div className={styles.inner}>
                             <div className={styles.userNameAndDate}>
@@ -129,7 +126,7 @@ function ConversationViewer() {
                             <div className={styles.messageText} style={{ fontWeight: message.isBold ? 700 : 400, fontStyle: message.isItalic ? "italic" : "unset" }}>{message.text}</div>
                             <div className={styles.imgs}>
                                 {message.photoArr.length !== 0 && message.photoArr.map((photo, index) => (
-                                    <div key={index} className={styles.imgViewer} onClick={()=>setImgSrc(photo.imgURL)} style={{ width: screenWidth > 1200 ? "45%" : "100%", background: theme === "dark" ? "rgba(255,255,255,0.1)" : "	rgba(207,200,255,0.5)" }}>
+                                    <div key={index} className={styles.imgViewer} onClick={() => setImgSrc(photo.imgURL)} style={{ width: screenWidth > 1200 ? "45%" : "100%", background: theme === "dark" ? "rgba(255,255,255,0.1)" : "	rgba(207,200,255,0.5)" }}>
                                         <img src={photo.imgURL} alt="uploadedimg" />
                                         <div className={styles.description}>
                                             <div className={styles.imgName} style={{ color: theme === "dark" ? "#fff" : "#5F7EEE" }}>{photo.imgName.length > 12 ? `${photo.imgName.slice(0, 12)}...` : photo.imgName}</div>
@@ -140,10 +137,11 @@ function ConversationViewer() {
                             </div>
                         </div>
                     </div>
-                ))
-                }
+                ))}
             </motion.div>
-            {imgSrc && <ImgViewer imgSrc={imgSrc} setImgSrc={setImgSrc} />}
+            <AnimatePresence>
+                {imgSrc && <ImgViewer imgSrc={imgSrc} setImgSrc={setImgSrc} />}
+            </AnimatePresence>
         </motion.div>
     )
 }

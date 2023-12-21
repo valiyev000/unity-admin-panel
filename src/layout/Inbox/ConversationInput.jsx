@@ -95,12 +95,12 @@ function ConversationInput({ documentData, setDocumentData }) {
         documentData.modifiedTime = serverTimestamp()
         documentData.messages.unshift(newMessageData)
         try {
+            getBackToInitialState()
             // Replace 'yourCollection' and 'yourDocumentId' with your actual collection and document names
             const docRef = doc(db, 'conversations', key);
             // Update the document with the new array
             await updateDoc(docRef, documentData);
             console.log("The document updated succesfully;)")
-            getBackToInitialState()
         } catch (error) {
             console.error('Error updating document:', error);
         }
