@@ -1,16 +1,15 @@
 import { memo, useState, useContext, useRef, useEffect } from 'react'
 import styles from './styles/ConversationInput.module.scss'
 import contextApi from '../../StateManager'
-import uploadAvatarNull from '../../images/uploadAvatarNull.png'
 import { FaBold, FaItalic } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
-import { collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore'
+import { doc, serverTimestamp, updateDoc } from 'firebase/firestore'
 import { db } from '../../firebase-config';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
-function ConversationInput({ documentData, setDocumentData }) {
+function ConversationInput({ documentData }) {
 
     const { theme, translation } = useContext(contextApi)
     const [newMessageData, setNewMessageData] = useState({
@@ -23,7 +22,6 @@ function ConversationInput({ documentData, setDocumentData }) {
         //todo Mesaj gonderilen zaman serverTimeStamp ve ya new Date() isledilmelidir
     })
     const { key } = useParams()
-    const sendMessageBtn = useRef(null)
 
     function handleInputFile(element, id) { //* elde olunan sekili base64 formatina cevirir ve ya (else vasitesile) silir
 
@@ -158,7 +156,7 @@ function ConversationInput({ documentData, setDocumentData }) {
                     </motion.div>
                 }
             </motion.div>
-            <button className={styles.reply} ref={sendMessageBtn} onClick={sendMessage}>{translation.send_message}</button>
+            <button className={styles.reply} onClick={sendMessage}>{translation.send_message}</button>
         </div >
     )
 }

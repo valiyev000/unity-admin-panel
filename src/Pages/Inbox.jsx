@@ -42,11 +42,6 @@ export default function Inbox() {
     overflowX: screenWidth > 480 ? "visible" : "hidden"
   }
 
-  function filteringForSearchBox(data) {
-
-
-  }
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [])

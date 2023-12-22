@@ -245,11 +245,6 @@ export default function Setting() {
         handleGetDataForAvatar();
     }
 
-
-    
-    
-
-
     return createPortal(
         <>
             {screenWidth < 1200 ?

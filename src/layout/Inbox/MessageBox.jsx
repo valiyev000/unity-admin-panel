@@ -151,8 +151,8 @@ function MessageBox({ selectedFilter, mainContainer, conversations }) {
                 }
             </motion.div>
             <ul className={styles.innerContainer}>
-                <AnimatePresence>
-                    {conversations && conversations.map(child => (
+                {/* <AnimatePresence> */}
+                    {conversations.length !== 0 ? conversations.map(child => (
                         <motion.li
                             className={styles.userBlock}
                             onClick={() => handleUserBlockClick(child.key)}
@@ -167,11 +167,11 @@ function MessageBox({ selectedFilter, mainContainer, conversations }) {
                                 background: child.key === key ? "rgba(108,93,211,1)" : "rgba(108,93,211,0)",
                                 color: child.key === key ? "#fff" : "#808191"
                             }}
-                            exit={{
-                                opacity: 0,
-                                background: child.key === key ? "rgba(108,93,211,1)" : "rgba(108,93,211,0)",
-                                color: child.key === key ? "#fff" : "#808191"
-                            }}
+                            // exit={{
+                            //     opacity: 0,
+                            //     background: child.key === key ? "rgba(108,93,211,1)" : "rgba(108,93,211,0)",
+                            //     color: child.key === key ? "#fff" : "#808191"
+                            // }}
                             key={child.key}
                         >
                             <div className={styles.avatarSection}>
@@ -225,8 +225,8 @@ function MessageBox({ selectedFilter, mainContainer, conversations }) {
                                 </div>
                             </div>
                         </motion.li>
-                    ))}
-                </AnimatePresence>
+                    )): <div className={styles.nullConversation}>There is none</div>}
+                {/* </AnimatePresence> */}
             </ul>
         </motion.div>
     )

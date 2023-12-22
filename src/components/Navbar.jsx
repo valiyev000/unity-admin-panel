@@ -258,7 +258,7 @@ function Navbar() {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink exact className={styles.linkBelow} activeClassName={styles.activeLink} to="/notification">
+                        <NavLink exact className={styles.linkBelow} activeClassName={styles.activeLink} to="/notifications">
                             <div className={styles.linkLeft}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="22" viewBox="0 0 20 22" fill="none">
                                     <g opacity="0.4">

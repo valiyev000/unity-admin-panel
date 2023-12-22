@@ -54,6 +54,7 @@
         width: 100%;
         display: flex;
         flex-direction: column-reverse;
+        scroll-behavior: smooth;
         >.message{
             width: 100%;
             display: flex;

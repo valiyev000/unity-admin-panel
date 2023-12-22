@@ -10,7 +10,7 @@ import { AnimatePresence } from "framer-motion";
 import Home from "../Pages/Home";
 import Campaigns from "../Pages/Campaigns";
 import Inbox from "../Pages/Inbox";
-import Notification from "../Pages/Notification";
+import Notifications from "../Pages/Notifications";
 import Payouts from "../Pages/Payouts";
 import Products from "../Pages/Products";
 import Statements from "../Pages/Statements";
@@ -43,8 +43,8 @@ export default function Routes({user, isSettingOpen, auth}) {
         <Route exact path="/inbox/:key">
           <Inbox />
         </Route>
-        <Route exact path="/notification">
-          <Notification />
+        <Route exact path="/notifications">
+          <Notifications />
         </Route>
         <Route exact path="/payouts">
           <Payouts />

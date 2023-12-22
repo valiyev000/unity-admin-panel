@@ -1,4 +1,4 @@
-import { memo, useEffect, useContext, useState } from 'react'
+import { memo, useEffect, useContext, useState, useRef } from 'react'
 import styles from './styles/ConversationViewer.module.scss'
 import { Link, useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -20,6 +20,7 @@ function ConversationViewer() {
 
     const [documentData, setDocumentData] = useState(null);
     const [imgSrc, setImgSrc] = useState(null)
+    const conversationContainerRef = useRef(null)
 
     useEffect(() => {
         // Reference to your document
@@ -38,6 +39,15 @@ function ConversationViewer() {
 
         // Add onSnapshot listener
         const unsubscribe = onSnapshot(docRef, handleSnapshot);
+
+        if (conversationContainerRef) {
+            setTimeout(() => {
+                if (conversationContainerRef) {
+                    const container = conversationContainerRef.current;
+                    container.scrollTop = container.scrollHeight;
+                }
+            }, 100);
+        }
 
         // Cleanup the listener when component unmounts or key changes
         return () => unsubscribe();
@@ -113,8 +123,8 @@ function ConversationViewer() {
                 <button className={styles.delete} onClick={handleDelete}>{translation.delete}</button>
                 <button className={styles.archive} onClick={() => handleArchived(documentData?.isArchived)} disabled={documentData?.isArchived}>{translation.archive}</button>
             </div>
-            <motion.div className={styles.history} layout>
-                <ConversationInput documentData={documentData} setDocumentData={setDocumentData} />
+            <motion.div className={styles.history} layout ref={conversationContainerRef}>
+                <ConversationInput documentData={documentData} />
                 {documentData && documentData.messages.map((message, index) => (
                     <div className={styles.message} key={index}>
                         <img className={styles.avatar} src={message.senderIsMe && user.photoURL ? user.photoURL : !message.senderIsMe && documentData.userAvatar ? documentData.userAvatar : uploadAvatarNull} alt="avatar.png" />
