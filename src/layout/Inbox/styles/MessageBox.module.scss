@@ -97,10 +97,10 @@
                                 border-radius: 5px;
                                 background: transparent;
                                 transition: 0.3s background ease-in-out;
-                                &:hover{
+                                &:hover {
                                     background: #ededed;
                                 }
-                                &.dark:hover{
+                                &.dark:hover {
                                     background: rgba($color: #ededed, $alpha: 0.1);
                                 }
                             }
@@ -109,10 +109,18 @@
                 }
             }
         }
-        >.nullConversation{
+        > .nullConversation {
             width: 100%;
             height: 100%;
-            border: 1px solid red;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 5%;
+            color: #b2b3bd;
+            font-family: Poppins;
+            font-size: 18px;
+            font-weight: 500;
         }
     }
 }
