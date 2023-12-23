@@ -21,7 +21,7 @@ import Setting from "../components/Setting";
 
 export default function Routes({user, isSettingOpen, auth}) {
 
-    const {translation} = useContext(contextApi)
+    const {translation, theme} = useContext(contextApi)
 
   return (
     <Router>

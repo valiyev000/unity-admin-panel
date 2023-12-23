@@ -69,13 +69,12 @@ function App() {
   }
 
   useLayoutEffect(() => {
-    if (document.documentElement.clientWidth > 1200) {
+    if (document.documentElement.clientWidth > 1200) { //todo Navbar'i komp versiyasinda acmaq ucun
       setIsNavOpen(true)
     }
     window.addEventListener("resize", () => { //todo x <= 480 , x < 1200 , x >= 1200
 
-
-      if (document.documentElement.clientWidth >= 1200) {
+      if (document.documentElement.clientWidth >= 1200) { //todo screenWidth burda teyin olunur
         setScreenWidth(1210)
         setIsNavOpen(true)
       } else if (document.documentElement.clientWidth < 1200 && document.documentElement.clientWidth > 480) {
@@ -109,11 +108,14 @@ function App() {
       }
     });
 
-    // console.log(auth) //!  ***************
+    const currentTime = new Date().getHours();
+    if (currentTime >= 20 || currentTime < 8) {
+      setTheme("dark")
+    }
 
-
+    // console.log(auth)
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      console.log(user)
+      // console.log(user)
       setTimeout(() => {
         if (user) {
           setUser(user)

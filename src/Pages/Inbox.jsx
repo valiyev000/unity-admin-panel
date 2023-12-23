@@ -95,210 +95,210 @@ export default function Inbox() {
   }, [selectedFilter, searchValue]);
 
 
-  const conversationModel = {
-    i3wyfcbpuefcnviofj2yfugugp: {
-      userName: "Tərlan Rəhmanzadə",
-      userAvatar: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452",
-      modifiedTime: serverTimestamp(),
-      isArchived: false,
-      isDone: false,
-      isStarred: false,
-      messages: [
-        {
-          senderIsMe: true,
-          whenSent: new Date(),
-          isBold: false,
-          isItalic: false,
-          wasRead: false,
-          text: "Hər vaxtınız xeyir. Qısa müddət ərzində müraciətinizə baxılacaq",
-          photoArr: [
-            {
-              id: 0.5432344599,
-              imgName: "AttacmentNewMessage.jpg",
-              imgSize: "4.6Mb",
-              imgURL: "https://unblast.com/wp-content/uploads/2019/11/Analytics-Ui-Kit-1-1600x1800.jpg"
-            },
-            {
-              id: 0.34758990859,
-              imgName: "AttacmentNewMessage2.png",
-              imgSize: "5.6Mb",
-              imgURL: "https://images.ui8.net/uploads/2_1595437468099.png"
-            }
-          ]
-        },
-        {
-          senderIsMe: false,
-          whenSent: new Date(),
-          isBold: true,
-          isItalic: false,
-          wasRead: false,
-          text: "Salam. Sifarişimlə bağlı problemim var",
-          photoArr: [
-            {
-              id: 0.54347847986,
-              imgName: "AttacmentNewMessage.jpg",
-              imgSize: "4.6Mb",
-              imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
-            },
-            {
-              id: 0.41237485789,
-              imgName: "AttacmentNewMessage2.png",
-              imgSize: "5.6Mb",
-              imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
-            }
-          ]
-        },
-      ]
-    },
-    a5u7di68co7fiytkf65difogi7: {
-      userName: "Süleyman Vəliyev",
-      userAvatar: null,
-      modifiedTime: serverTimestamp(),
-      isArchived: false,
-      isDone: false,
-      isStarred: false,
-      messages: [
-        {
-          senderIsMe: false,
-          whenSent: new Date(),
-          isBold: false,
-          isItalic: false,
-          wasRead: false,
-          text: "Ən qısa zamanda qiymətləndirəcəm. Təşəkkürlər",
-          photoArr: [
-            {
-              id: 0.78132688437,
-              imgName: "Screenshot.jpg",
-              imgSize: "4.6Mb",
-              imgURL: "https://images.ctfassets.net/lzny33ho1g45/full-page-screenshots-in-chrom-p-img/8ba0bdd4880517caff45db805576c591/Screenshot.jpg?w=1520&fm=jpg&q=30&fit=thumb&h=760"
-            },
-            {
-              id: 0.176545667908,
-              imgName: "ss22.png",
-              imgSize: "5.6Mb",
-              imgURL: "https://m.media-amazon.com/images/I/51K1mE5uVyL.__AC_SX300_SY300_QL70_FMwebp_.jpg"
-            }
-          ]
-        },
-        {
-          senderIsMe: true,
-          whenSent: new Date(),
-          isBold: true,
-          isItalic: false,
-          wasRead: false,
-          text: "Salam, zəhmət olmasa sifarişi qiymətləndirin.",
-          photoArr: [
-            {
-              id: 0.6536456678,
-              imgName: "camImg.jpg",
-              imgSize: "4.6Mb",
-              imgURL: "https://www.telegraph.co.uk/content/dam/recommended/2023/01/11/TELEMMGLPICT000321696243_trans_NvBQzQNjv4BqqVzuuqpFlyLIwiB6NTmJwfSVWeZ_vEN7c6bHu2jJnT8.jpeg?imwidth=960"
-            },
-            {
-              id: 0.65364435646,
-              imgName: "AttacmentNewMessage2.png",
-              imgSize: "5.6Mb",
-              imgURL: "https://fabrilife.com/products/650a78ab96aa2-square.jpeg?v=20"
-            }
-          ]
-        },
-      ]
-    },
-    uyi6798f79i65fo8g8655figou: {
-      userName: "Xəndan Abdurahmanzadə",
-      userAvatar: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FXendan_avatar.jpg?alt=media&token=3af2ffb0-b0a5-410b-83ce-5fa9bb83518d",
-      modifiedTime: serverTimestamp(),
-      isArchived: false,
-      isDone: false,
-      isStarred: false,
-      messages: [
-        {
-          senderIsMe: true,
-          whenSent: new Date(),
-          isBold: false,
-          isItalic: true,
-          wasRead: false,
-          text: "Kuponlar barədə qısa zaman ərzində məlumat veriləcək...",
-          photoArr: []
-        },
-        {
-          senderIsMe: false,
-          whenSent: new Date(),
-          isBold: false,
-          isItalic: false,
-          wasRead: false,
-          text: "Hər hansı endirim kuponu mövcuddurmu?",
-          photoArr: []
-        },
-      ]
-    },
-    uytd08f7g9876fi8i76d6fogu: {
-      userName: "Tural Əlizadə",
-      userAvatar: null,
-      modifiedTime: serverTimestamp(),
-      isArchived: false,
-      isDone: false,
-      isStarred: false,
-      messages: [
-        {
-          senderIsMe: true,
-          whenSent: new Date(),
-          isBold: true,
-          isItalic: true,
-          wasRead: false,
-          text: "Operativliyiniz üçün təşəkkür edirəm",
-          photoArr: []
-        },
-        {
-          senderIsMe: true,
-          whenSent: new Date(),
-          isBold: true,
-          isItalic: false,
-          wasRead: false,
-          text: "Xəta aradan qaldırıldı",
-          photoArr: []
-        },
-        {
-          senderIsMe: false,
-          whenSent: new Date(),
-          isBold: false,
-          isItalic: false,
-          wasRead: false,
-          text: "Oldu",
-          photoArr: []
-        },
-        {
-          senderIsMe: true,
-          whenSent: new Date(),
-          isBold: true,
-          isItalic: true,
-          wasRead: false,
-          text: "Sistem üzərindən yoxlanılır. Sizə məlumat veriləcək",
-          photoArr: []
-        },
-        {
-          senderIsMe: false,
-          whenSent: new Date(),
-          isBold: false,
-          isItalic: false,
-          wasRead: false,
-          text: "Ödəniş ilə bağlı problemim var",
-          photoArr: []
-        },
-      ]
-    }
-  }
+  // const conversationModel = {
+  //   i3wyfcbpuefcnviofj2yfugugp: {
+  //     userName: "Tərlan Rəhmanzadə",
+  //     userAvatar: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452",
+  //     modifiedTime: serverTimestamp(),
+  //     isArchived: false,
+  //     isDone: false,
+  //     isStarred: false,
+  //     messages: [
+  //       {
+  //         senderIsMe: true,
+  //         whenSent: new Date(),
+  //         isBold: false,
+  //         isItalic: false,
+  //         wasRead: false,
+  //         text: "Hər vaxtınız xeyir. Qısa müddət ərzində müraciətinizə baxılacaq",
+  //         photoArr: [
+  //           {
+  //             id: 0.5432344599,
+  //             imgName: "AttacmentNewMessage.jpg",
+  //             imgSize: "4.6Mb",
+  //             imgURL: "https://unblast.com/wp-content/uploads/2019/11/Analytics-Ui-Kit-1-1600x1800.jpg"
+  //           },
+  //           {
+  //             id: 0.34758990859,
+  //             imgName: "AttacmentNewMessage2.png",
+  //             imgSize: "5.6Mb",
+  //             imgURL: "https://images.ui8.net/uploads/2_1595437468099.png"
+  //           }
+  //         ]
+  //       },
+  //       {
+  //         senderIsMe: false,
+  //         whenSent: new Date(),
+  //         isBold: true,
+  //         isItalic: false,
+  //         wasRead: false,
+  //         text: "Salam. Sifarişimlə bağlı problemim var",
+  //         photoArr: [
+  //           {
+  //             id: 0.54347847986,
+  //             imgName: "AttacmentNewMessage.jpg",
+  //             imgSize: "4.6Mb",
+  //             imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+  //           },
+  //           {
+  //             id: 0.41237485789,
+  //             imgName: "AttacmentNewMessage2.png",
+  //             imgSize: "5.6Mb",
+  //             imgURL: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FTarlan_Avatar.jpg?alt=media&token=4d5b4041-53d5-4634-bc29-f34022b84452"
+  //           }
+  //         ]
+  //       },
+  //     ]
+  //   },
+  //   a5u7di68co7fiytkf65difogi7: {
+  //     userName: "Süleyman Vəliyev",
+  //     userAvatar: null,
+  //     modifiedTime: serverTimestamp(),
+  //     isArchived: false,
+  //     isDone: false,
+  //     isStarred: false,
+  //     messages: [
+  //       {
+  //         senderIsMe: false,
+  //         whenSent: new Date(),
+  //         isBold: false,
+  //         isItalic: false,
+  //         wasRead: false,
+  //         text: "Ən qısa zamanda qiymətləndirəcəm. Təşəkkürlər",
+  //         photoArr: [
+  //           {
+  //             id: 0.78132688437,
+  //             imgName: "Screenshot.jpg",
+  //             imgSize: "4.6Mb",
+  //             imgURL: "https://images.ctfassets.net/lzny33ho1g45/full-page-screenshots-in-chrom-p-img/8ba0bdd4880517caff45db805576c591/Screenshot.jpg?w=1520&fm=jpg&q=30&fit=thumb&h=760"
+  //           },
+  //           {
+  //             id: 0.176545667908,
+  //             imgName: "ss22.png",
+  //             imgSize: "5.6Mb",
+  //             imgURL: "https://m.media-amazon.com/images/I/51K1mE5uVyL.__AC_SX300_SY300_QL70_FMwebp_.jpg"
+  //           }
+  //         ]
+  //       },
+  //       {
+  //         senderIsMe: true,
+  //         whenSent: new Date(),
+  //         isBold: true,
+  //         isItalic: false,
+  //         wasRead: false,
+  //         text: "Salam, zəhmət olmasa sifarişi qiymətləndirin.",
+  //         photoArr: [
+  //           {
+  //             id: 0.6536456678,
+  //             imgName: "camImg.jpg",
+  //             imgSize: "4.6Mb",
+  //             imgURL: "https://www.telegraph.co.uk/content/dam/recommended/2023/01/11/TELEMMGLPICT000321696243_trans_NvBQzQNjv4BqqVzuuqpFlyLIwiB6NTmJwfSVWeZ_vEN7c6bHu2jJnT8.jpeg?imwidth=960"
+  //           },
+  //           {
+  //             id: 0.65364435646,
+  //             imgName: "AttacmentNewMessage2.png",
+  //             imgSize: "5.6Mb",
+  //             imgURL: "https://fabrilife.com/products/650a78ab96aa2-square.jpeg?v=20"
+  //           }
+  //         ]
+  //       },
+  //     ]
+  //   },
+  //   uyi6798f79i65fo8g8655figou: {
+  //     userName: "Xəndan Abdurahmanzadə",
+  //     userAvatar: "https://firebasestorage.googleapis.com/v0/b/unity-admin-panel.appspot.com/o/conversation_avatar%2FXendan_avatar.jpg?alt=media&token=3af2ffb0-b0a5-410b-83ce-5fa9bb83518d",
+  //     modifiedTime: serverTimestamp(),
+  //     isArchived: false,
+  //     isDone: false,
+  //     isStarred: false,
+  //     messages: [
+  //       {
+  //         senderIsMe: true,
+  //         whenSent: new Date(),
+  //         isBold: false,
+  //         isItalic: true,
+  //         wasRead: false,
+  //         text: "Kuponlar barədə qısa zaman ərzində məlumat veriləcək...",
+  //         photoArr: []
+  //       },
+  //       {
+  //         senderIsMe: false,
+  //         whenSent: new Date(),
+  //         isBold: false,
+  //         isItalic: false,
+  //         wasRead: false,
+  //         text: "Hər hansı endirim kuponu mövcuddurmu?",
+  //         photoArr: []
+  //       },
+  //     ]
+  //   },
+  //   uytd08f7g9876fi8i76d6fogu: {
+  //     userName: "Tural Əlizadə",
+  //     userAvatar: null,
+  //     modifiedTime: serverTimestamp(),
+  //     isArchived: false,
+  //     isDone: false,
+  //     isStarred: false,
+  //     messages: [
+  //       {
+  //         senderIsMe: true,
+  //         whenSent: new Date(),
+  //         isBold: true,
+  //         isItalic: true,
+  //         wasRead: false,
+  //         text: "Operativliyiniz üçün təşəkkür edirəm",
+  //         photoArr: []
+  //       },
+  //       {
+  //         senderIsMe: true,
+  //         whenSent: new Date(),
+  //         isBold: true,
+  //         isItalic: false,
+  //         wasRead: false,
+  //         text: "Xəta aradan qaldırıldı",
+  //         photoArr: []
+  //       },
+  //       {
+  //         senderIsMe: false,
+  //         whenSent: new Date(),
+  //         isBold: false,
+  //         isItalic: false,
+  //         wasRead: false,
+  //         text: "Oldu",
+  //         photoArr: []
+  //       },
+  //       {
+  //         senderIsMe: true,
+  //         whenSent: new Date(),
+  //         isBold: true,
+  //         isItalic: true,
+  //         wasRead: false,
+  //         text: "Sistem üzərindən yoxlanılır. Sizə məlumat veriləcək",
+  //         photoArr: []
+  //       },
+  //       {
+  //         senderIsMe: false,
+  //         whenSent: new Date(),
+  //         isBold: false,
+  //         isItalic: false,
+  //         wasRead: false,
+  //         text: "Ödəniş ilə bağlı problemim var",
+  //         photoArr: []
+  //       },
+  //     ]
+  //   }
+  // }
 
-  const handleSendData = async () => {  //todo conversation'lari ilk defeden gondermek ucundur. Sonda siline biler!!!
-    const collectionRef = collection(db, "conversations");
+  // const handleSendData = async () => {  //todo conversation'lari ilk defeden gondermek ucundur. Sonda siline biler!!!
+  //   const collectionRef = collection(db, "conversations");
 
-    const promises = Object.keys(conversationModel).map(async (key) => {
-      const docRef = doc(collectionRef, key);
-      await setDoc(docRef, conversationModel[key]);
-    });
+  //   const promises = Object.keys(conversationModel).map(async (key) => {
+  //     const docRef = doc(collectionRef, key);
+  //     await setDoc(docRef, conversationModel[key]);
+  //   });
 
-    await Promise.all(promises);
-  };
+  //   await Promise.all(promises);
+  // };
 
 
   return (
@@ -334,7 +334,7 @@ export default function Inbox() {
             <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
             <InboxFilter selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
             <MessageBox selectedFilter={selectedFilter} mainContainer={mainContainer} conversations={conversations} />
-            <button onClick={handleSendData}>Send temp</button>
+            {/* <button onClick={handleSendData}>Send temp</button> */}
           </motion.div>
         }
         {(screenWidth >= 480 || (screenWidth < 480 && key)) &&

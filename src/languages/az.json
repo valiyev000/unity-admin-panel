@@ -119,5 +119,8 @@
     "archive": "Arxiv",
     "send_message": "Mesajı Göndər",
     "there_is_no_opened_conversation_yet": "Hələ ki, açıq söhbət yoxdur:)",
-    "there_is_no_conversation_for_show": "Göstərilməli söhbət yoxdur"
+    "there_is_no_conversation_for_show": "Göstərilməli söhbət yoxdur",
+    "clients": "Alıcılar",
+    "adminstrator": "Adminstrator",
+    "withdrawals": "Withdraw"
 }

@@ -119,5 +119,8 @@
     "archive": "Archive",
     "send_message": "Send Message",
     "there_is_no_opened_conversation_yet": "There is no opened conversation yet:)",
-    "there_is_no_conversation_for_show": "There is no conversation for show"
+    "there_is_no_conversation_for_show": "There is no conversation for show",
+    "clients": "Clients",
+    "adminstrator": "Adminstrator",
+    "withdrawals": "Withdrawals"
 }
