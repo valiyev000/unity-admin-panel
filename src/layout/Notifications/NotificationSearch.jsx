@@ -4,10 +4,9 @@ import contextApi from '../../StateManager'
 import { motion } from 'framer-motion'
 import { IoSearchOutline } from 'react-icons/io5'
 
-export default function NotificationSearch() {
+export default function NotificationSearch({searchValue, setSearchValue}) {
 
     const { theme, translation, screenWidth } = useContext(contextApi)
-    const [searchValue, setSearchValue] = useState('')
 
     return (
         <motion.div
