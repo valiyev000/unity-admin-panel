@@ -4,9 +4,9 @@ import { motion } from 'framer-motion'
 import contextApi from '../../StateManager'
 
 
-export default function NotificationList() {
+function NotificationList() {
 
-    const { theme, screenWidth } = useContext(contextApi)
+    const { theme, screenWidth, translation } = useContext(contextApi)
 
     return (
         <motion.div
@@ -28,7 +28,9 @@ export default function NotificationList() {
             }}
             layout
         >
-            NotificationList
+            <div className={styles.title}>{translation.recent_notification}</div>
         </motion.div>
     )
 }
+
+export default memo(NotificationList)

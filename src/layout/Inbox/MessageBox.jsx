@@ -127,16 +127,8 @@ function MessageBox({ selectedFilter, mainContainer, conversations }) {
     return (
         <motion.div
             className={styles.MessageBoxMain}
-            initial={{
-                transform: "scale(1.2)",
-                boxShadow: theme === "light" ? "0px 20px 40px 0px rgba(230,215,255,0.95)" : "0px 20px 40px 0px rgba(5,5,5,0.65)",
-            }}
-            animate={{
+            style={{
                 transform: "scale(1.0)",
-                boxShadow: theme === "light" ? "0px 20px 40px 0px rgba(230,215,255,0.95)" : "0px 20px 40px 0px rgba(5,5,5,0.65)",
-            }}
-            exit={{
-                transform: "scale(1.2)",
                 boxShadow: theme === "light" ? "0px 20px 40px 0px rgba(230,215,255,0.95)" : "0px 20px 40px 0px rgba(5,5,5,0.65)",
             }}
             layout

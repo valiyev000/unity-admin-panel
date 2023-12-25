@@ -1,10 +1,10 @@
-import { useContext, useState } from 'react'
+import { useContext, memo } from 'react'
 import styles from './styles/NotificationSearch.module.scss'
 import contextApi from '../../StateManager'
 import { motion } from 'framer-motion'
 import { IoSearchOutline } from 'react-icons/io5'
 
-export default function NotificationSearch({searchValue, setSearchValue}) {
+function NotificationSearch({searchValue, setSearchValue}) {
 
     const { theme, translation, screenWidth } = useContext(contextApi)
 
@@ -24,3 +24,5 @@ export default function NotificationSearch({searchValue, setSearchValue}) {
         </motion.div>
     )
 }
+
+export default memo(NotificationSearch)
