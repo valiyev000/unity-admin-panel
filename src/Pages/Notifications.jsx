@@ -38,11 +38,6 @@ export default function Notifications() {
     window.scrollTo(0, 0);
   }, [])
 
-  // const notificationModel = {
-
-  // }
-
-
   const notificationModel = {
     ytrduxyi6do87p9f8v: {
       id: 1,
