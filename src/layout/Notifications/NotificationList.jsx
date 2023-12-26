@@ -3,6 +3,8 @@ import styles from './styles/NotificationList.module.scss'
 import { motion } from 'framer-motion'
 import contextApi from '../../StateManager'
 import uploadAvatarNull from '../../images/uploadAvatarNull.png'
+import { BiSolidLike, BiSolidDislike } from "react-icons/bi";
+import { MdDelete } from "react-icons/md";
 
 
 function NotificationList() {
@@ -32,22 +34,20 @@ function NotificationList() {
             <motion.div layout className={styles.title}>{translation.recent_notification}</motion.div>
             <ul>
                 <li>
-                    <div className={styles.imgSection}>
-                        <img className={styles.avatar} src={uploadAvatarNull} alt="avatar.png" />
-                        <img className={styles.positionAbs} src="https://www.nicepng.com/png/full/933-9332131_profile-picture-default-png.png" alt="tinyBlockAlt" />
-                    </div>
-                    <div className={styles.mainSection}>
-                        <div className={styles.userNameAndSurname}>Glenn Grerr</div>
-                        <div className={styles.aboutType}>
-                            <div className={styles.type}>Commented on</div>
-                            <div className={styles.productName}>Collab</div>
-                            <div className={styles.whenCome}>11h</div>
+                    <div className={styles.left}>
+                        <div className={styles.imgSection}>
+                            <img className={styles.avatar} src={uploadAvatarNull} alt="avatar.png" />
+                            <img className={styles.positionAbs} src="https://www.nicepng.com/png/full/933-9332131_profile-picture-default-png.png" alt="tinyBlockAlt" />
                         </div>
-                        <div className={styles.innerText}>"Love this so much! What tools do you use to create your 3d illustrations?"</div>
-                        <div className={styles.btnsSection}>
-                            <button>L</button>
-                            <button>D</button>
-                            <button>Del</button>
+                        <div className={styles.mainSection}>
+                            <div className={styles.userNameAndSurname}>Glenn Grerr</div>
+                            <div className={styles.aboutType}> <span className={styles.type}>Commented on</span> <span className={styles.productName}>Collab</span> <span className={styles.whenCome}>11h</span></div>
+                            <div className={styles.innerText}>Love this so much! What tools do you use to create your 3d illustrations?</div>
+                            <div className={styles.btnsSection}>
+                                <button style={{border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4"}}><BiSolidLike color={theme === "dark" ? 'rgba(255,255,255,0.4)' : 'rgba(27,29,33,0.4)'} size={20} /></button>
+                                <button style={{border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4"}}><BiSolidDislike color={theme === "dark" ? 'rgba(255,255,255,0.4)' : 'rgba(27,29,33,0.4)'} size={20} /></button>
+                                <button style={{border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4"}}><MdDelete color={theme === "dark" ? 'rgba(255,255,255,0.4)' : 'rgba(27,29,33,0.4)'} size={20} /></button>
+                            </div>
                         </div>
                     </div>
                     <div className={styles.imgSectionBg}>
@@ -55,26 +55,24 @@ function NotificationList() {
                     </div>
                 </li>
                 <li>
-                    <div className={styles.imgSection}>
-                        <img className={styles.avatar} src={uploadAvatarNull} alt="avatar.png" />
-                        <div className={styles.positionAbs}>img</div>
-                    </div>
-                    <div className={styles.mainSection}>
-                        <div className={styles.userNameAndSurname}>Glenn Grerr</div>
-                        <div className={styles.aboutType}>
-                            <div className={styles.type}>Commented on</div>
-                            <div className={styles.productName}>Collab</div>
-                            <div className={styles.whenCome}>11h</div>
+                    <div className={styles.left}>
+                        <div className={styles.imgSection}>
+                            <img className={styles.avatar} src={uploadAvatarNull} alt="avatar.png" />
+                            <img className={styles.positionAbs} src="https://www.nicepng.com/png/full/933-9332131_profile-picture-default-png.png" alt="tinyBlockAlt" />
                         </div>
-                        <div className={styles.innerText}>"Love this so much! What tools do you use to create your 3d illustrations?"</div>
-                        <div className={styles.btnsSection}>
-                            <button>L</button>
-                            <button>D</button>
-                            <button>Del</button>
+                        <div className={styles.mainSection}>
+                            <div className={styles.userNameAndSurname}>Glenn Grerr</div>
+                            <div className={styles.aboutType}> <span className={styles.type}>Commented on</span> <span className={styles.productName}>Collab</span> <span className={styles.whenCome}>11h</span></div>
+                            <div className={styles.innerText}>Love this so much! What tools do you use to create your 3d illustrations?</div>
+                            <div className={styles.btnsSection}>
+                                <button style={{border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4"}}><BiSolidLike color={theme === "dark" ? 'rgba(255,255,255,0.4)' : 'rgba(27,29,33,0.4)'} size={20} /></button>
+                                <button style={{border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4"}}><BiSolidDislike color={theme === "dark" ? 'rgba(255,255,255,0.4)' : 'rgba(27,29,33,0.4)'} size={20} /></button>
+                                <button style={{border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4"}}><MdDelete color={theme === "dark" ? 'rgba(255,255,255,0.4)' : 'rgba(27,29,33,0.4)'} size={20} /></button>
+                            </div>
                         </div>
                     </div>
                     <div className={styles.imgSectionBg}>
-                        <img src={uploadAvatarNull} alt="notiImgAlt" />
+                        <img className={styles.avatar} src={uploadAvatarNull} alt="notiImgAlt" />
                     </div>
                 </li>
             </ul>
