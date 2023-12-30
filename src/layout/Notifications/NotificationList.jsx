@@ -5,6 +5,9 @@ import contextApi from '../../StateManager'
 import uploadAvatarNull from '../../images/uploadAvatarNull.png'
 import { BiSolidLike, BiSolidDislike } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
+import commentIcon from '../../images/commentIcon.svg'
+import likeIcon from '../../images/likeIcon.svg'
+import purchaseIcon from '../../images/purchaseIcon.svg'
 
 
 function NotificationList() {
@@ -37,7 +40,7 @@ function NotificationList() {
                     <div className={styles.left}>
                         <div className={styles.imgSection}>
                             <img className={styles.avatar} src={uploadAvatarNull} alt="avatar.png" />
-                            <img className={styles.positionAbs} src="https://www.nicepng.com/png/full/933-9332131_profile-picture-default-png.png" alt="tinyBlockAlt" />
+                            <img className={styles.positionAbs} src={commentIcon} alt="tinyBlockAlt" />
                         </div>
                         <div className={styles.mainSection}>
                             <div className={styles.userNameAndSurname}>Glenn Grerr</div>
