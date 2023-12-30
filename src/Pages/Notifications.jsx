@@ -9,7 +9,7 @@ import Header from '../components/Header';
 import HeaderMobileSub from '../sub-components/HeaderMobileSub';
 import NotificationSearch from '../layout/Notifications/NotificationSearch';
 import FilterSection from '../layout/Notifications/FilterSection';
-import { collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { collection, doc, onSnapshot, orderBy, query, serverTimestamp, setDoc, where } from 'firebase/firestore';
 import NotificationList from '../layout/Notifications/NotificationList';
 import { db } from '../firebase-config';
 
@@ -38,6 +38,57 @@ export default function Notifications() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [])
+
+  useEffect(() => {
+    const notificationRef = collection(db, 'notifications');
+
+    let q; //todo firestore query'ini onceden assign edirik...
+
+    switch (selectedFilter) {
+      case "clients":
+        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "clients"));
+        break;
+      case "products":
+        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "products"));
+        break;
+      case "adminstrator":
+        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "adminstrator"));
+        break;
+      case "sales":
+        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "sales"));
+        break;
+      case "withdrawals":
+        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "withdrawals"));
+        break;
+
+      default:
+        console.error("Inbox component switch case error")
+        alert("Something went wrong!!!")
+        break;
+    }
+
+    // Use onSnapshot to listen for real-time updates
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      // Extract keys and data from each document
+      let notificationsData = querySnapshot.docs.map((doc) => ({
+        key: doc.id,
+        data: doc.data(),
+      }));
+
+      notificationsData = notificationsData.filter((element) => //! Burda qalmisam. Searchi duzeltmek lazimdi...
+        element.data.messages.some((message) =>
+          message.text.toLowerCase().includes(searchValue.toLowerCase())
+        )
+        || element.data.userName.toLowerCase().includes(searchValue.toLowerCase())
+      );
+
+      setData(notificationsData);
+
+    });
+
+    // Cleanup the listener when the component unmounts
+    return () => unsubscribe();
+  }, [selectedFilter, searchValue]);
 
   // const notificationModel = {
   //   ytrduxyi6do87p9f8v: {
@@ -417,7 +468,7 @@ export default function Notifications() {
         <FilterSection selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
 
         <NotificationList data={data} setData={setData} />
-        
+
         {/* <button onClick={handleSendData}>Send data</button> */}
 
       </motion.div>

@@ -63,7 +63,7 @@ function NotificationList() {
                     <div className={styles.left}>
                         <div className={styles.imgSection}>
                             <img className={styles.avatar} src={uploadAvatarNull} alt="avatar.png" />
-                            <img className={styles.positionAbs} src="https://www.nicepng.com/png/full/933-9332131_profile-picture-default-png.png" alt="tinyBlockAlt" />
+                            <img className={styles.positionAbs} src={commentIcon} alt="tinyBlockAlt" />
                         </div>
                         <div className={styles.mainSection}>
                             <div className={styles.userNameAndSurname}>Glenn Grerr</div>
@@ -77,9 +77,9 @@ function NotificationList() {
                         </div>
                     </div>
                     {screenWidth > 480 &&
-                        <div className={styles.imgSectionBg}>
+                        <motion.div layout className={styles.imgSectionBg}>
                             <img className={styles.avatar} src={uploadAvatarNull} alt="notiImgAlt" />
-                        </div>
+                        </motion.div>
                     }
                 </li>
             </ul>
