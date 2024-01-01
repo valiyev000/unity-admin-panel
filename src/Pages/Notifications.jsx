@@ -51,8 +51,8 @@ export default function Notifications() {
       case "products":
         q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "products"));
         break;
-      case "adminstrator":
-        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "adminstrator"));
+      case "administrator":
+        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "administrator"));
         break;
       case "sales":
         q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "sales"));
@@ -69,21 +69,24 @@ export default function Notifications() {
 
     // Use onSnapshot to listen for real-time updates
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      // Extract keys and data from each document
-      let notificationsData = querySnapshot.docs.map((doc) => ({
-        key: doc.id,
-        data: doc.data(),
-      }));
+      if (q) {
+        // Extract keys and data from each document
+        let notificationsData = querySnapshot.docs.map((doc) => ({
+          key: doc.id,
+          data: doc.data(),
+        }));
 
-      notificationsData = notificationsData.filter((element) => //! Burda qalmisam. Searchi duzeltmek lazimdi...
-        element.data.messages.some((message) =>
-          message.text.toLowerCase().includes(searchValue.toLowerCase())
-        )
-        || element.data.userName.toLowerCase().includes(searchValue.toLowerCase())
-      );
-
-      setData(notificationsData);
-
+        notificationsData = notificationsData.filter((element) => {
+          return (
+            element.data.text.toLowerCase().includes(searchValue.toLowerCase()) ||
+            element.data.productName.toLowerCase().includes(searchValue.toLowerCase()) ||
+            element.data.senderType.toLowerCase().includes(searchValue.toLowerCase()) ||
+            element.data.username.toLowerCase().includes(searchValue.toLowerCase()) ||
+            element.data.notiType.toLowerCase().includes(searchValue.toLowerCase())
+          );
+        });
+        setData(notificationsData);
+      }
     });
 
     // Cleanup the listener when the component unmounts
@@ -93,7 +96,7 @@ export default function Notifications() {
   // const notificationModel = {
   //   ytrduxyi6do87p9f8v: {
   //     id: 1,
-  //     userAvatar: "https://socialtradia.com/wp-content/uploads/2023/01/Screenshot_20230106_165538_Instagram-595x615.jpg",
+  //     userAvatar: "https://ps.w.org/user-avatar-reloaded/assets/icon-128x128.png?rev=2540745",
   //     username: "Glenn Greer",
   //     notiType: "comment", //todo comment || purchase || like
   //     time: serverTimestamp(),
@@ -190,7 +193,7 @@ export default function Notifications() {
   //   yid76fiubhby: {
   //     id: 9,
   //     userAvatar: null,
-  //     username: "Administrator",
+  //     username: "ItsMeBroo",
   //     notiType: "purchase",
   //     time: serverTimestamp(),
   //     text: "Reminder: Monthly team meeting tomorrow at 10 AM.",
@@ -467,7 +470,7 @@ export default function Notifications() {
         <NotificationSearch searchValue={searchValue} setSearchValue={setSearchValue} />
         <FilterSection selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
 
-        <NotificationList data={data} setData={setData} />
+        {data && <NotificationList data={data} />}
 
         {/* <button onClick={handleSendData}>Send data</button> */}
 
