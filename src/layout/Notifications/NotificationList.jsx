@@ -46,16 +46,28 @@ function NotificationList({ data }) {
             <motion.div layout className={styles.title}>{translation.recent_notification}</motion.div>
             <motion.ul>
                 {data.map(noti => (
-                    <motion.li layout key={noti.key} className={`${theme === "dark" ? styles.dark : ""}`}>
+                    <motion.li 
+                    className={`${theme === "dark" ? styles.dark : ""}`}
+                    layout 
+                    key={noti.key} 
+                    initial={{
+                        opacity: 0,
+                        transform: "translateY(10px)"
+                    }}
+                    animate={{
+                        opacity: 1,
+                        transform: "translateY(0px)"
+                    }}
+                    >
                         {console.log(noti.data)}
                         <div className={styles.left}>
                             <div className={styles.imgSection}>
                                 <img className={styles.avatar} src={noti.data.userAvatar ? noti.data.userAvatar : uploadAvatarNull} alt="avatar.png" />
-                                <img className={styles.positionAbs} src={commentIcon} alt="tinyBlockAlt" />
+                                <img className={styles.positionAbs} src={noti.data.notiType === "purchase" ? purchaseIcon : noti.data.notiType === "comment" ? commentIcon : likeIcon} alt="tinyBlockAlt" />
                             </div>
                             <div className={styles.mainSection}>
                                 <div className={styles.userNameAndSurname}>{noti.data.username}</div>
-                                <div className={styles.aboutType}> <span className={styles.type}>Commented on</span> <span className={styles.productName}>{stringLimiter(noti.data.productName)}</span> <span className={styles.whenCome}>11h</span></div>
+                                <div className={styles.aboutType}> <span className={styles.type}>{noti.data.notiType === "purchase" ? translation.purchased : noti.data.notiType === "comment" ? translation.commented_on : translation.liked}</span> <span className={styles.productName}>{stringLimiter(noti.data.productName)}</span> <span className={styles.whenCome}>11h</span></div>
                                 <div className={styles.innerText}>{noti.data.text}</div>
                                 <div className={styles.btnsSection}>
                                     <button style={{ border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4" }}><BiSolidLike color={noti.data.reaction === true ? "rgb(49, 139, 255)" : "rgb(128, 129, 145)"} size={20} /></button>
@@ -64,9 +76,9 @@ function NotificationList({ data }) {
                                 </div>
                             </div>
                         </div>
-                        {screenWidth > 480 &&
+                        {screenWidth > 480 && noti.data.productImage &&
                             <motion.div layout className={styles.imgSectionBg}>
-                                <img className={styles.avatar} src={uploadAvatarNull} alt="notiImgAlt" />
+                                <img className={styles.productImage} src={noti.data.productImage} alt="notiImgAlt" />
                             </motion.div>
                         }
                     </motion.li>

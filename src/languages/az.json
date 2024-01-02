@@ -122,6 +122,9 @@
     "there_is_no_conversation_for_show": "Göstərilməli söhbət yoxdur",
     "clients": "Alıcılar",
     "administrator": "Adminstrator",
-    "withdrawals": "Withdraw",
-    "recent_notification": "Recent Notification"
+    "withdrawals": "Çıxarışlar",
+    "recent_notification": "Son Bildirişlər",
+    "commented_on": "Komment yazdı",
+    "liked": "Bəyəndi",
+    "purchased": "Alındı"
 }

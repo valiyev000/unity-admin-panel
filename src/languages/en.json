@@ -123,5 +123,8 @@
     "clients": "Clients",
     "administrator": "Administrator",
     "withdrawals": "Withdrawals",
-    "recent_notification": "Son Bildirişlər"
+    "recent_notification": "Recent Notification",
+    "commented_on": "Commented on",
+    "liked": "Liked",
+    "purchased": "Purchased"
 }

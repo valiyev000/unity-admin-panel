@@ -120,10 +120,15 @@
                 border-radius: 8px;
                 min-width: 96px;
                 min-height: 96px;
+                width: 96px;
+                height: 96px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 background: #cfc8ff;
+                >.productImage{
+                    width: 100%;
+                }
             }
         }
     }
