@@ -9,7 +9,7 @@ import Header from '../components/Header';
 import HeaderMobileSub from '../sub-components/HeaderMobileSub';
 import NotificationSearch from '../layout/Notifications/NotificationSearch';
 import FilterSection from '../layout/Notifications/FilterSection';
-import { collection, doc, onSnapshot, orderBy, query, serverTimestamp, setDoc, where } from 'firebase/firestore';
+import { collection, doc, limit, onSnapshot, orderBy, query, serverTimestamp, setDoc, where } from 'firebase/firestore';
 import NotificationList from '../layout/Notifications/NotificationList';
 import { db } from '../firebase-config';
 
@@ -19,6 +19,7 @@ export default function Notifications() {
   const [searchValue, setSearchValue] = useState("")
   const [selectedFilter, setSelectedFilter] = useState("clients")
   const [data, setData] = useState(null)
+  const [limit, setLimit] = useState(5)
 
   const MAIN_STYLE = {
     backgroundColor: theme === "dark" ? "#242731" : "#fff",
@@ -46,19 +47,19 @@ export default function Notifications() {
 
     switch (selectedFilter) {
       case "clients":
-        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "clients"));
+        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "clients"), limit(limit));
         break;
       case "products":
-        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "products"));
+        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "products"), limit(limit));
         break;
       case "administrator":
-        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "administrator"));
+        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "administrator"), limit(limit));
         break;
       case "sales":
-        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "sales"));
+        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "sales"), limit(limit));
         break;
       case "withdrawals":
-        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "withdrawals"));
+        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "withdrawals"), limit(limit));
         break;
 
       default:
