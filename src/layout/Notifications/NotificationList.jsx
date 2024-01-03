@@ -12,9 +12,9 @@ import { MdImage } from "react-icons/md";
 import ImgViewer from '../../sub-components/ImgViewer'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
-function NotificationList({ data }) {
+function NotificationList({ data, setLimiter }) {
 
-    const { theme, screenWidth, translation } = useContext(contextApi)
+    const { theme, screenWidth, translation, isNavOpen } = useContext(contextApi)
     const [imgSrc, setImgSrc] = useState(null)
 
     function stringLimiter(str) {
@@ -73,7 +73,7 @@ function NotificationList({ data }) {
                             transform: "translateY(0px)"
                         }}
                     >
-                        {console.log(noti.data)}
+                        {/* {console.log(noti.data)} */}
                         <div className={styles.left}>
                             <div className={styles.imgSection}>
                                 <img className={styles.avatar} src={noti.data.userAvatar ? noti.data.userAvatar : uploadAvatarNull} alt="avatar.png" />
@@ -98,11 +98,21 @@ function NotificationList({ data }) {
                             <motion.div layout className={styles.imgSectionBg}>
                                 <img className={styles.productImage} src={noti.data.productImage} onClick={() => setImgSrc(noti.data.productImage)} alt="notiImgAlt" />
                             </motion.div>
-                            : noti.data.productImage && screenWidth < 480 ? <div onClick={()=>setImgSrc(noti.data.productImage)}><MdImage /></div>
+                            : noti.data.productImage && screenWidth < 480 ? <div onClick={() => setImgSrc(noti.data.productImage)}><MdImage /></div>
                                 : ""
                         }
                     </motion.li>
                 ))}
+                <div className={styles.loadMoreBg}>
+                    <button
+                        onClick={() => { setLimiter(prev => prev + 5) }}
+                        style={{
+                            width: isNavOpen ? "166px" : "306px"
+                        }}
+                    >
+                        {translation.load_more}
+                    </button>
+                </div>
             </motion.ul>
             <AnimatePresence>
                 {imgSrc && <ImgViewer imgSrc={imgSrc} setImgSrc={setImgSrc} />}

@@ -19,7 +19,7 @@ export default function Notifications() {
   const [searchValue, setSearchValue] = useState("")
   const [selectedFilter, setSelectedFilter] = useState("clients")
   const [data, setData] = useState(null)
-  const [limit, setLimit] = useState(5)
+  const [limiter, setLimiter] = useState(5)
 
   const MAIN_STYLE = {
     backgroundColor: theme === "dark" ? "#242731" : "#fff",
@@ -47,19 +47,19 @@ export default function Notifications() {
 
     switch (selectedFilter) {
       case "clients":
-        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "clients"), limit(limit));
+        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "clients"), limit(limiter));
         break;
       case "products":
-        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "products"), limit(limit));
+        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "products"), limit(limiter));
         break;
       case "administrator":
-        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "administrator"), limit(limit));
+        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "administrator"), limit(limiter));
         break;
       case "sales":
-        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "sales"), limit(limit));
+        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "sales"), limit(limiter));
         break;
       case "withdrawals":
-        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "withdrawals"), limit(limit));
+        q = query(notificationRef, orderBy('time', 'desc'), where("senderType", "==", "withdrawals"), limit(limiter));
         break;
 
       default:
@@ -92,7 +92,9 @@ export default function Notifications() {
 
     // Cleanup the listener when the component unmounts
     return () => unsubscribe();
-  }, [selectedFilter, searchValue]);
+  }, [selectedFilter, searchValue, limiter]);
+
+  useEffect(()=>{setLimiter(5)}, [selectedFilter])
 
   // const notificationModel = {
   //   ytrduxyi6do87p9f8v: {
@@ -471,7 +473,7 @@ export default function Notifications() {
         <NotificationSearch searchValue={searchValue} setSearchValue={setSearchValue} />
         <FilterSection selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
 
-        {data && <NotificationList data={data} />}
+        {data && <NotificationList data={data} setLimiter={setLimiter} />}
 
         {/* <button onClick={handleSendData}>Send data</button> */}
 
