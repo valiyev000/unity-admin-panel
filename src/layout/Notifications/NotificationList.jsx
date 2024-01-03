@@ -11,6 +11,8 @@ import purchaseIcon from '../../images/purchaseIcon.svg'
 import { MdImage } from "react-icons/md";
 import ImgViewer from '../../sub-components/ImgViewer'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import { doc, updateDoc } from 'firebase/firestore'
+import { db } from '../../firebase-config'
 
 function NotificationList({ data, setLimiter }) {
 
@@ -37,6 +39,31 @@ function NotificationList({ data, setLimiter }) {
         }
         return formattedTime;
     };
+
+    const handleAction = async (keyX, currentValue, userRequest) => {
+
+        let reaction
+
+        if (currentValue === userRequest) {
+            reaction = null
+        } else {
+            reaction = userRequest
+        }
+        
+        const documentId = keyX;
+        const documentRef = doc(db, 'notifications', documentId);
+
+        try {
+            await updateDoc(documentRef, {
+                reaction,
+            });
+
+            console.log('Document successfully updated!');
+        } catch (error) {
+            console.error('Error updating document: ', error);
+        }
+
+    }
 
     return (
         <motion.div
@@ -73,7 +100,6 @@ function NotificationList({ data, setLimiter }) {
                             transform: "translateY(0px)"
                         }}
                     >
-                        {/* {console.log(noti.data)} */}
                         <div className={styles.left}>
                             <div className={styles.imgSection}>
                                 <img className={styles.avatar} src={noti.data.userAvatar ? noti.data.userAvatar : uploadAvatarNull} alt="avatar.png" />
@@ -88,8 +114,8 @@ function NotificationList({ data, setLimiter }) {
                                 </div>
                                 <div className={styles.innerText}>{noti.data.text}</div>
                                 <div className={styles.btnsSection}>
-                                    <button style={{ border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4" }}><BiSolidLike color={noti.data.reaction === true ? "rgb(49, 139, 255)" : "rgb(128, 129, 145)"} size={20} /></button>
-                                    <button style={{ border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4" }}><BiSolidDislike color={noti.data.reaction === false ? "rgb(233, 75, 75)" : "rgb(128, 129, 145)"} size={20} /></button>
+                                    <button onClick={()=>handleAction(noti.key, noti.data.reaction, true)} style={{ border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4" }}><BiSolidLike color={noti.data.reaction === true ? "rgb(49, 139, 255)" : "rgb(128, 129, 145)"} size={20} /></button>
+                                    <button onClick={()=>handleAction(noti.key, noti.data.reaction, false)} style={{ border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4" }}><BiSolidDislike color={noti.data.reaction === false ? "rgb(233, 75, 75)" : "rgb(128, 129, 145)"} size={20} /></button>
                                     <button style={{ border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4" }}><MdDelete color={'rgb(128, 129, 145)'} size={20} /></button>
                                 </div>
                             </div>
