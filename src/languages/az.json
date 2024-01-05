@@ -126,5 +126,6 @@
     "recent_notification": "Son Bildirişlər",
     "commented_on": "Komment yazdı",
     "liked": "Bəyəndi",
-    "purchased": "Alındı"
+    "purchased": "Alındı",
+    "are_you_sure_you_want_to_delete_this_notification": "Bu Bildirişi silmək istədiyinizdən əminsiz?"
 }

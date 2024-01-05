@@ -167,32 +167,11 @@
     > h2 {
         margin-bottom: 10px;
     }
-    > .content {
-        display: flex;
-        flex-direction: column;
-        max-height: 200px;
-        margin-bottom: 50px;
-        overflow-y: auto;
-        &::-webkit-scrollbar {
-            display: none;
-        }
-        > .deletedProductRow {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            > .color {
-                width: 12px;
-                height: 12px;
-                border-radius: 50%;
-            }
-        }
-    }
     > .btns {
-        position: absolute;
-        bottom: 10px;
-        right: 20px;
         display: flex;
+        justify-content: flex-end;
         gap: 10px;
+        margin-top: 30px;
         > button:nth-child(1) {
             width: 70px;
             height: 40px;

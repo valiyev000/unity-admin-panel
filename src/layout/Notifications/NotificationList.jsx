@@ -13,7 +13,7 @@ import ImgViewer from '../../sub-components/ImgViewer'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { db } from '../../firebase-config'
-import DialogTemplate from '../../components/DialogTemplate'
+import DeleteModal from './DeleteModal'
 
 function NotificationList({ data, setLimiter }) {
 
@@ -68,9 +68,17 @@ function NotificationList({ data, setLimiter }) {
         return new Promise((resolve, reject) => {
             awaitingPromiseRef.current = { resolve, reject };
         })
-            .then(res => console.log(`resolved ---> ${keyX}`))
-            .catch(err => console.log(err))
-
+            .then(async (res) => {
+                const documentId = keyX;
+                const documentRef = doc(db, 'notifications', documentId);
+                try {
+                    await deleteDoc(documentRef);
+                    console.log("Document deleted succesfully")
+                } catch (error) {
+                    console.error('Error updating document: ', error)
+                }
+            })
+            .catch(err => console.log("Deleting operation cancelled"))
     }
 
     const handleConfirm = () => {
@@ -86,9 +94,6 @@ function NotificationList({ data, setLimiter }) {
         }
         setIsDelModalOpen(false);
     };
-
-
-
 
     return (
         <motion.div
@@ -173,31 +178,12 @@ function NotificationList({ data, setLimiter }) {
             </AnimatePresence>
             <AnimatePresence>
                 {isDelModalOpen &&
-                    <DialogTemplate setModalOpen={setIsDelModalOpen}>
-                        <motion.div
-                            className={styles.deleteModal}
-                            initial={{
-                                transform: "scale(1.2)",
-                                width: screenWidth > 480 ? "80%" : "70%",
-                            }}
-                            animate={{
-                                transform: "scale(1)",
-                                background: theme === "dark" ? "#1F2128" : "#FFF",
-                                color: theme === "dark" ? "#fff" : "#11142D",
-                                width: screenWidth > 480 ? "80%" : "70%",
-                            }}
-                            exit={{
-                                transform: "scale(1.2)"
-                            }}
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            <h2 style={{ fontSize: screenWidth > 480 ? 24 : 20 }}>{translation.are_you_sure_want_to_remove_the_selected_products}</h2>
-                            <div className={styles.inner}>
-                                <button onClick={handleClose}>{translation.no}</button>
-                                <button onClick={handleConfirm}>{translation.yes}</button>
-                            </div>
-                        </motion.div>
-                    </DialogTemplate>
+                    <DeleteModal
+                        styles={styles}
+                        setIsDelModalOpen={setIsDelModalOpen}
+                        handleClose={handleClose}
+                        handleConfirm={handleConfirm}
+                    />
                 }
             </AnimatePresence>
         </motion.div>
@@ -205,13 +191,3 @@ function NotificationList({ data, setLimiter }) {
 }
 
 export default memo(NotificationList)
-
-
-// const documentId = keyX;
-// const documentRef = doc(db, 'notifications', documentId);
-// try {
-//     await deleteDoc(documentRef);
-//     console.log("Document deleted succesfully")
-// } catch (error) {
-//     console.error('Error updating document: ', error)
-// }
