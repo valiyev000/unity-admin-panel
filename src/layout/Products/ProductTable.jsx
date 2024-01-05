@@ -1,4 +1,4 @@
-import { memo, useContext, useState } from "react"
+import { memo, useContext, useState, useEffect } from "react"
 import styles from './styles/ProductTable.module.scss'
 import contextApi from "../../StateManager"
 import { AnimatePresence, motion } from 'framer-motion'
@@ -8,7 +8,6 @@ import { RiSearchLine } from "react-icons/ri";
 import { BiSolidPencil } from "react-icons/bi";
 import { BsCheck } from "react-icons/bs";
 import imgProductNull from '../../images/imgProductNull.png'
-import { useEffect } from "react";
 import axios from "axios";
 import EditModal from "./EditModal";
 import DeleteModal from "./DeleteModal";

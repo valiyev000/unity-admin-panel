@@ -11,9 +11,7 @@ function DragSetting({ styles, formData, setFormData, handleInputFile, handleLog
 
     const { setIsSettingOpen, theme, translation, screenWidth } = useContext(contextApi)
     const controls = useDragControls()
-
     // console.log(formData)
-
     return (
         <motion.div
             className={styles.background}

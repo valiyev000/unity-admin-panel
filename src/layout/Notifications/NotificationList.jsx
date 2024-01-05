@@ -1,4 +1,4 @@
-import { memo, useContext, useState } from 'react'
+import { memo, useContext, useRef, useState } from 'react'
 import styles from './styles/NotificationList.module.scss'
 import { AnimatePresence, motion } from 'framer-motion'
 import contextApi from '../../StateManager'
@@ -11,13 +11,16 @@ import purchaseIcon from '../../images/purchaseIcon.svg'
 import { MdImage } from "react-icons/md";
 import ImgViewer from '../../sub-components/ImgViewer'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
-import { doc, updateDoc } from 'firebase/firestore'
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { db } from '../../firebase-config'
+import DialogTemplate from '../../components/DialogTemplate'
 
 function NotificationList({ data, setLimiter }) {
 
     const { theme, screenWidth, translation, isNavOpen } = useContext(contextApi)
     const [imgSrc, setImgSrc] = useState(null)
+    const [isDelModalOpen, setIsDelModalOpen] = useState(false)
+    const awaitingPromiseRef = useRef(null)
 
     function stringLimiter(str) {
         if (str.length > 14) {
@@ -41,29 +44,51 @@ function NotificationList({ data, setLimiter }) {
     };
 
     const handleAction = async (keyX, currentValue, userRequest) => {
-
         let reaction
-
         if (currentValue === userRequest) {
             reaction = null
         } else {
             reaction = userRequest
         }
-        
         const documentId = keyX;
         const documentRef = doc(db, 'notifications', documentId);
-
         try {
             await updateDoc(documentRef, {
                 reaction,
             });
-
             console.log('Document successfully updated!');
         } catch (error) {
             console.error('Error updating document: ', error);
         }
+    }
+
+    const handleDel = async (keyX) => {
+        setIsDelModalOpen(true)
+
+        return new Promise((resolve, reject) => {
+            awaitingPromiseRef.current = { resolve, reject };
+        })
+            .then(res => console.log(`resolved ---> ${keyX}`))
+            .catch(err => console.log(err))
 
     }
+
+    const handleConfirm = () => {
+        if (awaitingPromiseRef.current) {
+            awaitingPromiseRef.current.resolve();
+        }
+        setIsDelModalOpen(false);
+    };
+
+    const handleClose = () => {
+        if (awaitingPromiseRef.current) {
+            awaitingPromiseRef.current.reject();
+        }
+        setIsDelModalOpen(false);
+    };
+
+
+
 
     return (
         <motion.div
@@ -114,9 +139,9 @@ function NotificationList({ data, setLimiter }) {
                                 </div>
                                 <div className={styles.innerText}>{noti.data.text}</div>
                                 <div className={styles.btnsSection}>
-                                    <button onClick={()=>handleAction(noti.key, noti.data.reaction, true)} style={{ border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4" }}><BiSolidLike color={noti.data.reaction === true ? "rgb(49, 139, 255)" : "rgb(128, 129, 145)"} size={20} /></button>
-                                    <button onClick={()=>handleAction(noti.key, noti.data.reaction, false)} style={{ border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4" }}><BiSolidDislike color={noti.data.reaction === false ? "rgb(233, 75, 75)" : "rgb(128, 129, 145)"} size={20} /></button>
-                                    <button style={{ border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4" }}><MdDelete color={'rgb(128, 129, 145)'} size={20} /></button>
+                                    <button onClick={() => handleAction(noti.key, noti.data.reaction, true)} style={{ border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4" }}><BiSolidLike color={noti.data.reaction === true ? "rgb(49, 139, 255)" : "rgb(128, 129, 145)"} size={20} /></button>
+                                    <button onClick={() => handleAction(noti.key, noti.data.reaction, false)} style={{ border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4" }}><BiSolidDislike color={noti.data.reaction === false ? "rgb(233, 75, 75)" : "rgb(128, 129, 145)"} size={20} /></button>
+                                    <button onClick={() => handleDel(noti.key)} style={{ border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4" }}><MdDelete color={'rgb(128, 129, 145)'} size={20} /></button>
                                 </div>
                             </div>
                         </div>
@@ -129,22 +154,64 @@ function NotificationList({ data, setLimiter }) {
                         }
                     </motion.li>
                 ))}
-                <div className={styles.loadMoreBg}>
-                    <button
-                        onClick={() => { setLimiter(prev => prev + 5) }}
-                        style={{
-                            width: isNavOpen ? "166px" : "306px"
-                        }}
-                    >
-                        {translation.load_more}
-                    </button>
-                </div>
+                {data.length !== 0 &&
+                    <div className={styles.loadMoreBg}>
+                        <motion.button
+                            onClick={() => setLimiter(prev => prev + 5)}
+                            style={{
+                                width: isNavOpen ? "166px" : "306px"
+                            }}
+                            layout
+                        >
+                            {translation.load_more}
+                        </motion.button>
+                    </div>
+                }
             </motion.ul>
             <AnimatePresence>
                 {imgSrc && <ImgViewer imgSrc={imgSrc} setImgSrc={setImgSrc} />}
+            </AnimatePresence>
+            <AnimatePresence>
+                {isDelModalOpen &&
+                    <DialogTemplate setModalOpen={setIsDelModalOpen}>
+                        <motion.div
+                            className={styles.deleteModal}
+                            initial={{
+                                transform: "scale(1.2)",
+                                width: screenWidth > 480 ? "80%" : "70%",
+                            }}
+                            animate={{
+                                transform: "scale(1)",
+                                background: theme === "dark" ? "#1F2128" : "#FFF",
+                                color: theme === "dark" ? "#fff" : "#11142D",
+                                width: screenWidth > 480 ? "80%" : "70%",
+                            }}
+                            exit={{
+                                transform: "scale(1.2)"
+                            }}
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <h2 style={{ fontSize: screenWidth > 480 ? 24 : 20 }}>{translation.are_you_sure_want_to_remove_the_selected_products}</h2>
+                            <div className={styles.inner}>
+                                <button onClick={handleClose}>{translation.no}</button>
+                                <button onClick={handleConfirm}>{translation.yes}</button>
+                            </div>
+                        </motion.div>
+                    </DialogTemplate>
+                }
             </AnimatePresence>
         </motion.div>
     )
 }
 
 export default memo(NotificationList)
+
+
+// const documentId = keyX;
+// const documentRef = doc(db, 'notifications', documentId);
+// try {
+//     await deleteDoc(documentRef);
+//     console.log("Document deleted succesfully")
+// } catch (error) {
+//     console.error('Error updating document: ', error)
+// }
