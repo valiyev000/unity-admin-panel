@@ -18,9 +18,9 @@ function ForSearch() {
     const [isDataHave, setIsDataHave] = useState(false)
     const [isInputFocused, setIsInputFocused] = useState(false)
     const [animationParent] = useAutoAnimate()
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     function getData() {
-
         if (!isDataHave) {
             axios.get("https://unity-admin-panel-default-rtdb.firebaseio.com/db/products.json")
                 .then(res => {
@@ -32,16 +32,13 @@ function ForSearch() {
     }
 
     useEffect(() => {
-
         if (isDataHave) {
             let filteredKeys = Object.keys(data).filter(key => (
                 Object.values(data[key]).join("").toLowerCase().includes(inputVal.toLowerCase())
             ))
             setFilteredData(filteredKeys.slice(0, 6))
         }
-
     }, [inputVal])
-
 
     return (
         <div className={styles.main}>
@@ -98,8 +95,21 @@ function ForSearch() {
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-2 -1 28 25" fill="none">
                     <path fillRule="evenodd" clipRule="evenodd" d="M18 11V8C18 4.13401 14.866 1 11 1C7.13401 1 4 4.13401 4 8V11C4 14.3 1 15.1 1 17C1 18.7 4.9 20 11 20C17.1 20 21 18.7 21 17C21 15.1 18 14.3 18 11Z" stroke={theme === "light" ? "#11142D" : "#fff"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M11 22C9.98902 22 9.03902 21.966 8.14502 21.9C8.53619 23.1478 9.69236 23.997 11 23.997C12.3077 23.997 13.4639 23.1478 13.855 21.9C12.961 21.966 12.011 22 11 22Z" fill={theme === "light" ? "#1B1D21" : "#fff"} />
-                    {notificationAlert && <circle cx="17" cy="3" r="5.33333" fill="#FF754C" />}
+                    {/* {notificationAlert && <circle cx="17" cy="3" r="5.33333" fill="#FF754C" />} */}
                 </svg>
+                <motion.div
+                    className={styles.dropDownMenu}
+                    initial={{
+                        background: theme === "dark" ? "#242731" : "#FFF",
+                        boxShadow: theme === "dark" ? "rgba(5, 5, 5, 0.65) 0px 5px 20px 0px" : "rgba(230, 215, 255, 0.95) 0px 5px 20px 0px"
+                    }}
+                    animate={{
+                        background: theme === "dark" ? "#242731" : "#FFF",
+                        boxShadow: theme === "dark" ? "rgba(5, 5, 5, 0.65) 0px 5px 20px 0px" : "rgba(230, 215, 255, 0.95) 0px 5px 20px 0px"
+                    }}
+                >
+                    Sample
+                </motion.div>
             </div>
         </div>
     )
