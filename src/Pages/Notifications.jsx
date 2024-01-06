@@ -18,7 +18,7 @@ export default function Notifications() {
   const { theme, screenWidth, isNavOpen } = useContext(contextApi)
   const [searchValue, setSearchValue] = useState("")
   const [selectedFilter, setSelectedFilter] = useState("clients")
-  const [data, setData] = useState(null)
+  const [data, setData] = useState([])
   const [limiter, setLimiter] = useState(5)
 
   const MAIN_STYLE = {
@@ -94,7 +94,27 @@ export default function Notifications() {
     return () => unsubscribe();
   }, [selectedFilter, searchValue, limiter]);
 
-  useEffect(()=>{setLimiter(5)}, [selectedFilter])
+  useEffect(() => { setLimiter(5) }, [selectedFilter])
+
+  return (
+    <main className={styles.main} style={MAIN_STYLE}>
+
+      <AnimatePresence>
+        {screenWidth <= 480 && <HeaderMobile />} {/* position fixed'di */}
+      </AnimatePresence>
+
+      {screenWidth > 480 ? <Navbar /> : <NavbarMobile />} {/* position fixed ve ya stickydi */}
+      <motion.div className={styles.container} initial={{ transform: "scale(1.1)" }} animate={{ transform: "scale(1)" }} exit={{ transform: "scale(1.2)" }} style={CONTAINER_STYLE}> {/*///todo BUNU DEYISMEK LAZIMDI */}
+
+        {screenWidth > 480 ? <Header screenWidthRestriction={true} text={"notifications"} /> : <HeaderMobileSub text={"notifications"} />} {/* position static ve ya fixeddi */}
+
+        <NotificationSearch searchValue={searchValue} setSearchValue={setSearchValue} />
+        <FilterSection selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
+        <NotificationList data={data} setLimiter={setLimiter} />
+      </motion.div>
+    </main>
+  )
+}
 
   // const notificationModel = {
   //   ytrduxyi6do87p9f8v: {
@@ -458,26 +478,5 @@ export default function Notifications() {
   //   await Promise.all(promises);
   // };
 
-  return (
-    <main className={styles.main} style={MAIN_STYLE}>
 
-      <AnimatePresence>
-        {screenWidth <= 480 && <HeaderMobile />} {/* position fixed'di */}
-      </AnimatePresence>
-
-      {screenWidth > 480 ? <Navbar /> : <NavbarMobile />} {/* position fixed ve ya stickydi */}
-      <motion.div className={styles.container} initial={{ transform: "scale(1.1)" }} animate={{ transform: "scale(1)" }} exit={{ transform: "scale(1.2)" }} style={CONTAINER_STYLE}> {/*///todo BUNU DEYISMEK LAZIMDI */}
-
-        {screenWidth > 480 ? <Header screenWidthRestriction={true} text={"notifications"} /> : <HeaderMobileSub text={"notifications"} />} {/* position static ve ya fixeddi */}
-
-        <NotificationSearch searchValue={searchValue} setSearchValue={setSearchValue} />
-        <FilterSection selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
-
-        {data && <NotificationList data={data} setLimiter={setLimiter} />}
-
-        {/* <button onClick={handleSendData}>Send data</button> */}
-
-      </motion.div>
-    </main>
-  )
-}
+  // <button onClick={handleSendData}>Send data</button>

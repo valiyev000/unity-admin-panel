@@ -6,7 +6,7 @@ import ForSearch from '../sub-components/ForSearch'
 
 function Header({ screenWidthRestriction, text }) {
 
-  const { translation, screenWidth, theme, testForNotification, user } = useContext(contextApi)
+  const { translation, screenWidth, user } = useContext(contextApi)
 
   return (
     <header className={styles.header}>
@@ -22,6 +22,5 @@ function Header({ screenWidthRestriction, text }) {
     </header>
   )
 }
-
 
 export default memo(Header)

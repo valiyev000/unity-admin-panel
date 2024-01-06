@@ -127,5 +127,6 @@
     "commented_on": "Komment yazdı",
     "liked": "Bəyəndi",
     "purchased": "Alındı",
-    "are_you_sure_you_want_to_delete_this_notification": "Bu Bildirişi silmək istədiyinizdən əminsiz?"
+    "are_you_sure_you_want_to_delete_this_notification": "Bu Bildirişi silmək istədiyinizdən əminsiz?",
+    "there_is_no_notification_for_show": "Göstəriləcək bildiriş yoxdur"
 }

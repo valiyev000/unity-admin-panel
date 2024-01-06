@@ -116,7 +116,7 @@ function NotificationList({ data, setLimiter }) {
         >
             <motion.div layout className={styles.title}>{translation.recent_notification}</motion.div>
             <motion.ul>
-                {data.map(noti => (
+                {data.length !== 0 ? data.map(noti => (
                     <motion.li
                         className={`${theme === "dark" ? styles.dark : ""}`}
                         layout
@@ -158,7 +158,11 @@ function NotificationList({ data, setLimiter }) {
                                 : ""
                         }
                     </motion.li>
-                ))}
+                )) :
+                    <div className={styles.empty}>
+                        <motion.div initial={{transform: "translateY(30px)", opacity: 0}} animate={{transform: "translateY(0px)", opacity: 1}} className={styles.inner}>{translation.there_is_no_notification_for_show}</motion.div>
+                    </div>
+                }
                 {data.length !== 0 &&
                     <div className={styles.loadMoreBg}>
                         <motion.button

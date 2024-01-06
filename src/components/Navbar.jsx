@@ -15,8 +15,7 @@ import SwitchUser from '../sub-components/SwitchUser'
 
 function Navbar() {
 
-    const { screenWidth, isNavOpen, theme, setIsNavOpen, translation, isSettingOpen, setIsSettingOpen, testForNotification } = useContext(contextApi)
-    //!testForNotification BUNU SILMELIYEM EN SONDA
+    const { screenWidth, isNavOpen, theme, setIsNavOpen, translation, isSettingOpen, setIsSettingOpen, inboxAlert, notificationAlert } = useContext(contextApi)
     
     const [animationParent] = useAutoAnimate({ duration: 400 })
 
@@ -41,7 +40,6 @@ function Navbar() {
             ? "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px"
             : "rgba(205, 205, 162, 0.25) 0px 13px 27px -5px, rgba(255, 255, 255, 0.3) 0px 8px 16px -8px"
     }
-
 
     return (
         <div className={styles.container}>
@@ -220,7 +218,7 @@ function Navbar() {
                                         <path d="M16.2677 6.5611L12.0023 9.99537C11.1951 10.6282 10.0635 10.6282 9.25629 9.99537L4.95424 6.5611" stroke={ICON_STYLE.stroke} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                         <path fillRule="evenodd" clipRule="evenodd" d="M5.88787 1H15.3158C16.6752 1.01525 17.969 1.58993 18.896 2.5902C19.823 3.59048 20.3022 4.92903 20.222 6.29412V12.822C20.3022 14.1871 19.823 15.5256 18.896 16.5259C17.969 17.5262 16.6752 18.1009 15.3158 18.1161H5.88787C2.96796 18.1161 1 15.7407 1 12.822V6.29412C1 3.37545 2.96796 1 5.88787 1Z" stroke={ICON_STYLE.stroke} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                     </g>
-                                    {!isNavOpen && testForNotification &&
+                                    {!isNavOpen && inboxAlert &&
                                         <foreignObject x="10" y="0" width="12" height="10">
                                             <div xmlns="http://www.w3.org/1999/xhtml">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 16 16" fill="none">
@@ -244,14 +242,14 @@ function Navbar() {
                                 </AnimatePresence>
                             </div>
                             <AnimatePresence>
-                                {isNavOpen && testForNotification &&
+                                {isNavOpen && inboxAlert &&
                                     <motion.div
                                         className={styles.linkRight}
                                         initial={{ x: 100, opacity: 0 }}
                                         animate={{ x: 0, opacity: 1 }}
                                         exit={{ x: 0, opacity: 0 }}
                                     >
-                                        {testForNotification}
+                                        {inboxAlert}
                                     </motion.div>
                                 }
                             </AnimatePresence>
@@ -265,7 +263,7 @@ function Navbar() {
                                         <path fillRule="evenodd" clipRule="evenodd" d="M1.50083 12.7871V12.5681C1.53295 11.9202 1.7406 11.2925 2.10236 10.7496C2.7045 10.0975 3.1167 9.29831 3.29571 8.43598C3.29571 7.7695 3.29571 7.0935 3.35393 6.42703C3.65469 3.21842 6.82728 1 9.96106 1H10.0387C13.1725 1 16.345 3.21842 16.6555 6.42703C16.7137 7.0935 16.6555 7.7695 16.704 8.43598C16.8854 9.3003 17.2972 10.1019 17.8974 10.7591C18.2618 11.2972 18.4698 11.9227 18.4989 12.5681V12.7776C18.5206 13.648 18.2208 14.4968 17.6548 15.1674C16.907 15.9515 15.8921 16.4393 14.8024 16.5384C11.607 16.8812 8.38303 16.8812 5.18762 16.5384C4.09914 16.435 3.08576 15.9479 2.33521 15.1674C1.778 14.4963 1.48224 13.6526 1.50083 12.7871Z" stroke={ICON_STYLE.stroke} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                         <path d="M7.55494 19.8518C8.05421 20.4785 8.7874 20.884 9.59223 20.9788C10.3971 21.0735 11.2072 20.8495 11.8433 20.3564C12.0389 20.2106 12.2149 20.041 12.3672 19.8518" stroke={ICON_STYLE.stroke} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                     </g>
-                                    {!isNavOpen && testForNotification &&
+                                    {!isNavOpen && notificationAlert &&
                                         <foreignObject x="10" y="0" width="12" height="10">
                                             <div xmlns="http://www.w3.org/1999/xhtml">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 16 16" fill="none">
@@ -290,14 +288,14 @@ function Navbar() {
                                 </AnimatePresence>
                             </div>
                             <AnimatePresence>
-                                {isNavOpen && testForNotification &&
+                                {isNavOpen && notificationAlert &&
                                     <motion.div
                                         className={styles.linkRight}
                                         initial={{ x: 100, opacity: 0 }}
                                         animate={{ x: 0, opacity: 1 }}
                                         exit={{ x: 0, opacity: 0 }}
                                     >
-                                        {testForNotification}
+                                        {notificationAlert}
                                     </motion.div>
                                 }
                             </AnimatePresence>

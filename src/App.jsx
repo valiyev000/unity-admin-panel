@@ -16,7 +16,8 @@ function App() {
   const [translation, setTranslation] = useState(null)
   const forSearch = useRef(null)
   const [isSettingOpen, setIsSettingOpen] = useState(false)
-  const [testForNotification, setTestForNotification] = useState(15) //! SONDA HEM BURDAN HEMDE CONTEXTAPI'DAN SILMEK LAZIMDI MUTLEQ
+  const [inboxAlert, setInboxAlert] = useState(3) //! Vizuallasdirmaq meqsedile manual olaraq qeyd olunub
+  const [notificationAlert, setNotificationAlert] = useState(7) //! Vizuallasdirmaq meqsedile manual olaraq qeyd olunub
   const [inputVal, setInputVal] = useState("")
   const [userScreenDetails, setUserScreenDetails] = useState(null)
   const [user, setUser] = useState("pending")
@@ -148,8 +149,8 @@ function App() {
     isNavOpen,
     setIsNavOpen,
     translation,
-    testForNotification,
-    setTestForNotification,
+    inboxAlert,
+    notificationAlert,
     forSearch,
     isSettingOpen,
     setIsSettingOpen,

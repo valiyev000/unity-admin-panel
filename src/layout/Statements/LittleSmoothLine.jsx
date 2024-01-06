@@ -1,6 +1,5 @@
 import ReactECharts from 'echarts-for-react';
-import { useEffect } from 'react';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function LittleSmoothLine({ styles, data }) {
 
