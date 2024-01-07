@@ -64,7 +64,6 @@ function NotificationList({ data, setLimiter }) {
 
     const handleDel = async (keyX) => {
         setIsDelModalOpen(true)
-
         return new Promise((resolve, reject) => {
             awaitingPromiseRef.current = { resolve, reject };
         })

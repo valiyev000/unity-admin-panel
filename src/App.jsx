@@ -110,7 +110,7 @@ function App() {
     });
 
     const currentTime = new Date().getHours();
-    if (currentTime >= 20 || currentTime < 8) {
+    if (currentTime >= 19 || currentTime < 8) {
       setTheme("dark")
     }
 

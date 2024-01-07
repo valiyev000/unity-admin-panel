@@ -7,13 +7,21 @@ import { motion, AnimatePresence } from 'framer-motion'
 import imgProductNull from '../images/imgProductNull.png'
 import { IoIosArrowForward } from "react-icons/io";
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
-
+import { collection, limit, onSnapshot, orderBy, query } from 'firebase/firestore'
+import { db } from '../firebase-config'
+import uploadAvatarNull from '../images/uploadAvatarNull.png'
+import commentIcon from '../images/commentIcon.svg'
+import likeIcon from '../images/likeIcon.svg'
+import purchaseIcon from '../images/purchaseIcon.svg'
+import { BiSolidDislike, BiSolidLike } from 'react-icons/bi'
+import { MdDelete } from 'react-icons/md'
 
 function ForSearch() {
 
-    const { theme, translation, notificationAlert, inputVal, setInputVal, lang } = useContext(contextApi)
+    const { theme, translation, notificationAlert, inputVal, setInputVal, lang, screenWidth } = useContext(contextApi)
 
     const [data, setData] = useState([])
+    const [notificationData, setNotificationData] = useState([])
     const [filteredData, setFilteredData] = useState([])
     const [isDataHave, setIsDataHave] = useState(false)
     const [isInputFocused, setIsInputFocused] = useState(false)
@@ -39,6 +47,51 @@ function ForSearch() {
             setFilteredData(filteredKeys.slice(0, 6))
         }
     }, [inputVal])
+
+    useEffect(() => {
+        const notificationRef = collection(db, 'notifications');
+
+        let q; //todo firestore query'ini onceden assign edirik...
+
+        q = query(notificationRef, orderBy('time', 'desc'), limit(5));
+
+        // Use onSnapshot to listen for real-time updates
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+            if (q) {
+                // Extract keys and data from each document
+                let notificationsData = querySnapshot.docs.map((doc) => ({
+                    key: doc.id,
+                    data: doc.data(),
+                }));
+
+                setNotificationData(notificationsData);
+            }
+        });
+
+        // Cleanup the listener when the component unmounts
+        return () => unsubscribe();
+    }, []);
+
+    function stringLimiter(str) {
+        if (str.length > 14) {
+            return `${str.slice(0, 14)}...`
+        } else {
+            return str
+        }
+    }
+
+    const formatTime = (timestamp) => {
+        let formattedTime = ""
+        if (timestamp) {
+            const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1e6);
+            // Extract hours and minutes
+            const hours = date.getHours().toString().padStart(2, '0');
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+            // Combine hours and minutes
+            formattedTime = `${hours}:${minutes}`;
+        }
+        return formattedTime;
+    };
 
     return (
         <div className={styles.main}>
@@ -91,25 +144,103 @@ function ForSearch() {
                     }
                 </AnimatePresence>
             </div>
-            <div className={styles.notificationBadge} style={{ boxShadow: theme === "dark" ? "0px 6px 10px 3px rgba(8,8,8,1)" : "0px 6px 10px 3px rgba(219,219,219,1)" }}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-2 -1 28 25" fill="none">
-                    <path fillRule="evenodd" clipRule="evenodd" d="M18 11V8C18 4.13401 14.866 1 11 1C7.13401 1 4 4.13401 4 8V11C4 14.3 1 15.1 1 17C1 18.7 4.9 20 11 20C17.1 20 21 18.7 21 17C21 15.1 18 14.3 18 11Z" stroke={theme === "light" ? "#11142D" : "#fff"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    <path d="M11 22C9.98902 22 9.03902 21.966 8.14502 21.9C8.53619 23.1478 9.69236 23.997 11 23.997C12.3077 23.997 13.4639 23.1478 13.855 21.9C12.961 21.966 12.011 22 11 22Z" fill={theme === "light" ? "#1B1D21" : "#fff"} />
+            <div
+                className={styles.notificationBadge}
+                style={{
+                    boxShadow: theme === "dark" ? "0px 6px 10px 3px rgba(8,8,8,1)" : "0px 6px 10px 3px rgba(219,219,219,1)",
+                    background: isMenuOpen ? "#6C5DD3" : "transparent"
+                }}
+                tabIndex={0}
+                onClick={() => setIsMenuOpen(prev => !prev)}
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="-3 -1 28 25"
+                    fill="none"
+                >
+                    <path fillRule="evenodd" clipRule="evenodd" d="M18 11V8C18 4.13401 14.866 1 11 1C7.13401 1 4 4.13401 4 8V11C4 14.3 1 15.1 1 17C1 18.7 4.9 20 11 20C17.1 20 21 18.7 21 17C21 15.1 18 14.3 18 11Z" stroke={theme === "dark" || isMenuOpen ? "#fff" : "#11142D"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M11 22C9.98902 22 9.03902 21.966 8.14502 21.9C8.53619 23.1478 9.69236 23.997 11 23.997C12.3077 23.997 13.4639 23.1478 13.855 21.9C12.961 21.966 12.011 22 11 22Z" fill={theme === "dark" || isMenuOpen ? "#fff" : "#1B1D21"} />
                     {/* {notificationAlert && <circle cx="17" cy="3" r="5.33333" fill="#FF754C" />} */}
                 </svg>
-                <motion.div
-                    className={styles.dropDownMenu}
-                    initial={{
-                        background: theme === "dark" ? "#242731" : "#FFF",
-                        boxShadow: theme === "dark" ? "rgba(5, 5, 5, 0.65) 0px 5px 20px 0px" : "rgba(230, 215, 255, 0.95) 0px 5px 20px 0px"
-                    }}
-                    animate={{
-                        background: theme === "dark" ? "#242731" : "#FFF",
-                        boxShadow: theme === "dark" ? "rgba(5, 5, 5, 0.65) 0px 5px 20px 0px" : "rgba(230, 215, 255, 0.95) 0px 5px 20px 0px"
-                    }}
-                >
-                    Sample
-                </motion.div>
+                <div className={styles.indicator}>{notificationAlert}</div>
+                <AnimatePresence>
+                    {isMenuOpen &&
+                        <motion.div
+                            className={styles.dropDownMenu}
+                            initial={{
+                                background: theme === "dark" ? "#242731" : "#FFF",
+                                boxShadow: theme === "dark" ? "rgba(5, 5, 5, 0.65) 0px 5px 20px 0px" : "rgba(230, 215, 255, 0.95) 0px 5px 20px 0px",
+                                transform: "translateY(-20px)",
+                                opacity: 0
+                            }}
+                            animate={{
+                                background: theme === "dark" ? "#242731" : "#FFF",
+                                boxShadow: theme === "dark" ? "rgba(5, 5, 5, 0.65) 0px 5px 20px 0px" : "rgba(230, 215, 255, 0.95) 0px 5px 20px 0px",
+                                transform: "translateY(0px)",
+                                opacity: 1
+                            }}
+                            exit={{
+                                background: theme === "dark" ? "#242731" : "#FFF",
+                                boxShadow: theme === "dark" ? "rgba(5, 5, 5, 0.65) 0px 5px 20px 0px" : "rgba(230, 215, 255, 0.95) 0px 5px 20px 0px",
+                                transform: "translateY(-20px)",
+                                opacity: 0
+                            }}
+                        >
+                            <div className={styles.header}>{translation.recent_notification}</div>
+                            <motion.ul>
+                                {notificationData.length !== 0 ? notificationData.map(noti => (
+                                    <motion.li
+                                        className={`${theme === "dark" ? styles.dark : ""}`}
+                                        layout
+                                        key={noti.key}
+                                        initial={{
+                                            opacity: 0,
+                                            transform: "translateY(10px)"
+                                        }}
+                                        animate={{
+                                            opacity: 1,
+                                            transform: "translateY(0px)"
+                                        }}
+                                    >
+                                        <div className={styles.left}>
+                                            <div className={styles.imgSection}>
+                                                <img className={styles.avatar} src={noti.data.userAvatar ? noti.data.userAvatar : uploadAvatarNull} alt="avatar.png" />
+                                                <img className={styles.positionAbs} src={noti.data.notiType === "purchase" ? purchaseIcon : noti.data.notiType === "comment" ? commentIcon : likeIcon} alt="tinyBlockAlt" />
+                                            </div>
+                                            <div className={styles.mainSection}>
+                                                <div className={styles.userNameAndSurname}>{noti.data.username}</div>
+                                                <div className={styles.aboutType}>
+                                                    <span className={styles.type}>{noti.data.notiType === "purchase" ? translation.purchased : noti.data.notiType === "comment" ? translation.commented_on : translation.liked}</span>
+                                                    <div className={styles.productName}>{stringLimiter(noti.data.productName)}</div>
+                                                    <span className={styles.whenCome}>{formatTime(noti.data.time)}</span>
+                                                </div>
+                                                <div className={styles.innerText}>{noti.data.text}</div>
+                                                <div className={styles.btnsSection}>
+                                                    <button onClick={() => handleAction(noti.key, noti.data.reaction, true)} style={{ border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4" }}><BiSolidLike color={noti.data.reaction === true ? "rgb(49, 139, 255)" : "rgb(128, 129, 145)"} size={20} /></button>
+                                                    <button onClick={() => handleAction(noti.key, noti.data.reaction, false)} style={{ border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4" }}><BiSolidDislike color={noti.data.reaction === false ? "rgb(233, 75, 75)" : "rgb(128, 129, 145)"} size={20} /></button>
+                                                    <button onClick={() => handleDel(noti.key)} style={{ border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4" }}><MdDelete color={'rgb(128, 129, 145)'} size={20} /></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {noti.data.productImage && screenWidth > 480 ?
+                                            <motion.div layout className={styles.imgSectionBg}>
+                                                <img className={styles.productImage} src={noti.data.productImage} onClick={() => setImgSrc(noti.data.productImage)} alt="notiImgAlt" />
+                                            </motion.div>
+                                            : noti.data.productImage && screenWidth < 480 ? <div onClick={() => setImgSrc(noti.data.productImage)}><MdImage /></div>
+                                                : ""
+                                        }
+                                    </motion.li>
+                                )) :
+                                    <div className={styles.empty}>
+                                        <motion.div initial={{ transform: "translateY(30px)", opacity: 0 }} animate={{ transform: "translateY(0px)", opacity: 1 }} className={styles.inner}>{translation.there_is_no_notification_for_show}</motion.div>
+                                    </div>
+                                }
+                            </motion.ul>
+                        </motion.div>
+                    }
+                </AnimatePresence>
             </div>
         </div>
     )
