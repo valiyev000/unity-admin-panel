@@ -189,7 +189,7 @@ function ForSearch() {
                             }}
                         >
                             <div className={styles.header}>{translation.recent_notification}</div>
-                            <motion.ul>
+                            <motion.ul onClick={(e) => e.stopPropagation()}>
                                 {notificationData.length !== 0 ? notificationData.map(noti => (
                                     <motion.li
                                         className={`${theme === "dark" ? styles.dark : ""}`}
@@ -205,7 +205,7 @@ function ForSearch() {
                                         }}
                                     >
                                         <div className={styles.left}>
-                                            <div className={styles.imgSection}>
+                                            <div className={styles.avatarSection}>
                                                 <img className={styles.avatar} src={noti.data.userAvatar ? noti.data.userAvatar : uploadAvatarNull} alt="avatar.png" />
                                                 <img className={styles.positionAbs} src={noti.data.notiType === "purchase" ? purchaseIcon : noti.data.notiType === "comment" ? commentIcon : likeIcon} alt="tinyBlockAlt" />
                                             </div>
@@ -214,23 +214,10 @@ function ForSearch() {
                                                 <div className={styles.aboutType}>
                                                     <span className={styles.type}>{noti.data.notiType === "purchase" ? translation.purchased : noti.data.notiType === "comment" ? translation.commented_on : translation.liked}</span>
                                                     <div className={styles.productName}>{stringLimiter(noti.data.productName)}</div>
-                                                    <span className={styles.whenCome}>{formatTime(noti.data.time)}</span>
-                                                </div>
-                                                <div className={styles.innerText}>{noti.data.text}</div>
-                                                <div className={styles.btnsSection}>
-                                                    <button onClick={() => handleAction(noti.key, noti.data.reaction, true)} style={{ border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4" }}><BiSolidLike color={noti.data.reaction === true ? "rgb(49, 139, 255)" : "rgb(128, 129, 145)"} size={20} /></button>
-                                                    <button onClick={() => handleAction(noti.key, noti.data.reaction, false)} style={{ border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4" }}><BiSolidDislike color={noti.data.reaction === false ? "rgb(233, 75, 75)" : "rgb(128, 129, 145)"} size={20} /></button>
-                                                    <button onClick={() => handleDel(noti.key)} style={{ border: theme === "dark" ? "1px solid rgba(228, 228, 228, 0.10)" : "1px solid #E4E4E4" }}><MdDelete color={'rgb(128, 129, 145)'} size={20} /></button>
                                                 </div>
                                             </div>
                                         </div>
-                                        {noti.data.productImage && screenWidth > 480 ?
-                                            <motion.div layout className={styles.imgSectionBg}>
-                                                <img className={styles.productImage} src={noti.data.productImage} onClick={() => setImgSrc(noti.data.productImage)} alt="notiImgAlt" />
-                                            </motion.div>
-                                            : noti.data.productImage && screenWidth < 480 ? <div onClick={() => setImgSrc(noti.data.productImage)}><MdImage /></div>
-                                                : ""
-                                        }
+                                        <span className={styles.whenCome}>{formatTime(noti.data.time)}</span>
                                     </motion.li>
                                 )) :
                                     <div className={styles.empty}>
