@@ -22,9 +22,9 @@ function NotificationList({ data, setLimiter }) {
     const [isDelModalOpen, setIsDelModalOpen] = useState(false)
     const awaitingPromiseRef = useRef(null)
 
-    function stringLimiter(str) {
-        if (str.length > 14) {
-            return `${str.slice(0, 14)}...`
+    function stringLimiter(str, length = 14) {
+        if (str.length > length) {
+            return `${str.slice(0, length)}...`
         } else {
             return str
         }

@@ -155,6 +155,7 @@
             justify-content: center;
         }
         > .dropDownMenu {
+            cursor: default;
             position: absolute;
             top: calc(100% + 20px);
             right: 0px;
@@ -163,6 +164,15 @@
             border-radius: 24px;
             padding: 32px 8px;
             z-index: 50;
+            > .header {
+                font-family: Poppins;
+                font-size: 18px;
+                font-weight: 500;
+                line-height: 24px;
+                margin-left: 5px;
+                margin-bottom: 20px;
+                display: inline-block;
+            }
             > ul {
                 display: flex;
                 flex-direction: column;
@@ -171,7 +181,6 @@
                 > li {
                     padding: 16px 20px;
                     height: 80px;
-                    display: flex;
                     background-color: transparent;
                     border-bottom: 1px solid #e4e4e4;
                     border-radius: 0px;
@@ -180,68 +189,86 @@
                         border-radius 0.3s ease-in-out,
                         border-bottom 0.3s ease-in-out;
                     &:hover {
-                        background-color: rgba(247, 247, 247, 1);
+                        background-color: #6c5dd3;
                         border-bottom: 1px solid transparent;
                         border-radius: 12px;
+                        * {
+                            color: #fff !important;
+                        }
                     }
                     &.dark {
                         border-bottom: 1px solid rgba(228, 228, 228, 0.1);
                     }
-                    &.dark:hover {
-                        background-color: rgba(223, 223, 223, 0.1);
-                        border-bottom: 1px solid transparent;
-                        border-radius: 12px;
-                    }
-                    > .left {
+                    > a {
+                        background: transparent;
+                        width: 100%;
                         display: flex;
-                        align-items: center;
-                        gap: 23px;
-                        > .avatarSection {
-                            width: 48px;
-                            height: 48px;
-                            min-width: 48px;
-                            min-height: 48px;
-                            position: relative;
-                            > img.avatar {
-                                width: 100%;
-                                height: 100%;
-                                object-fit: cover;
-                                border-radius: 50%;
+                        justify-content: space-between;
+                        color: unset;
+                        > .left {
+                            display: flex;
+                            align-items: center;
+                            gap: 23px;
+                            > .avatarSection {
+                                width: 48px;
+                                height: 48px;
+                                min-width: 48px;
+                                min-height: 48px;
+                                position: relative;
+                                > img.avatar {
+                                    width: 100%;
+                                    height: 100%;
+                                    object-fit: cover;
+                                    border-radius: 50%;
+                                }
+                                .positionAbs {
+                                    position: absolute;
+                                    top: 0px;
+                                    right: 0px;
+                                    width: 20px;
+                                    height: 20px;
+                                    object-fit: cover;
+                                    border-radius: 50%;
+                                }
                             }
-                            .positionAbs {
-                                position: absolute;
-                                top: 0px;
-                                right: 0px;
-                                width: 20px;
-                                height: 20px;
-                                object-fit: cover;
-                                border-radius: 50%;
+                            > .mainSection {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 6px;
+                                > .userNameAndSurname {
+                                    font-family: Inter;
+                                    font-size: 13px;
+                                    font-weight: 600;
+                                    line-height: 18px;
+                                }
+                                > .aboutType {
+                                    font-family: Inter;
+                                    font-size: 12px;
+                                    font-weight: 500;
+                                    line-height: 16px;
+                                    display: flex;
+                                    flex-wrap: nowrap;
+                                    > .type {
+                                        color: #808191;
+                                        white-space: nowrap;
+                                        transition: color 0.3s ease-in-out;
+                                    }
+                                    > .productName {
+                                        color: #5f75ee;
+                                        white-space: nowrap;
+                                        margin-left: 5px;
+                                        transition: color 0.3s ease-in-out;
+                                    }
+                                }
                             }
                         }
-                        > .mainSection {
-                            display: flex;
-                            flex-direction: column;
-                            gap: 6px;
-                            > .userNameAndSurname {
-                                font-family: Inter;
-                                font-size: 13px;
-                                font-weight: 600;
-                                line-height: 18px;
-                            }
-                            > .aboutType {
-                                font-family: Inter;
-                                font-size: 12px;
-                                font-weight: 500;
-                                line-height: 16px;
-                                display: flex;
-                                flex-wrap: wrap;
-                                > .type{
-                                    color: #808191;
-                                }
-                                > .productName {
-                                    color: #5f75ee;
-                                }
-                            }
+                        > .whenCome {
+                            color: #b2b3bd;
+                            font-family: Inter;
+                            font-size: 13px;
+                            font-weight: 600;
+                            line-height: 18px;
+                            transition: color 0.3s ease-in-out;
                         }
                     }
                 }
@@ -259,6 +286,28 @@
                         font-size: 22px;
                         font-weight: 500;
                         text-align: center;
+                    }
+                }
+                >.allNotificationBtnBg{
+                    width: 100%;
+                    height: 80px;
+                    display: flex;
+                    align-items: flex-end;
+                    justify-content: center;
+                    >a{
+                        border-radius: 16px;
+                        background: #1B1D21;
+                        height: 56px;
+                        padding: 18px 31px;
+                        color: #fff;
+                        font-family: Inter;
+                        font-size: 14px;
+                        font-weight: 700;
+                        line-height: 20px;
+                        transition: transform 0.3s ease-in-out;
+                        &:hover{
+                            transform: scale(0.95);
+                        }
                     }
                 }
             }

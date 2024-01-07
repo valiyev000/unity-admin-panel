@@ -128,5 +128,6 @@
     "liked": "Bəyəndi",
     "purchased": "Alındı",
     "are_you_sure_you_want_to_delete_this_notification": "Bu Bildirişi silmək istədiyinizdən əminsiz?",
-    "there_is_no_notification_for_show": "Göstəriləcək bildiriş yoxdur"
+    "there_is_no_notification_for_show": "Göstəriləcək bildiriş yoxdur",
+    "see_all_incoming_activity": "Bütün fəaliyyətlərə baxın"
 }

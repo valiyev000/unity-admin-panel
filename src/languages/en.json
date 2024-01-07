@@ -128,5 +128,6 @@
     "liked": "Liked",
     "purchased": "Purchased",
     "are_you_sure_you_want_to_delete_this_notification": "Are you sure you want to delete this notification?",
-    "there_is_no_notification_for_show": "There is no notification for show"
+    "there_is_no_notification_for_show": "There is no notification for show",
+    "see_all_incoming_activity": "See all incoming activity"
 }

@@ -13,8 +13,6 @@ import uploadAvatarNull from '../images/uploadAvatarNull.png'
 import commentIcon from '../images/commentIcon.svg'
 import likeIcon from '../images/likeIcon.svg'
 import purchaseIcon from '../images/purchaseIcon.svg'
-import { BiSolidDislike, BiSolidLike } from 'react-icons/bi'
-import { MdDelete } from 'react-icons/md'
 
 function ForSearch() {
 
@@ -72,9 +70,9 @@ function ForSearch() {
         return () => unsubscribe();
     }, []);
 
-    function stringLimiter(str) {
-        if (str.length > 14) {
-            return `${str.slice(0, 14)}...`
+    function stringLimiter(str, length = 14) {
+        if (str.length > length) {
+            return `${str.slice(0, length)}...`
         } else {
             return str
         }
@@ -152,6 +150,7 @@ function ForSearch() {
                 }}
                 tabIndex={0}
                 onClick={() => setIsMenuOpen(prev => !prev)}
+                onBlur={() => setIsMenuOpen(false)}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -187,9 +186,10 @@ function ForSearch() {
                                 transform: "translateY(-20px)",
                                 opacity: 0
                             }}
+                            onClick={(e) => e.stopPropagation()}
                         >
-                            <div className={styles.header}>{translation.recent_notification}</div>
-                            <motion.ul onClick={(e) => e.stopPropagation()}>
+                            <motion.div className={styles.header} layout>{translation.recent_notification}</motion.div>
+                            <motion.ul>
                                 {notificationData.length !== 0 ? notificationData.map(noti => (
                                     <motion.li
                                         className={`${theme === "dark" ? styles.dark : ""}`}
@@ -204,24 +204,31 @@ function ForSearch() {
                                             transform: "translateY(0px)"
                                         }}
                                     >
-                                        <div className={styles.left}>
-                                            <div className={styles.avatarSection}>
-                                                <img className={styles.avatar} src={noti.data.userAvatar ? noti.data.userAvatar : uploadAvatarNull} alt="avatar.png" />
-                                                <img className={styles.positionAbs} src={noti.data.notiType === "purchase" ? purchaseIcon : noti.data.notiType === "comment" ? commentIcon : likeIcon} alt="tinyBlockAlt" />
-                                            </div>
-                                            <div className={styles.mainSection}>
-                                                <div className={styles.userNameAndSurname}>{noti.data.username}</div>
-                                                <div className={styles.aboutType}>
-                                                    <span className={styles.type}>{noti.data.notiType === "purchase" ? translation.purchased : noti.data.notiType === "comment" ? translation.commented_on : translation.liked}</span>
-                                                    <div className={styles.productName}>{stringLimiter(noti.data.productName)}</div>
+                                        <Link to="/notifications" onClick={() => setIsMenuOpen(false)}>
+                                            <div className={styles.left}>
+                                                <div className={styles.avatarSection}>
+                                                    <img className={styles.avatar} src={noti.data.userAvatar ? noti.data.userAvatar : uploadAvatarNull} alt="avatar.png" />
+                                                    <img className={styles.positionAbs} src={noti.data.notiType === "purchase" ? purchaseIcon : noti.data.notiType === "comment" ? commentIcon : likeIcon} alt="tinyBlockAlt" />
+                                                </div>
+                                                <div className={styles.mainSection}>
+                                                    <div className={styles.userNameAndSurname}>{noti.data.username}</div>
+                                                    <div className={styles.aboutType}>
+                                                        <span className={styles.type}>{noti.data.notiType === "purchase" ? translation.purchased : noti.data.notiType === "comment" ? translation.commented_on : translation.liked}</span>
+                                                        <div className={styles.productName}>{stringLimiter(noti.data.productName, 10)}</div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <span className={styles.whenCome}>{formatTime(noti.data.time)}</span>
+                                            <span className={styles.whenCome}>{formatTime(noti.data.time)}</span>
+                                        </Link>
                                     </motion.li>
                                 )) :
                                     <div className={styles.empty}>
                                         <motion.div initial={{ transform: "translateY(30px)", opacity: 0 }} animate={{ transform: "translateY(0px)", opacity: 1 }} className={styles.inner}>{translation.there_is_no_notification_for_show}</motion.div>
+                                    </div>
+                                }
+                                {notificationData.length !== 0 &&
+                                    <div className={styles.allNotificationBtnBg}>
+                                        <Link to='/notifications'>{translation.see_all_incoming_activity}</Link>
                                     </div>
                                 }
                             </motion.ul>
