@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react"
+import { forwardRef, memo, useEffect, useRef, useState } from "react"
 import styles from './styles/StatementList.module.scss'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useContext } from "react"
@@ -8,6 +8,7 @@ import { RiDownloadLine } from "react-icons/ri";
 import { BsCheck } from "react-icons/bs"
 import axios from "axios"
 import { IoIosArrowDown } from "react-icons/io"
+import { createPortal } from "react-dom"
 
 
 function StatementList({ data, setData, selectedMonth, setSelectedMonth, labelData }) {
@@ -135,6 +136,16 @@ function StatementList({ data, setData, selectedMonth, setSelectedMonth, labelDa
             setSelectedMonthForFilter(result[0]);
         }
     }, [labelData, selectedMonth])
+
+    const printModalRef = useRef(null)
+
+    const PrintModal = forwardRef((props, ref) => {
+        createPortal(
+            <div ref={ref}>
+                {props.text}
+            </div>, portal
+        )
+    })
 
     return (
         <motion.div
@@ -307,19 +318,18 @@ function StatementList({ data, setData, selectedMonth, setSelectedMonth, labelDa
                     )) : <motion.div animate={{ opacity: 1 }} exit={{ opacity: 0 }} className={styles.noProducts}>{translation.there_are_no_products_to_display}</motion.div>
                     }
                 </AnimatePresence>
-                {isHaveMore &&
-                    <div className={styles.loadMoreBg}>
-                        <button
-                            onClick={() => { setAddRange(prev => prev + 10) }}
-                            style={{
-                                width: isNavOpen ? "166px" : "306px"
-                            }}
-                        >
-                            {translation.load_more}
-                        </button>
-                    </div>
-                }
+                {isHaveMore && <div className={styles.loadMoreBg}>
+                    <button
+                        onClick={() => { setAddRange(prev => prev + 10) }}
+                        style={{
+                            width: isNavOpen ? "166px" : "306px"
+                        }}
+                    >
+                        {translation.load_more}
+                    </button>
+                </div>}
             </div>
+            <PrintModal ref={printModalRef} /> //todo Burda qalmisam. Ytdan baxa bilersen historyden
         </motion.div>
     )
 }
