@@ -127,7 +127,7 @@ function ForSearch() {
                         >
                             {filteredData.length !== 0 && <div className={styles.relatedResult}>{translation.related_result}</div>}
                             {filteredData.length !== 0 && filteredData.map(key => (
-                                <Link to="/products" className={`${styles.productResult} ${theme === "dark" ? styles.dark : ""}`} key={key}>
+                                <Link to="/products" className={`${styles.productResult} ${theme === "dark" ? styles.dark : ""}`} key={key} onClick={()=>setInputVal("")}>
                                     <div className={styles.left}>
                                         <div className={styles.imgBox}>
                                             <img src={data[key].img === undefined ? imgProductNull : data[key].img} alt="demo.png" />
