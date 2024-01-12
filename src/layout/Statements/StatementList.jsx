@@ -8,7 +8,7 @@ import { RiDownloadLine } from "react-icons/ri";
 import { BsCheck } from "react-icons/bs"
 import axios from "axios"
 import { IoIosArrowDown } from "react-icons/io"
-import { createPortal } from "react-dom"
+import { useReactToPrint } from "react-to-print"
 
 
 function StatementList({ data, setData, selectedMonth, setSelectedMonth, labelData }) {
@@ -19,9 +19,10 @@ function StatementList({ data, setData, selectedMonth, setSelectedMonth, labelDa
     const [isHaveMore, setIsHaveMore] = useState(false)
     const [addRange, setAddRange] = useState(10)
     const [isDropDownMenuOpen, setIsDropDownMenuOpen] = useState(false)
-    const [checkedKey, setCheckedKeys] = useState([])
+    const [checkedKeys, setCheckedKeys] = useState([])
     const [selectedMonthForFilter, setSelectedMonthForFilter] = useState("")
-
+    const componentPDF = useRef(null)
+    const [isPrintClicked, setIsPrintClicked] = useState(false)
 
     useEffect(() => { //* En esas funksiyani icra edir
 
@@ -137,15 +138,16 @@ function StatementList({ data, setData, selectedMonth, setSelectedMonth, labelDa
         }
     }, [labelData, selectedMonth])
 
-    const printModalRef = useRef(null)
-
-    const PrintModal = forwardRef((props, ref) => {
-        createPortal(
-            <div ref={ref}>
-                {props.text}
-            </div>, portal
-        )
+    const generatePrintPDF = useReactToPrint({
+        content: () => componentPDF.current,
+        documentTitle: "Statement_list",
+        onAfterPrint: () => alert("PDF created"),
+        onPrintError: () => alert("Something went wrong!")
     })
+
+    useEffect(() => {
+        console.log(isPrintClicked)
+    }, [isPrintClicked])
 
     return (
         <motion.div
@@ -173,8 +175,8 @@ function StatementList({ data, setData, selectedMonth, setSelectedMonth, labelDa
                         <motion.div layout className={styles.pleaseNote}>{translation.please_note_transactions_are_based_time_in_california_usa}</motion.div>
                     </div>
                     <div className={styles.right}>
-                        <button className={styles.icon} style={{ boxShadow: theme === "dark" ? "0px 6px 10px 3px rgba(8,8,8,1)" : "0px 6px 10px 3px rgba(219,219,219,1)", background: theme === "dark" ? "rgb(31, 33, 40)" : "#fff" }}><FiPrinter color={theme === "dark" ? "#fff" : "rgb(31, 33, 40)"} /></button>
-                        <button className={styles.icon} style={{ boxShadow: theme === "dark" ? "0px 6px 10px 3px rgba(8,8,8,1)" : "0px 6px 10px 3px rgba(219,219,219,1)", background: theme === "dark" ? "rgb(31, 33, 40)" : "#fff" }}><RiDownloadLine color={theme === "dark" ? "#fff" : "rgb(31, 33, 40)"} /></button>
+                        <button className={styles.icon} onClick={() => setIsPrintClicked(true)} style={{ boxShadow: theme === "dark" ? "0px 6px 10px 3px rgba(8,8,8,1)" : "0px 6px 10px 3px rgba(219,219,219,1)", background: theme === "dark" ? "rgb(31, 33, 40)" : "#fff" }}><FiPrinter color={theme === "dark" ? "#fff" : "rgb(31, 33, 40)"} /></button>
+                        {/* <button className={styles.icon} style={{ boxShadow: theme === "dark" ? "0px 6px 10px 3px rgba(8,8,8,1)" : "0px 6px 10px 3px rgba(219,219,219,1)", background: theme === "dark" ? "rgb(31, 33, 40)" : "#fff" }}><RiDownloadLine color={theme === "dark" ? "#fff" : "rgb(31, 33, 40)"} /></button> */}
                     </div>
                 </div>
                 : <div className={styles.titleMobile}>
@@ -329,7 +331,19 @@ function StatementList({ data, setData, selectedMonth, setSelectedMonth, labelDa
                     </button>
                 </div>}
             </div>
-            <PrintModal ref={printModalRef} /> //todo Burda qalmisam. Ytdan baxa bilersen historyden
+            <div style={{ display: "none" }}>
+                <table>
+                    <thead>
+                        <tr>
+                            <th className={styles.statement} htmlFor="mainCheckbox">{translation.date}</th>
+                            <th className={`${theme === "dark" ? styles.dark : ""}`}>{translation.order_id}</th>
+                            <th className={`${theme === "dark" ? styles.dark : ""}`} style={{ display: "flex", alignItems: "center", justifyContent: screenWidth < 1200 ? "center" : "unset" }}>{translation.amount}</th>
+                            <th className={`${theme === "dark" ? styles.dark : ""}`}>{translation.price}</th>
+                            <th className={`${theme === "dark" ? styles.dark : ""}`}>{translation.type}</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </motion.div>
     )
 }
