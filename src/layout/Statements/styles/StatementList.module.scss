@@ -51,7 +51,7 @@
             }
         }
     }
-    >.titleMobile{
+    > .titleMobile {
         > .filter {
             height: 56px;
             border-radius: 16px;
@@ -373,7 +373,7 @@
                     flex-direction: column;
                     gap: 9px;
                     > .orderIdText {
-                        color: #B2B3BD;
+                        color: #b2b3bd;
                         font-family: Inter;
                         font-size: 12px;
                         font-weight: 500;
@@ -425,7 +425,7 @@
                     height: 85%;
                 }
                 > .date {
-                    color: #B2B3BD;
+                    color: #b2b3bd;
                     font-family: Inter;
                     font-size: 14px;
                     font-weight: 400;
@@ -437,10 +437,10 @@
                     line-height: 24px;
                 }
                 > .price {
-                    color: #FF754C;
+                    color: #ff754c;
                     font-family: Inter;
                     font-size: 14px;
-                    line-height: 24px; 
+                    line-height: 24px;
                 }
             }
         }

@@ -25,7 +25,6 @@ export default function Statements() {
   const [labelData, setLabelData] = useState(null)
   const [statementsData, setStatementsData] = useState(null)
 
-
   const MAIN_STYLE = {
     paddingTop: screenWidth > 480 ? "0px" : "80px",
     overflow: screenWidth > 480 ? "unset" : "hidden", //! Yuxari olcude hidden verildikde navbar scroll olmur. sebebini bilmirem

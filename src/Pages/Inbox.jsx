@@ -94,6 +94,95 @@ export default function Inbox() {
     return () => unsubscribe();
   }, [selectedFilter, searchValue]);
 
+  return (
+    <main className={`${styles.main} ${theme === "dark" && styles.dark}`} style={MAIN_STYLE}>
+      <AnimatePresence>
+        {screenWidth <= 480 && <HeaderMobile />} {/* position fixed'di */}
+      </AnimatePresence>
+
+      {screenWidth > 480 ? <Navbar /> : <NavbarMobile />} {/* position sticky ve ya fixeddi */}
+
+      <motion.div className={styles.container} initial={{ transform: "scale(1.1)" }} animate={{ transform: "scale(1)" }} exit={{ transform: "scale(1.2)" }} style={CONTAINER_STYLE} ref={mainContainer}>
+        {(screenWidth > 480 || (screenWidth < 480 && !key)) &&
+          <motion.div
+            className={styles.left}
+            initial={{
+              width: screenWidth >= 480 ? "50%" : "100%",
+              paddingTop: screenWidth > 480 ? "40px" : "",
+              opacity: screenWidth < 480 && 0,
+              position: screenWidth < 480 ? "absolute" : "relative",
+              transform: screenWidth < 480 && "translateX(-100%)",
+              background: theme === "dark" ? "#242731" : "#fff"
+            }}
+            animate={{
+              width: screenWidth >= 480 ? "50%" : "100%",
+              paddingTop: screenWidth > 480 ? "40px" : "",
+              opacity: screenWidth < 480 && 1,
+              position: screenWidth < 480 ? "absolute" : "relative",
+              transform: screenWidth < 480 && "translateX(0%)",
+              background: theme === "dark" ? "#242731" : "#fff"
+            }}
+          >
+            {screenWidth > 480 ? <Header screenWidthRestriction={false} text={"your_inbox"} /> : <HeaderMobileSub text={"welcome_back"} />} {/* position static ve ya fixeddi */}
+            <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
+            <InboxFilter selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
+            <MessageBox selectedFilter={selectedFilter} mainContainer={mainContainer} conversations={conversations} />
+            {/* <button onClick={handleSendData}>Send temp</button> */}
+          </motion.div>
+        }
+        {(screenWidth >= 480 || (screenWidth < 480 && key)) &&
+          <motion.div
+            className={`${styles.right} ${theme === "dark" ? styles.dark : ""}`}
+            initial={{
+              transform: "translateX(100%)",
+              width: screenWidth >= 480 ? "50%" : "100%",
+              position: screenWidth < 480 ? "absolute" : "relative",
+              opacity: screenWidth < 480 && 0,
+              background: theme === "dark" ? "#242731" : "#fff"
+            }}
+            animate={{
+              transform: "translateX(0%)",
+              width: screenWidth >= 480 ? "50%" : "100%",
+              position: screenWidth < 480 ? "absolute" : "relative",
+              opacity: screenWidth < 480 && 1,
+              background: theme === "dark" ? "#242731" : "#fff"
+            }}
+          // layout
+          >
+            {screenWidth > 480 &&
+              <div className={styles.rightTop}>
+                <ForSearch />
+              </div>
+            }
+            {key ? <ConversationViewer />
+              : <motion.div
+                className={styles.nullConversation}
+                initial={{
+                  marginTop: screenWidth > 480 ? "70px" : "0px",
+                  height: screenWidth > 480 ? "80vh" : "unset",
+                  maxHeight: screenWidth > 480 ? "500px" : "unset",
+                  position: screenWidth > 480 ? "sticky" : "static",
+                  opacity: 0,
+                  transform: "scale(1.2)"
+                }}
+                animate={{
+                  marginTop: screenWidth > 480 ? "70px" : "0px",
+                  height: screenWidth > 480 ? "80vh" : "unset",
+                  maxHeight: screenWidth > 480 ? "500px" : "unset",
+                  position: screenWidth > 480 ? "sticky" : "static",
+                  opacity: 1,
+                  transform: "scale(1)"
+                }}
+              >
+                <motion.div className={styles.innerViewerMain}>{translation.there_is_no_opened_conversation_yet}</motion.div>
+              </motion.div>
+            }
+          </motion.div>
+        }
+      </motion.div>
+    </main>
+  )
+}
 
   // const conversationModel = {
   //   i3wyfcbpuefcnviofj2yfugugp: {
@@ -299,94 +388,3 @@ export default function Inbox() {
 
   //   await Promise.all(promises);
   // };
-
-
-  return (
-    <main className={`${styles.main} ${theme === "dark" && styles.dark}`} style={MAIN_STYLE}>
-      <AnimatePresence>
-        {screenWidth <= 480 && <HeaderMobile />} {/* position fixed'di */}
-      </AnimatePresence>
-
-      {screenWidth > 480 ? <Navbar /> : <NavbarMobile />} {/* position sticky ve ya fixeddi */}
-
-      <motion.div className={styles.container} initial={{ transform: "scale(1.1)" }} animate={{ transform: "scale(1)" }} exit={{ transform: "scale(1.2)" }} style={CONTAINER_STYLE} ref={mainContainer}>
-        {(screenWidth > 480 || (screenWidth < 480 && !key)) &&
-          <motion.div
-            className={styles.left}
-            initial={{
-              width: screenWidth >= 480 ? "50%" : "100%",
-              paddingTop: screenWidth > 480 ? "40px" : "",
-              opacity: screenWidth < 480 && 0,
-              position: screenWidth < 480 ? "absolute" : "relative",
-              transform: screenWidth < 480 && "translateX(-100%)",
-              background: theme === "dark" ? "#242731" : "#fff"
-            }}
-            animate={{
-              width: screenWidth >= 480 ? "50%" : "100%",
-              paddingTop: screenWidth > 480 ? "40px" : "",
-              opacity: screenWidth < 480 && 1,
-              position: screenWidth < 480 ? "absolute" : "relative",
-              transform: screenWidth < 480 && "translateX(0%)",
-              background: theme === "dark" ? "#242731" : "#fff"
-            }}
-          >
-            {screenWidth > 480 ? <Header screenWidthRestriction={false} text={"your_inbox"} /> : <HeaderMobileSub text={"welcome_back"} />} {/* position static ve ya fixeddi */}
-            <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
-            <InboxFilter selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
-            <MessageBox selectedFilter={selectedFilter} mainContainer={mainContainer} conversations={conversations} />
-            {/* <button onClick={handleSendData}>Send temp</button> */}
-          </motion.div>
-        }
-        {(screenWidth >= 480 || (screenWidth < 480 && key)) &&
-          <motion.div
-            className={`${styles.right} ${theme === "dark" ? styles.dark : ""}`}
-            initial={{
-              transform: "translateX(100%)",
-              width: screenWidth >= 480 ? "50%" : "100%",
-              position: screenWidth < 480 ? "absolute" : "relative",
-              opacity: screenWidth < 480 && 0,
-              background: theme === "dark" ? "#242731" : "#fff"
-            }}
-            animate={{
-              transform: "translateX(0%)",
-              width: screenWidth >= 480 ? "50%" : "100%",
-              position: screenWidth < 480 ? "absolute" : "relative",
-              opacity: screenWidth < 480 && 1,
-              background: theme === "dark" ? "#242731" : "#fff"
-            }}
-          // layout
-          >
-            {screenWidth > 480 &&
-              <div className={styles.rightTop}>
-                <ForSearch />
-              </div>
-            }
-            {key ? <ConversationViewer />
-              : <motion.div
-                className={styles.nullConversation}
-                initial={{
-                  marginTop: screenWidth > 480 ? "70px" : "0px",
-                  height: screenWidth > 480 ? "80vh" : "unset",
-                  maxHeight: screenWidth > 480 ? "500px" : "unset",
-                  position: screenWidth > 480 ? "sticky" : "static",
-                  opacity: 0,
-                  transform: "scale(1.2)"
-                }}
-                animate={{
-                  marginTop: screenWidth > 480 ? "70px" : "0px",
-                  height: screenWidth > 480 ? "80vh" : "unset",
-                  maxHeight: screenWidth > 480 ? "500px" : "unset",
-                  position: screenWidth > 480 ? "sticky" : "static",
-                  opacity: 1,
-                  transform: "scale(1)"
-                }}
-              >
-                <motion.div className={styles.innerViewerMain}>{translation.there_is_no_opened_conversation_yet}</motion.div>
-              </motion.div>
-            }
-          </motion.div>
-        }
-      </motion.div>
-    </main>
-  )
-}

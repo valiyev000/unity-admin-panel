@@ -1,7 +1,6 @@
-import { forwardRef, memo, useEffect, useRef, useState } from "react"
+import { memo, useEffect, useRef, useState, useContext } from "react"
 import styles from './styles/StatementList.module.scss'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useContext } from "react"
 import contextApi from "../../StateManager"
 import { FiPrinter } from "react-icons/fi";
 import { RiDownloadLine } from "react-icons/ri";
@@ -10,10 +9,9 @@ import axios from "axios"
 import { IoIosArrowDown } from "react-icons/io"
 import { useReactToPrint } from "react-to-print"
 
-
 function StatementList({ data, setData, selectedMonth, setSelectedMonth, labelData }) {
 
-    const { screenWidth, theme, translation, isNavOpen, lang, axiosGet } = useContext(contextApi)
+    const { screenWidth, theme, translation, isNavOpen, lang } = useContext(contextApi)
     const [mainCheckboxVal, setMainCheckboxVal] = useState(false)
     const [keys, setKeys] = useState([])
     const [isHaveMore, setIsHaveMore] = useState(false)
@@ -141,12 +139,14 @@ function StatementList({ data, setData, selectedMonth, setSelectedMonth, labelDa
     const generatePrintPDF = useReactToPrint({
         content: () => componentPDF.current,
         documentTitle: "Statement_list",
-        onAfterPrint: () => alert("PDF created"),
+        onAfterPrint: () => setIsPrintClicked(false),
         onPrintError: () => alert("Something went wrong!")
     })
 
     useEffect(() => {
-        console.log(isPrintClicked)
+        if (isPrintClicked) {
+            generatePrintPDF()
+        }
     }, [isPrintClicked])
 
     return (
@@ -175,7 +175,7 @@ function StatementList({ data, setData, selectedMonth, setSelectedMonth, labelDa
                         <motion.div layout className={styles.pleaseNote}>{translation.please_note_transactions_are_based_time_in_california_usa}</motion.div>
                     </div>
                     <div className={styles.right}>
-                        <button className={styles.icon} onClick={() => setIsPrintClicked(true)} style={{ boxShadow: theme === "dark" ? "0px 6px 10px 3px rgba(8,8,8,1)" : "0px 6px 10px 3px rgba(219,219,219,1)", background: theme === "dark" ? "rgb(31, 33, 40)" : "#fff" }}><FiPrinter color={theme === "dark" ? "#fff" : "rgb(31, 33, 40)"} /></button>
+                        <button className={styles.icon} disabled={checkedKeys.length === 0} onClick={() => setIsPrintClicked(true)} style={{ boxShadow: theme === "dark" ? "0px 6px 10px 3px rgba(8,8,8,1)" : "0px 6px 10px 3px rgba(219,219,219,1)", background: theme === "dark" ? "rgb(31, 33, 40)" : "#fff" }}><FiPrinter color={theme === "dark" ? "#fff" : "rgb(31, 33, 40)"} /></button>
                         {/* <button className={styles.icon} style={{ boxShadow: theme === "dark" ? "0px 6px 10px 3px rgba(8,8,8,1)" : "0px 6px 10px 3px rgba(219,219,219,1)", background: theme === "dark" ? "rgb(31, 33, 40)" : "#fff" }}><RiDownloadLine color={theme === "dark" ? "#fff" : "rgb(31, 33, 40)"} /></button> */}
                     </div>
                 </div>
@@ -250,8 +250,8 @@ function StatementList({ data, setData, selectedMonth, setSelectedMonth, labelDa
                             <label className={styles.statement} htmlFor="mainCheckbox">{translation.transaction}</label>
                         </div>
                         <div className={styles.right}>
-                            <button className={styles.icon} style={{ background: theme === "dark" ? "rgb(31, 33, 40)" : "#fff" }}><FiPrinter color={theme === "dark" ? "#fff" : "rgb(31, 33, 40)"} /></button>
-                            <button className={styles.icon} style={{ background: theme === "dark" ? "rgb(31, 33, 40)" : "#fff" }}><RiDownloadLine color={theme === "dark" ? "#fff" : "rgb(31, 33, 40)"} /></button>
+                            <button className={styles.icon} disabled={checkedKeys.length === 0} onClick={() => setIsPrintClicked(true)} style={{ background: theme === "dark" ? "rgb(31, 33, 40)" : "#fff" }}><FiPrinter color={theme === "dark" ? "#fff" : "rgb(31, 33, 40)"} /></button>
+                            {/* <button className={styles.icon} style={{ background: theme === "dark" ? "rgb(31, 33, 40)" : "#fff" }}><RiDownloadLine color={theme === "dark" ? "#fff" : "rgb(31, 33, 40)"} /></button> */}
                         </div>
                     </div>
                 }
@@ -331,19 +331,34 @@ function StatementList({ data, setData, selectedMonth, setSelectedMonth, labelDa
                     </button>
                 </div>}
             </div>
-            <div style={{ display: "none" }}>
-                <table>
-                    <thead>
-                        <tr>
-                            <th className={styles.statement} htmlFor="mainCheckbox">{translation.date}</th>
-                            <th className={`${theme === "dark" ? styles.dark : ""}`}>{translation.order_id}</th>
-                            <th className={`${theme === "dark" ? styles.dark : ""}`} style={{ display: "flex", alignItems: "center", justifyContent: screenWidth < 1200 ? "center" : "unset" }}>{translation.amount}</th>
-                            <th className={`${theme === "dark" ? styles.dark : ""}`}>{translation.price}</th>
-                            <th className={`${theme === "dark" ? styles.dark : ""}`}>{translation.type}</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
+            {isPrintClicked &&
+                <div style={{ display: "none" }}>
+                    <div style={{ display: "flex", width: "100%", justifyContent: "center", alignItems: "center" }} className={styles.tableDiv} ref={componentPDF}>
+                        <table style={{ width: "80%", borderCollapse: "collapse", margin: "50px 0px", color: "#000" }}>
+                            <thead>
+                                <tr>
+                                    <th className={styles.statement} style={{ textTransform: "capitalize", padding: "12px", textAlign: "left", borderBottom: "1px solid #ddd" }}>{translation.date}</th>
+                                    <th style={{ padding: "12px", textAlign: "left", borderBottom: "1px solid #ddd" }}>{translation.order_id}</th>
+                                    <th style={{ padding: "12px", textAlign: "left", borderBottom: "1px solid #ddd" }}>{translation.amount}</th>
+                                    <th style={{ padding: "12px", textAlign: "left", borderBottom: "1px solid #ddd" }}>{translation.price}</th>
+                                    <th style={{ padding: "12px", textAlign: "left", borderBottom: "1px solid #ddd" }}>{translation.type}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {checkedKeys.map((key, i) => (
+                                    <tr className={styles.statementRow} key={key} style={{ background: i % 2 === 0 && "#f9f9f9" }}>
+                                        <td>{data[key][`date_${lang}`]}</td>
+                                        <td>{data[key].orderId}</td>
+                                        <td>{data[key].amount} {translation.piece}{data[key].amount > 1 && lang === "en" && "s"}</td>
+                                        <td>{data[key].currency}{data[key].price.toFixed(2)}</td>
+                                        <td>{translation.sale}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
         </motion.div>
     )
 }
