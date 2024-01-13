@@ -16,7 +16,7 @@ import purchaseIcon from '../images/purchaseIcon.svg'
 
 function ForSearch() {
 
-    const { theme, translation, notificationAlert, inputVal, setInputVal, lang, screenWidth } = useContext(contextApi)
+    const { theme, translation, notificationAlert, inputVal, setInputVal, lang } = useContext(contextApi)
 
     const [data, setData] = useState([])
     const [notificationData, setNotificationData] = useState([])

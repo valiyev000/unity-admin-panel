@@ -18,7 +18,6 @@ import LatestSales from '../layout/Campaigns/LatestSales'
 import Goal from '../layout/Campaigns/Goal'
 import Affiliate from '../layout/Home/Affiliate'
 
-
 export default function Campaigns() {
 
   const { screenWidth, theme, isNavOpen, axiosGet } = useContext(contextApi)
@@ -71,7 +70,6 @@ export default function Campaigns() {
           {screenWidth < 1200 && goalData ? <Goal data={goalData} /> : screenWidth < 1200 ? <motion.div initial={{ transform: "scale(1.1)" }} animate={{ transform: "scale(1.0)" }} exit={{ transform: "scale(1.1)" }} style={{ width: screenWidth <= 480 ? "100%" : "48%", margin: screenWidth >= 1200 ? "100px 0 0 0" : "20px 0 0 0"}}><Skeleton style={{ height: "600px", width: "100%", borderRadius: 24 }} /> </motion.div> : ""}
           {affiliateData.length && screenWidth < 1200 ? <Affiliate affiliateData={affiliateData} /> : !affiliateData.length && screenWidth < 1200 ? <motion.div initial={{ transform: "scale(1.1)" }} animate={{ transform: "scale(1.0)" }} style={{ width: screenWidth <= 480 ? "100%" : "48%", marginTop: "20px" }}><Skeleton style={{ height: "379px", width: "100%", borderRadius: 24 }} /> </motion.div> : ""}
 
-
         </div>
         <AnimatePresence>
           {screenWidth >= 1200 &&
@@ -86,7 +84,6 @@ export default function Campaigns() {
               </div>
               {goalData ? <Goal data={goalData} /> : <motion.div initial={{ transform: "scale(1.1)" }} animate={{ transform: "scale(1.0)" }} exit={{ transform: "scale(1.1)" }} style={{ width: "100%", margin: screenWidth >= 1200 ? "100px 0 0 0" : "20px 0 0 0"}}><Skeleton style={{ height: "600px", width: "100%", borderRadius: 24 }} /> </motion.div>}
               {affiliateData.length ? <Affiliate affiliateData={affiliateData} /> : <motion.div initial={{ transform: "scale(1.1)" }} animate={{ transform: "scale(1.0)" }} style={{ width: "100%", marginTop: "40px" }}><Skeleton style={{ height: "379px", width: "100%", borderRadius: 24 }} /> </motion.div>}
-
 
             </motion.div>
           }

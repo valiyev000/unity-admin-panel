@@ -6,7 +6,6 @@ import { auth, db } from './firebase-config'
 import { doc, getDoc } from 'firebase/firestore';
 import Routes from './Routes/Routes'
 
-
 function App() {
 
   const [screenWidth, setScreenWidth] = useState(document.documentElement.clientWidth)

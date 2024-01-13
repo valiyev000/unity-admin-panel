@@ -63,7 +63,7 @@ function DragSetting({ styles, formData, setFormData, handleInputFile, handleLog
                                             <div className={styles.btnsSection} style={{flexDirection: screenWidth < 480 ? "column" : "row", gap: screenWidth < 480 ? "0px" : "17px", marginTop: screenWidth < 480 ? "42px" : "0px"}}>
                                                 <input type="file" name="avatarUploader" id="avatarUploader" onChange={(e) => handleInputFile(e)} />
                                                 <label htmlFor="avatarUploader" style={{width: screenWidth < 480 ? "166px" : "166px", height: screenWidth < 480 ? "40px" : "40px"}}>{translation.upload_new}</label>
-                                                <button onClick={() => handleInputFile("delCommand")}>{translation.delete_avatar}</button>
+                                                <button style={{background: screenWidth < 480 ? "transparent" : "#e4e4e4"}} onClick={() => handleInputFile("delCommand")}>{translation.delete_avatar}</button>
                                             </div>
                                             {screenWidth > 480 && <div className={styles.text}>{translation.avatar_help_your_teammates_recognize_you_in_unity}</div>}
                                         </div>
