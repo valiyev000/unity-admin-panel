@@ -2,10 +2,8 @@
     width: 100%;
     border-radius: 24px;
     background: #6c5dd3;
-    padding: 40px 54px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     transition: 0.3s margin ease-in-out;
     position: relative;
     overflow: hidden;
@@ -31,8 +29,8 @@
             margin-bottom: 16px;
         }
         > .btn {
-            padding: 0 43px;
-            height: 56px;
+            padding: 16px 43px;
+            min-height: 56px;
             border-radius: 16px;
             background: #fff;
             font-size: 14px;
@@ -54,10 +52,13 @@
     .main {
         > .left {
             > .title {
-                color: #FFF;
+                color: #fff;
                 font-size: 24px;
                 font-weight: 500;
                 line-height: 32px; /* 133.333% */
+            }
+            > .content {
+                max-width: 200px;
             }
         }
     }
