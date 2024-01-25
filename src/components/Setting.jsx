@@ -11,7 +11,7 @@ import { updatePassword, updateProfile } from '@firebase/auth';
 
 export default function Setting() {
 
-    const { screenWidth, setIsSettingOpen, setUser, handleGetDataForAvatar } = useContext(contextApi)
+    const { screenWidth, setIsSettingOpen, setUser, handleGetDataForAvatar, translation } = useContext(contextApi)
     const [formData, setFormData] = useState(null)
     const [updateText, setUpdateText] = useState("update_profile")
     const [password, setPassword] = useState("")
@@ -104,9 +104,12 @@ export default function Setting() {
     }
 
     function handleLogOut() {
-        setIsSettingOpen(false)
-        auth.signOut()
-        localStorage.removeItem("rememberMe")
+        let confirmPanel = confirm(translation.are_you_sure_to_sign_out)
+        if (confirmPanel) {
+            setIsSettingOpen(false)
+            auth.signOut()
+            localStorage.removeItem("rememberMe")
+        }
     }
 
     // async function handleUpdate() {
@@ -174,15 +177,15 @@ export default function Setting() {
     //     handleGetDataForAvatar();
 
     // }
-   
+
     async function handleUpdate() {
         setUpdateText("updating");
-    
+
         let temporaryImgLinkHolder = formData.avatar
-    
+
         // Get the currently authenticated user
         const user = auth.currentUser;
-    
+
         // Use the user's UID to query Firestore
         if (user) {
             // Wrap the asynchronous code in a Promise
@@ -205,15 +208,15 @@ export default function Setting() {
                             console.error('Error uploading file:', error);
                             reject(error); // Reject the Promise if an error occurs
                         }
-                        
+
                     }
                 } else {
                     resolve(); // Resolve the Promise if no avatar to upload
                 }
             });
-    
+
             const userDocRef = doc(db, 'users', user.uid);
-            
+
             try {
                 await setDoc(userDocRef, { ...formData, avatar: temporaryImgLinkHolder });
                 console.log('Congratulations. It was SENT:)');
@@ -231,7 +234,7 @@ export default function Setting() {
         } catch (error) {
             console.error(error.message);
         }
-    
+
         try {
             if (password !== "") {
                 await updatePassword(user, password);
@@ -240,7 +243,7 @@ export default function Setting() {
         } catch (error) {
             console.error(error.message);
         }
-    
+
         setUser({ ...auth.currentUser });
         handleGetDataForAvatar();
     }

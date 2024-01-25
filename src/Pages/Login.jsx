@@ -17,6 +17,7 @@ import logo from '../images/unityLogoDark.png'
 import { BsCheck } from 'react-icons/bs'
 import { AnimatePresence, motion } from 'framer-motion'
 import contextApi from '../StateManager'
+import { MdOutlineErrorOutline } from "react-icons/md";
 
 function Login() {
 
@@ -45,7 +46,7 @@ function Login() {
         setIsFormShown(false)
       })
       .catch((err) => {
-        console.error(err)
+        console.log(err)
         setAlertText("Wrong email or password")
       })
   }
@@ -94,14 +95,18 @@ function Login() {
               padding: screenWidth < 480 ? "30px 20px" : "30px 60px",
               minWidth: screenWidth < 480 ? "150px" : "380px",
               transform: "scale(1.2)",
-              backdropFilter: "blur(0)"
+              backdropFilter: "blur(0)",
+              border: alertText ? "3px solid rgba(255, 60, 60,  0.8)" : "3px solid rgba(88, 130, 193,  0.49)",
+              opacity: 0
             }}
             animate={{
               width: screenWidth < 480 ? "80%" : "50%",
               padding: screenWidth < 480 ? "30px 20px" : "30px 60px",
               minWidth: screenWidth < 480 ? "150px" : "380px",
               transform: "scale(1.0)",
-              backdropFilter: "blur(12.5px)"
+              backdropFilter: "blur(12.5px)",
+              border: alertText ? "3px solid rgba(255, 60, 60,  0.8)" : "3px solid rgba(88, 130, 193,  0.49)",
+              opacity: 1
             }}
             exit={{
               width: screenWidth < 480 ? "80%" : "50%",
@@ -109,6 +114,7 @@ function Login() {
               minWidth: screenWidth < 480 ? "150px" : "380px",
               transform: "scale(1.2)",
               backdropFilter: "blur(0)",
+              border: alertText ? "3px solid rgba(255, 60, 60,  0.8)" : "3px solid rgba(88, 130, 193,  0.49)",
               opacity: 0
             }}
             layout
@@ -117,18 +123,20 @@ function Login() {
               ease: "anticipate"
             }}
           >
-            <img src={logo} alt="logo.png" />
-            <div className={styles.loginText}>Login</div>
-            <motion.div layout className={styles.alertText}>{alertText}</motion.div>
-            <label htmlFor="email" className={styles.emailLabel}>
+            <motion.img layout src={logo} alt="logo.png" />
+            <motion.div layout className={styles.loginText}>Login</motion.div>
+            <motion.div className={styles.alertTextBg} layout>
+              {alertText && <motion.div layout className={styles.alertText}><MdOutlineErrorOutline />{alertText}</motion.div>}
+            </motion.div>
+            <motion.label layout htmlFor="email" className={styles.emailLabel}>
               <div>Email</div>
               <input type="email" name="email" id="email" placeholder='Email' value={requestData.email} onChange={e => setRequestData(prev => ({ ...prev, email: e.target.value }))} />
-            </label>
-            <label htmlFor="password" className={styles.passwordLabel}>
+            </motion.label>
+            <motion.label layout htmlFor="password" className={styles.passwordLabel}>
               <div>Password</div>
               <input type="password" name="password" id="password" placeholder='Password' value={requestData.password} onChange={e => setRequestData(prev => ({ ...prev, password: e.target.value }))} />
-            </label>
-            <div className={styles.actionBar}>
+            </motion.label>
+            <motion.div className={styles.actionBar} layout>
               <label htmlFor='rememberMe' className={styles.rememberMeLabel}>
                 <input type="checkbox" name="rememberMe" id="rememberMe" onChange={(e) => handleRemember(e)} />
                 <label className={styles.template} htmlFor="rememberMe">
@@ -137,8 +145,8 @@ function Login() {
                 <div>Remember Me</div>
               </label>
               <div className={styles.forgetPass} onClick={handleForget}>Forget Password</div>
-            </div>
-            <button type='submit'>Sign in</button>
+            </motion.div>
+            <motion.button type='submit' layout>Sign in</motion.button>
           </motion.form>
         }
       </AnimatePresence>

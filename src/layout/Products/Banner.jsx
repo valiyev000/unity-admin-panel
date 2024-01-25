@@ -14,7 +14,7 @@ function Banner() {
             layout
             style={{
                 margin: screenWidth > 480 ? "40px 0 40px 0" : "0 0 40px 0",
-                padding: screenWidth > 480 ? "40px 54px" : "40px 0",
+                padding: screenWidth > 480 ? "40px 54px" : "40px 14px",
                 height: screenWidth < 480 ? "unset" : "256px",
                 justifyContent: screenWidth > 480 ? "space-between" : "center"
             }}
@@ -37,20 +37,6 @@ function Banner() {
                 >
                     {translation.check_all_setting}
                 </motion.button>
-                {/* <motion.button
-                    className={styles.btn}
-                    layout
-                    initial={{ transform: "scale(1)" }}
-                    animate={{ transform: "scale(1)" }}
-                    whileHover={{ transform: "scale(0.95)" }}
-                    onClick={() => setIsSettingOpen(true)}
-                    style={{
-                        background: theme === "dark" ? '#242731' : "#fff",
-                        color: theme === "dark" ? '#fff' : "#11142D"
-                    }}
-                >
-                    {translation.add_new_product}
-                </motion.button> */}
             </motion.div>
             <img
                 className={styles.img}

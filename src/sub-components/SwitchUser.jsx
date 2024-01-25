@@ -1,20 +1,24 @@
 import styles from "../styles/sub-components/SwitchUser.module.scss";
 import userAvatar from '../images/userAvatar.png'
-import { useContext } from "react";
+import { memo, useContext } from "react";
 import contextApi from "../StateManager";
 import { AnimatePresence, motion } from "framer-motion";
 
 
-export default function SwitchUser(props) {
+function SwitchUser(props) {
 
-    const { theme, isNavOpen , translation, avatar, user } = useContext(contextApi)
+    const { theme, isNavOpen , translation, avatar, user, setIsSettingOpen } = useContext(contextApi)
 
     const ARROW_ICON_STYLE = {
         stroke: theme === "dark" ? "#fff" : "#11142D"
     }
 
+    const handleClick = ()=>{
+        setIsSettingOpen(true)
+    }
+
     return (
-        <div className={styles.main} style={{justifyContent: props.justifyContent}}>
+        <div className={styles.main} style={{justifyContent: props.justifyContent}} onClick={handleClick}>
             <img src={avatar ? avatar : userAvatar} alt="userAvatar.png" />
             <AnimatePresence>
                 {isNavOpen &&
@@ -39,3 +43,5 @@ export default function SwitchUser(props) {
         </div>
     )
 }
+
+export default memo(SwitchUser)

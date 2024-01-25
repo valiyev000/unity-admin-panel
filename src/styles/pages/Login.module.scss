@@ -100,10 +100,25 @@
             font-family: "Montserrat", sans-serif;
             font-size: 26px;
             font-weight: 700;
+            margin-bottom: 5px;
         }
-        >.alertText{
-            height: 25px;
-            width: fit-content;
+        >.alertTextBg{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            >.alertText{
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                text-align: center;
+                min-height: 25px;
+                width: fit-content;
+                font-family: "Montserrat", sans-serif;
+                font-size: 15px;
+                color: red;
+                font-weight: 500;
+                line-height: 24px;
+            }
         }
         > .emailLabel,
         > .passwordLabel {
@@ -131,6 +146,7 @@
             }
         }
         > .emailLabel {
+            margin-top: 5px;
             margin-bottom: 20px;
         }
         > .actionBar {
