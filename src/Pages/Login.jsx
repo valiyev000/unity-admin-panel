@@ -18,6 +18,8 @@ import { BsCheck } from 'react-icons/bs'
 import { AnimatePresence, motion } from 'framer-motion'
 import contextApi from '../StateManager'
 import { MdOutlineErrorOutline } from "react-icons/md";
+import UseAnimations from 'react-useanimations'
+import visibility from 'react-useanimations/lib/visibility';
 
 function Login() {
 
@@ -30,6 +32,7 @@ function Login() {
   const [alertText, setAlertText] = useState("") //todo Ekranda alert yazisi gorsetmek ucundu
   const [checked, setChecked] = useState(false)
   const [isFormShown, setIsFormShown] = useState(true)
+  const [isVisible, setIsVisible] = useState(false)
 
   const url = useHistory(); //todo url'i burdan elde edirik (meselen... localhost:5173/products ---> /products )
 
@@ -77,13 +80,13 @@ function Login() {
         <img src={vector4_1} alt="vector4-1" />
         <img src={vector4_2} alt="vector4-2" />
       </div>
-      <img src={vector2} className={`${styles.vectors} ${styles.vector2}`} alt="vector-2" />
-      <img src={vector3} className={`${styles.vectors} ${styles.vector3}`} alt="vector-3" />
-      <img src={vector5} className={`${styles.vectors} ${styles.vector5}`} alt="vector-5" />
-      <img src={vector6} className={`${styles.vectors} ${styles.vector6}`} alt="vector-6" />
-      <img src={vector7} className={`${styles.vectors} ${styles.vector7}`} alt="vector-7" />
-      <img src={vector8} className={`${styles.vectors} ${styles.vector8}`} alt="vector-8" />
-      <img src={vector9} className={`${styles.vectors} ${styles.vector9}`} alt="vector-9" />
+      <motion.img initial={{ opacity: 0 }} animate={{ opacity: 1 }} src={vector2} className={`${styles.vectors} ${styles.vector2}`} alt="vector-2" />
+      <motion.img initial={{ opacity: 0 }} animate={{ opacity: 1 }} src={vector3} className={`${styles.vectors} ${styles.vector3}`} alt="vector-3" />
+      <motion.img initial={{ opacity: 0 }} animate={{ opacity: 1 }} src={vector5} className={`${styles.vectors} ${styles.vector5}`} alt="vector-5" />
+      <motion.img initial={{ opacity: 0 }} animate={{ opacity: 1 }} src={vector6} className={`${styles.vectors} ${styles.vector6}`} alt="vector-6" />
+      <motion.img initial={{ opacity: 0 }} animate={{ opacity: 1 }} src={vector7} className={`${styles.vectors} ${styles.vector7}`} alt="vector-7" />
+      <motion.img initial={{ opacity: 0 }} animate={{ opacity: 1 }} src={vector8} className={`${styles.vectors} ${styles.vector8}`} alt="vector-8" />
+      <motion.img initial={{ opacity: 0 }} animate={{ opacity: 1 }} src={vector9} className={`${styles.vectors} ${styles.vector9}`} alt="vector-9" />
       <AnimatePresence>
         {isFormShown &&
           <motion.form
@@ -134,7 +137,19 @@ function Login() {
             </motion.label>
             <motion.label layout htmlFor="password" className={styles.passwordLabel}>
               <div>Password</div>
-              <input type="password" name="password" id="password" placeholder='Password' value={requestData.password} onChange={e => setRequestData(prev => ({ ...prev, password: e.target.value }))} />
+              <div className={styles.inputDiv}>
+                <input
+                  type={!isVisible ? "password" : "text"}
+                  name="password"
+                  id="password"
+                  placeholder='Password'
+                  value={requestData.password}
+                  onChange={e => setRequestData(prev => ({ ...prev, password: e.target.value }))}
+                />   
+                <div className={styles.icon} onClick={() => setIsVisible(!isVisible)}>
+                  <UseAnimations animation={visibility} reverse={!isVisible} strokeColor={"#000"} />
+                </div>
+              </div>
             </motion.label>
             <motion.div className={styles.actionBar} layout>
               <label htmlFor='rememberMe' className={styles.rememberMeLabel}>
@@ -155,3 +170,6 @@ function Login() {
 }
 
 export default memo(Login)
+
+
+

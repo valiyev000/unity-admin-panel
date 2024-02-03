@@ -102,11 +102,11 @@
             font-weight: 700;
             margin-bottom: 5px;
         }
-        >.alertTextBg{
+        > .alertTextBg {
             display: flex;
             align-items: center;
             justify-content: center;
-            >.alertText{
+            > .alertText {
                 display: flex;
                 align-items: center;
                 gap: 5px;
@@ -120,8 +120,7 @@
                 line-height: 24px;
             }
         }
-        > .emailLabel,
-        > .passwordLabel {
+        > .emailLabel {
             display: flex;
             flex-direction: column;
             gap: 5px;
@@ -142,6 +141,40 @@
                 &::placeholder {
                     color: #bcbec0;
                     font-size: 12px;
+                }
+            }
+        }
+        > .passwordLabel {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            > div:nth-child(1) {
+                font-family: "Montserrat", sans-serif;
+                font-size: 12px;
+                cursor: pointer;
+                user-select: none;
+            }
+            > .inputDiv {
+                position: relative;
+                > input {
+                    width: 100%;
+                    height: 40px;
+                    border-radius: 10px;
+                    border: 1px solid #bcbec0;
+                    background: #fff;
+                    outline: none;
+                    text-indent: 20px;
+                    &::placeholder {
+                        color: #bcbec0;
+                        font-size: 12px;
+                    }
+                }
+                >.icon{
+                    position: absolute;
+                    top: 50%;
+                    right: 5px;
+                    transform: translateY(-50%);
+                    cursor: pointer;
                 }
             }
         }
